@@ -1,26 +1,67 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { Login } from './modules/Login/Login';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { DevicesModule } from './modules/DevicesModule/DevicesModule';
+import { Layout } from './modules/Layout/Layout';
+import { FullscreenCamera } from './components/FullscreenCamera/FullscreenCamera';
+import { useAppDispatch, useAppSelector } from './hooks/redux';
+import { globalActions } from './redux/global/actions';
+import { Loader } from './components/Loader/Loader';
+import { Founder } from './containers/Founder';
+import { Registration } from './modules/Registration/Registration';
+import { UsersModule } from './modules/UsersModule/UsersModule';
 
-function App() {
+export default function App() {
+  const dispatch = useAppDispatch();
+  // const isOpenFullScreenCamera = useAppSelector(
+  //   (state) => state.globalReducer.isFullScreenCameraOpen,
+  // );
+  // const { isAuth, isLoading, role } = useAppSelector((state) => state.globalReducer);
+
+  // useEffect(() => {
+  //   if (localStorage.getItem('access-token')) {
+  //     dispatch(globalActions.checkAuth());
+  //   }
+  // }, [dispatch]);
+
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
+  const isAuth = true;
+
+  if (!isAuth) {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="*" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
+    );
+  }
+
+  // if (role === 'admin') {
+  //   return (
+  //     <BrowserRouter>
+  //       <Routes>
+  //         <Route path="/registration" element={<Registration />} />
+  //         <Route path="*" element={<Navigate to="/registration" replace={true} />} />
+  //       </Routes>
+  //     </BrowserRouter>
+  //   );
+  // }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="devices" element={<DevicesModule />} />
+            <Route path="users" element={<UsersModule />} />
+            <Route path="users/:id" element={<UsersModule />} />
+            <Route path="*" element={<Navigate to="/devices" replace={true} />} />
+          </Route>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
-
-export default App;

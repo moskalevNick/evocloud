@@ -1,0 +1,5 @@
+@import url('./Gilroy/stylesheet.css');
+
+body * {
+  font-family: 'Gilroy', sans-serif;
+}

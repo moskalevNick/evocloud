@@ -1,0 +1,117 @@
+.userCardHeaderContainer {
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 13px;
+  gap: 9px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0.03em;
+  color: #9adbf6;
+}
+
+.horizontalLine {
+  height: 1px;
+  border: none;
+  background-color: var(--line-color);
+  margin: 0 24px;
+}
+
+.horizontalFullLine {
+  height: 1px;
+  border: none;
+  background-color: var(--line-color);
+}
+
+.userMainDataContainer {
+  display: flex;
+  align-items: center;
+  padding: 24px;
+}
+
+.userAvatar {
+  margin-right: 16px;
+}
+
+.isAdminButton {
+  background: #123a5b;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 7px 20px;
+  color: #629bce;
+  text-transform: uppercase;
+}
+
+.isAdminButton:first-child {
+  border-radius: 7px 0 0 7px;
+}
+
+.isAdminButton:last-child {
+  border-radius: 0 7px 7px 0;
+}
+
+.activeButton {
+  background: #148ef8;
+  color: #adebff;
+}
+
+.userDataContainer {
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.inputsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 24px;
+  column-gap: 12px;
+  row-gap: 14px;
+}
+
+.inputWrapper {
+  width: 280px;
+}
+
+.inputLabel {
+  height: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.submitButtonsWrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 18px 24px;
+}
+
+.submitButton {
+  width: 104px;
+  height: 27px;
+  margin-left: 10px;
+  border-radius: 6px;
+}
+
+.errorWrapper {
+  padding: 10px 0 0 5px;
+  display: flex;
+}
+
+.errorLabel {
+  padding-left: 5px;
+  color: #f83068;
+}

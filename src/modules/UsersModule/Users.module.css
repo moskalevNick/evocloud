@@ -1,0 +1,149 @@
+.container {
+  padding: 32px 40px;
+  min-height: calc(100vh - 92px);
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.header {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 31px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.02em;
+  color: #8dc5f6;
+}
+
+.addButton {
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  margin-left: 20px;
+}
+
+.listWrapper {
+  background-color: var(--header-background);
+  margin-top: 30px;
+  height: calc(100vh - 218px);
+  border-radius: 18px;
+  overflow-y: hidden;
+}
+
+.listHeader {
+  border-radius: 18px 18px 0px 0px;
+  height: 53px;
+  border-bottom: 1px solid var(--background-color);
+  display: flex;
+  align-items: center;
+  padding-left: 28px;
+}
+
+.headerItem {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  color: #adebff;
+}
+
+.headerItemNumber {
+  width: 79px;
+}
+
+.headerItemName {
+  width: 450px;
+}
+
+.headerItemLogin {
+  width: 236px;
+}
+
+.headerItemStatus {
+  width: 133px;
+}
+
+.arrowDownButton {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.listItemsWrapper {
+  height: calc(100% - 52px);
+  overflow-y: scroll;
+}
+
+.listItem {
+  cursor: pointer;
+  position: relative;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding-left: 28px;
+}
+
+.listItem::after {
+  display: none;
+  content: '';
+  width: 0;
+  height: 75%;
+  position: absolute;
+  border-left: 2px solid #158ef8;
+  bottom: 110%;
+  right: 0;
+  box-shadow: 2px 0px 18px 3px #158ef8;
+}
+
+.listItem::before {
+  display: none;
+  content: '';
+  width: 0;
+  height: 75%;
+  position: absolute;
+  border-right: 2px solid #158ef8;
+  bottom: 110%;
+  left: 0;
+  box-shadow: 2px 0px 18px 3px #158ef8;
+}
+
+.listItem:hover + .listItem::before,
+.listItem:hover + .listItem::after {
+  display: block;
+}
+
+.listItem:hover {
+  background-color: var(--active-background);
+}
+
+.listItemNumber {
+  width: 79px;
+}
+
+.listItemName {
+  width: 450px;
+}
+
+.listItemLogin {
+  width: 236px;
+}
+
+.buttonContainer {
+  position: absolute;
+  right: 28px;
+}
+
+.administratorContainer {
+  padding: 3px 12px;
+  background: #433b14;
+  border-radius: 5px;
+  color: #ff9d42;
+}
+
+.userContainer {
+  padding: 3px 12px;
+  background: #043b6a;
+  border-radius: 5px;
+  color: #148ef8;
+}

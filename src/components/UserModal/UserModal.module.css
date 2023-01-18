@@ -1,0 +1,6 @@
+.modalUser {
+  position: relative;
+  width: 840px;
+  padding: 0 !important;
+  color: var(--text-color);
+}
