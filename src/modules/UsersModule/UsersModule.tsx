@@ -33,7 +33,6 @@ export const UsersModule = () => {
   const { id } = useParams();
 
   const { users, userGroups, isLoading } = useAppSelector((state) => state.userReducer);
-
   const [isUserModalOpen, setUserModalOpen] = useState(false);
 
   const headerNumberClasses = classNames(styles.headerItem, styles.headerItemNumber);
@@ -141,7 +140,7 @@ export const UsersModule = () => {
           {isLoading ? (
             <Loader />
           ) : (
-            users.map((user, i) => (
+            users?.map((user, i) => (
               <div
                 className={styles.listItem}
                 key={user.id}
