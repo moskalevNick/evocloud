@@ -37,5 +37,5 @@ export const LanguageSelect = () => {
   //   dispatch(globalSettingActions.setIsRussian(isStateRus ? true : false));
   // }, [isStateRus]);
 
-  return <ToggleSwitch checked={!isStateRus} labels={['РУС', 'ENG']} />;
+  return <ToggleSwitch checked={!isStateRus} labels={['РУС', 'ENG']} readOnly />;
 };
