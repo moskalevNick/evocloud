@@ -86,17 +86,21 @@ export const UsersModule = () => {
     navigate('/users/new');
   };
 
-  const editUser = (id: number) => {
+  const editUser = (e: React.MouseEvent<HTMLElement>, id: number) => {
     console.log('edit user ' + id);
+    e.stopPropagation();
   };
-  const openLogs = (id: number) => {
+  const openLogs = (e: React.MouseEvent<HTMLElement>, id: number) => {
     console.log('view log user ' + id);
+    e.stopPropagation();
   };
-  const newWidget = (id: number) => {
+  const newWidget = (e: React.MouseEvent<HTMLElement>, id: number) => {
     console.log('new widget ' + id);
+    e.stopPropagation();
   };
-  const getGroupWidgets = (id: number) => {
+  const getGroupWidgets = (e: React.MouseEvent<HTMLElement>, id: number) => {
     console.log('group widgets ' + id);
+    e.stopPropagation();
   };
 
   return (
@@ -153,17 +157,17 @@ export const UsersModule = () => {
                 <div className={styles.buttonContainer}>
                   <button
                     className={styles.arrowDownButton}
-                    onClick={() => getGroupWidgets(user.id)}
+                    onClick={(e) => getGroupWidgets(e, user.id)}
                   >
                     <GroupWidgetsIcon />
                   </button>
-                  <button className={styles.arrowDownButton} onClick={() => newWidget(user.id)}>
+                  <button className={styles.arrowDownButton} onClick={(e) => newWidget(e, user.id)}>
                     <WidgetIcon />
                   </button>
-                  <button className={styles.arrowDownButton} onClick={() => openLogs(user.id)}>
+                  <button className={styles.arrowDownButton} onClick={(e) => openLogs(e, user.id)}>
                     <LogsIcon />
                   </button>
-                  <button className={styles.arrowDownButton} onClick={() => editUser(user.id)}>
+                  <button className={styles.arrowDownButton} onClick={(e) => editUser(e, user.id)}>
                     <EditIcon />
                   </button>
                 </div>

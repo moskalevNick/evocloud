@@ -16,7 +16,7 @@ export default function App() {
   // const isOpenFullScreenCamera = useAppSelector(
   //   (state) => state.globalReducer.isFullScreenCameraOpen,
   // );
-  // const { isAuth, isLoading, role } = useAppSelector((state) => state.globalReducer);
+  const { isAuth, isLoading, role } = useAppSelector((state) => state.globalReducer);
 
   // useEffect(() => {
   //   if (localStorage.getItem('access-token')) {
@@ -27,7 +27,6 @@ export default function App() {
   // if (isLoading) {
   //   return <Loader />;
   // }
-  const isAuth = true;
 
   if (!isAuth) {
     return (
