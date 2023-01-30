@@ -31,19 +31,19 @@ const imageSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(clientActions.getClients.fulfilled, (state, action: PayloadAction<ClientType[]>) => {
-        action.payload.forEach((client) => {
-          if (client.images) {
-            state.images[client.id] = client.images;
-          }
-        });
-      })
+      // .addCase(clientActions.getClients.fulfilled, (state, action: PayloadAction<ClientType[]>) => {
+      //   action.payload.forEach((client) => {
+      //     if (client.images) {
+      //       state.images[client.id] = client.images;
+      //     }
+      //   });
+      // })
 
-      .addCase(clientActions.getClient.fulfilled, (state, action: PayloadAction<ClientType>) => {
-        if (action.payload.images) {
-          state.images[action.payload.id] = action.payload.images;
-        }
-      })
+      // .addCase(clientActions.getClient.fulfilled, (state, action: PayloadAction<ClientType>) => {
+      //   if (action.payload.images) {
+      //     state.images[action.payload.id] = action.payload.images;
+      //   }
+      // })
 
       .addCase(imagesActions.getImages.pending, (state) => {
         state.isLoading = true;

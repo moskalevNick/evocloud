@@ -24,25 +24,25 @@ const visitSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(clientActions.getClients.fulfilled, (state, action: PayloadAction<ClientType[]>) => {
-        action.payload.forEach((client) => {
-          if (client.visits?.length) {
-            let lastVisit: VisitsType | undefined;
-            client.visits.forEach((visit) => {
-              if (lastVisit) {
-                if (lastVisit.date < visit.date) {
-                  lastVisit = visit;
-                }
-              } else {
-                lastVisit = visit;
-              }
-            });
-            if (lastVisit) {
-              state.lastVisits[client.id] = lastVisit;
-            }
-          }
-        });
-      })
+      // .addCase(clientActions.getClients.fulfilled, (state, action: PayloadAction<ClientType[]>) => {
+      //   action.payload.forEach((client) => {
+      //     if (client.visits?.length) {
+      //       let lastVisit: VisitsType | undefined;
+      //       client.visits.forEach((visit) => {
+      //         if (lastVisit) {
+      //           if (lastVisit.date < visit.date) {
+      //             lastVisit = visit;
+      //           }
+      //         } else {
+      //           lastVisit = visit;
+      //         }
+      //       });
+      //       if (lastVisit) {
+      //         state.lastVisits[client.id] = lastVisit;
+      //       }
+      //     }
+      //   });
+      // })
       .addCase(exisActions.createExis.fulfilled, (state, action) => {
         if (state.visits.length) {
           let lastClientVisit: VisitsType = state.visits[0];

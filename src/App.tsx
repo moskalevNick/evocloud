@@ -18,11 +18,11 @@ export default function App() {
   // );
   const { isAuth, isLoading, role } = useAppSelector((state) => state.globalReducer);
 
-  // useEffect(() => {
-  //   if (localStorage.getItem('access-token')) {
-  //     dispatch(globalActions.checkAuth());
-  //   }
-  // }, [dispatch]);
+  useEffect(() => {
+    if (localStorage.getItem('access-token')) {
+      dispatch(globalActions.checkAuth());
+    }
+  }, [dispatch]);
 
   // if (isLoading) {
   //   return <Loader />;

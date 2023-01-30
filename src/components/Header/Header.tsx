@@ -11,7 +11,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { globalSettingActions } from '../../redux/global/reducer';
 import { HeaderSettings } from './HeaderSettings';
 import { imagesActions } from '../../redux/images/actions';
-import { clientSettingsActions } from '../../redux/clients/reducers';
 import { Loader } from '../Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import { yesterdayEndDay, yesterdayStartDay } from '../../helpers/constants';
@@ -75,7 +74,7 @@ export const Header = () => {
   // }, [i18n.resolvedLanguage]);
 
   const onInputChange = (e: string) => {
-    dispatch(clientSettingsActions.setSearchString(e));
+    // dispatch(clientSettingsActions.setSearchString(e));
   };
 
   const setYesterday = () => {
@@ -83,7 +82,7 @@ export const Header = () => {
       startDate: yesterdayStartDay.toISOString(),
       endDate: yesterdayEndDay.toISOString(),
     };
-    dispatch(clientSettingsActions.setFilterDate(dateForServer));
+    // dispatch(clientSettingsActions.setFilterDate(dateForServer));
   };
 
   return (

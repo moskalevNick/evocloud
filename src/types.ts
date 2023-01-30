@@ -181,3 +181,20 @@ export type UserGroupType = {
   name: string;
   roles: string;
 };
+
+export type DeviceType = {
+  id: number;
+  x_evo_device: string;
+  local_ip: string;
+  proshivka: string;
+  last_connect_server: string;
+  comment: string;
+  status: string;
+  data_add: string;
+  id_user: string;
+  telegram_chat_id: string;
+  current_raw_state: string;
+  name: string;
+  properties: string;
+  deleted: number;
+};

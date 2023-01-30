@@ -5,37 +5,31 @@ import { getActionName } from '../getActionName';
 import { modules } from '../modules';
 import { ClientType, CreateClientType } from '../../types';
 import DeviceService from '../../services/DeviceService';
-import UserService from '../../services/UserService';
 
 type editClientType = {
   newClient: CreateClientType;
   id: string;
 };
 
-export const userActions = {
-  getUsers: createAsyncThunk(
-    getActionName(modules.USER, actionNames[modules.USER].getUsers),
-    async (_: void, thunkApi) => {
-      const data = await UserService.getUsers();
-      return data;
-    },
-  ),
+export const deviceActions = {
+  // getClients: createAsyncThunk(
+  //   getActionName(modules.CLIENTS, actionNames[modules.CLIENTS].getClients),
+  //   async (_: void, thunkApi) => {
+  //     const state: any = thunkApi.getState();
+  //     const filters = selectFilters(state);
 
-  getUserGroups: createAsyncThunk(
-    getActionName(modules.USER, actionNames[modules.USER].getUserGroups),
-    async (_: void, thunkApi) => {
-      const data = await UserService.getUserGroups();
-      return data;
-    },
-  ),
-
-  // getClient: createAsyncThunk(
-  //   getActionName(modules.CLIENTS, actionNames[modules.CLIENTS].getClient),
-  //   async (id: string) => {
-  //     const data = await ClientsService.getClient(id);
+  //     const data = await DeviceService.getDevices();
   //     return data;
   //   },
   // ),
+
+  getDevices: createAsyncThunk(
+    getActionName(modules.DEVICE, actionNames[modules.DEVICE].getDevices),
+    async () => {
+      const data = await DeviceService.getDevices();
+      return data;
+    },
+  ),
 
   // editClient: createAsyncThunk(
   //   getActionName(modules.CLIENTS, actionNames[modules.CLIENTS].editClient),

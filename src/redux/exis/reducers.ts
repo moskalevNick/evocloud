@@ -20,17 +20,17 @@ const exisSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(clientActions.getClients.fulfilled, (state, action: PayloadAction<ClientType[]>) => {
-        action.payload.forEach((client) => {
-          if (client.exises?.length) {
-            client.exises.forEach((exis) => {
-              if (exis.isPinned) {
-                state.pinnedExis[client.id] = exis;
-              }
-            });
-          }
-        });
-      })
+      // .addCase(clientActions.getClients.fulfilled, (state, action: PayloadAction<ClientType[]>) => {
+      //   action.payload.forEach((client) => {
+      //     if (client.exises?.length) {
+      //       client.exises.forEach((exis) => {
+      //         if (exis.isPinned) {
+      //           state.pinnedExis[client.id] = exis;
+      //         }
+      //       });
+      //     }
+      //   });
+      // })
 
       .addCase(exisActions.getExises.fulfilled, (state, action) => {
         state.exises = action.payload;

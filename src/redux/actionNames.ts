@@ -1,13 +1,8 @@
 import { modules } from './modules';
 
 export const actionNames = {
-  [modules.CLIENTS]: {
-    getClients: 'GET_CLIENTS',
-    getClient: 'GET_CLIENT',
-    editClient: 'EDIT_CLIENT',
-    addClient: 'ADD_CLIENT',
-    deleteClient: 'DELETE_CLIENT',
-    deleteSimilar: 'DELETE_SIMILAR',
+  [modules.DEVICE]: {
+    getDevices: 'GET_DEVICES',
   },
   [modules.EXIS]: {
     getExis: 'GET_EXIS',

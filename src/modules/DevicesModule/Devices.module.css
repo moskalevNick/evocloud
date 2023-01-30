@@ -42,14 +42,14 @@
 }
 
 .headerItemNumber {
-  width: 79px;
+  width: 69px;
 }
 
-.headerItemDevice {
+.headerItemDeviceType {
   width: 141px;
 }
 
-.headerItemTitle {
+.headerItemName {
   width: 321px;
 }
 
@@ -66,13 +66,74 @@
   border: none;
   background-color: transparent;
 }
+.listItem {
+  cursor: pointer;
+  position: relative;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding-left: 28px;
+}
 
 .listItemsWrapper {
   height: calc(100% - 52px);
   overflow-y: scroll;
 }
 
-.listItem {
-  height: 48px;
-  border-bottom: 1px solid green;
+.listItemNumber {
+  width: 69px;
+}
+
+.listItemDeviceType {
+  width: 141px;
+}
+
+.listItemName {
+  width: 321px;
+}
+
+.listItemID {
+  width: 263px;
+}
+
+.listItemFirmware {
+  width: 133px;
+}
+
+.buttonContainer {
+  position: absolute;
+  right: 28px;
+}
+
+.listItem::after {
+  display: none;
+  content: '';
+  width: 0;
+  height: 75%;
+  position: absolute;
+  border-left: 2px solid #158ef8;
+  bottom: 110%;
+  right: 0;
+  box-shadow: 2px 0px 18px 3px #158ef8;
+}
+
+.listItem::before {
+  display: none;
+  content: '';
+  width: 0;
+  height: 75%;
+  position: absolute;
+  border-right: 2px solid #158ef8;
+  bottom: 110%;
+  left: 0;
+  box-shadow: 2px 0px 18px 3px #158ef8;
+}
+
+.listItem:hover + .listItem::before,
+.listItem:hover + .listItem::after {
+  display: block;
+}
+
+.listItem:hover {
+  background-color: var(--active-background);
 }

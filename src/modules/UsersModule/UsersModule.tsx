@@ -12,7 +12,6 @@ import { clientActions } from '../../redux/clients/actions';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Loader } from '../../components/Loader/Loader';
 import { CloudFilters } from '../../components/CloudFilters';
-import { clientSettingsActions } from '../../redux/clients/reducers';
 import { yesterdayEndDay, yesterdayStartDay } from '../../helpers/constants';
 import { visitSettingsActions } from '../../redux/visit/reducers';
 import { exisSettingsActions } from '../../redux/exis/reducers';

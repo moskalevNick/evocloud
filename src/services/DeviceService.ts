@@ -5,7 +5,7 @@ import { clientFilterType, ClientType, CreateClientType, FiltersType, SimilarTyp
 
 export default class DeviceService {
   static async getDevices(): Promise<any> {
-    // const response = await $api.get(`${path}/id/${id}`);
-    return 'response.data';
+    const response = await $api.get('/listDevices');
+    return response.data;
   }
 }

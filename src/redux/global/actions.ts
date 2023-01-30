@@ -8,6 +8,7 @@ import axios from 'axios';
 import { UserType } from '../../types';
 import UserService from '../../services/UserService';
 import i18next from 'i18next';
+import Cookies from 'js-cookie';
 import Logo from '../../assets/images/logo.png';
 
 type authType = {
@@ -24,14 +25,13 @@ type registrationType = {
 export const globalActions = {
   login: createAsyncThunk(
     getActionName(modules.GLOBAL, actionNames[modules.GLOBAL].login),
-    async ({ username, password, isRemember }: authType) => {
+    async ({ username, password }: authType) => {
       try {
         const response = await AuthService.login(username, password);
 
-        localStorage.setItem('token', response.data.token);
-        // if (isRemember) {
-        //   localStorage.setItem('refresh-token', response.data.refreshToken);
-        // }
+        localStorage.setItem('access-token', `${response.data.access_token}`);
+        // document.cookie = `refresh_token=${response.data.refresh_token}`;
+
         return {
           isAuth: true,
           ...response.data,
@@ -59,19 +59,32 @@ export const globalActions = {
   checkAuth: createAsyncThunk(
     getActionName(modules.GLOBAL, actionNames[modules.GLOBAL].checkAuth),
     async () => {
-      const refreshToken = localStorage.getItem('token');
+      const refreshToken = Cookies.get('refresh_token');
+
       if (!refreshToken) {
         return false;
       }
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/refresh`, {
-        refreshToken,
-      });
 
-      localStorage.setItem('access-token', response.data.accessToken);
-      return {
-        isAuth: true,
-        ...response.data.user,
-      };
+      try {
+        console.log(document.cookie);
+        // axios.defaults.withCredentials = true;
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/refresh`, {
+          withCredentials: true,
+          headers: {
+            Cookie: `token: ${document.cookie}`,
+            Authorization: `Bearer ${localStorage.getItem('access-token')}`,
+          },
+        });
+
+        console.log(response);
+        localStorage.setItem('access-token', response.data.accessToken);
+        return {
+          isAuth: true,
+          ...response.data.user,
+        };
+      } catch (e) {
+        console.log(e);
+      }
     },
   ),
 

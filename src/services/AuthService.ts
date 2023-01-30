@@ -12,7 +12,7 @@ export default class AuthService {
   }
 
   static async checkAuth(refreshToken: string) {
-    return $api.post(`${path}/refresh`, { refreshToken });
+    return $api.post(`/refresh`, { refreshToken });
   }
 
   static async logout(refreshToken: string) {

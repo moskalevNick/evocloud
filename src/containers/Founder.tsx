@@ -24,11 +24,11 @@ export const Founder: FC<FounderProps> = ({ component: Component }) => {
         phone: '',
       };
 
-      dispatch(clientActions.addClient(newClientForServer));
+      // dispatch(clientActions.addClient(newClientForServer));
     }
 
     if (id && id !== 'new') {
-      dispatch(clientActions.getClient(id));
+      // dispatch(clientActions.getClient(id));
     }
   }, [id, dispatch, navigate]);
 

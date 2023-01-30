@@ -13,7 +13,6 @@ import { getInterval } from '../../helpers/getInterval';
 import { ClientType, UpdateClientType } from '../../types';
 import { CLICK_DURATION } from '../../helpers/constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { clientSettingsActions } from '../../redux/clients/reducers';
 import { exisActions } from '../../redux/exis/actions';
 import { visitActions } from '../../redux/visit/actions';
 import { CrossIcon } from '../Icons/CrossIcon';
@@ -67,7 +66,7 @@ export const Card: React.FC<CardType> = ({ client, showInfo, setShowInfo }) => {
 
   const onMouseDown = () => {
     setMouseDown(new Date());
-    dispatch(clientSettingsActions.setCurrentClient(client));
+    // dispatch(clientSettingsActions.setCurrentClient(client));
     dispatch(exisActions.getExises(client.id));
     dispatch(visitActions.getVisits(client.id));
   };
@@ -87,13 +86,13 @@ export const Card: React.FC<CardType> = ({ client, showInfo, setShowInfo }) => {
   };
 
   const deleteSimilar = (id: string) => {
-    dispatch(clientActions.deleteSimilar(id));
+    // dispatch(clientActions.deleteSimilar(id));
   };
 
   const combineSimilar = (id: string) => {
     const currentFaceId: string | undefined = client.similar?.find((el) => el.id === id)?.face_id;
     if (client.face_id?.find((el) => el === currentFaceId)) {
-      dispatch(clientActions.deleteSimilar(id));
+      // dispatch(clientActions.deleteSimilar(id));
     } else if (currentFaceId) {
       const newFaces: string[] | undefined = Object.assign([], client.face_id);
       if (newFaces) {
@@ -108,13 +107,13 @@ export const Card: React.FC<CardType> = ({ client, showInfo, setShowInfo }) => {
       clientUpdateDto.images && delete clientUpdateDto.images;
       clientUpdateDto.similar && delete clientUpdateDto.similar;
       clientUpdateDto.visits && delete clientUpdateDto.visits;
-      dispatch(
-        clientActions.editClient({
-          id: client.id,
-          newClient: clientUpdateDto,
-        }),
-      );
-      dispatch(clientActions.deleteSimilar(id));
+      // dispatch(
+      //   clientActions.editClient({
+      //     id: client.id,
+      //     newClient: clientUpdateDto,
+      //   }),
+      // );
+      // dispatch(clientActions.deleteSimilar(id));
     }
   };
 

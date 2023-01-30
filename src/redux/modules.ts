@@ -1,7 +1,7 @@
 export enum modules {
   GLOBAL = 'GLOBAL',
   AUTH = 'AUTH',
-  CLIENTS = 'CLIENTS',
+  DEVICE = 'DEVICE',
   EXIS = 'EXIS',
   IMAGE = 'IMAGE',
   VISIT = 'VISIT',

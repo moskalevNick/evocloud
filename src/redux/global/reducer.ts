@@ -73,16 +73,16 @@ const globalSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(globalActions.checkAuth.fulfilled, (state, action) => {
-        state.isAuth = action.payload.isAuth;
-        state.avatar = action.payload.avatar;
-        state.isDark = action.payload.isDark;
-        state.chatId = action.payload.chatId;
-        state.isRus = action.payload.isRus;
-        document.body.setAttribute('dir', action.payload.isRus ? 'ru' : 'en');
-        state.maxBill = action.payload.maxBill;
-        state.minBill = action.payload.minBill;
-        state.role = action.payload.role;
-        state.cameraToken = action.payload.cameraToken;
+        // state.isAuth = action.payload.isAuth;
+        // state.avatar = action.payload.avatar;
+        // state.isDark = action.payload.isDark;
+        // state.chatId = action.payload.chatId;
+        // state.isRus = action.payload.isRus;
+        // document.body.setAttribute('dir', action.payload.isRus ? 'ru' : 'en');
+        // state.maxBill = action.payload.maxBill;
+        // state.minBill = action.payload.minBill;
+        // state.role = action.payload.role;
+        // state.cameraToken = action.payload.cameraToken;
         state.isLoading = false;
       })
       .addCase(globalActions.checkAuth.rejected, (state) => {

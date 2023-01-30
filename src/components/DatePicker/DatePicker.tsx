@@ -17,7 +17,6 @@ import {
   yesterdayStartDay,
 } from '../../helpers/constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { clientSettingsActions } from '../../redux/clients/reducers';
 import { useTranslation } from 'react-i18next';
 import ru from 'date-fns/locale/ru';
 
@@ -34,21 +33,21 @@ export const Datepicker: React.FC<DatepickerType> = ({ onSubmitDatepicker, isSho
   const [monthFull, setMonthFull] = useState(monthFullEng);
   const [isOpen, setIsOpen] = useState(false);
   const { t, i18n } = useTranslation();
-  const { date } = useAppSelector((state) => state.clientReducer.filters);
+  // const { date } = useAppSelector((state) => state.clientReducer.filters);
 
-  useEffect(() => {
-    if (date.startDate && date.endDate) {
-      if (
-        date.startDate === veryOldDate.toISOString() &&
-        date.endDate === futureDate.toISOString()
-      ) {
-        resetRange();
-      } else {
-        setStartDate(new Date(date.startDate));
-        setEndDate(new Date(date.endDate));
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (date.startDate && date.endDate) {
+  //     if (
+  //       date.startDate === veryOldDate.toISOString() &&
+  //       date.endDate === futureDate.toISOString()
+  //     ) {
+  //       resetRange();
+  //     } else {
+  //       setStartDate(new Date(date.startDate));
+  //       setEndDate(new Date(date.endDate));
+  //     }
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (i18n.resolvedLanguage === 'ru') {
@@ -87,7 +86,7 @@ export const Datepicker: React.FC<DatepickerType> = ({ onSubmitDatepicker, isSho
       startDate: veryOldDate.toISOString(),
       endDate: futureDate.toISOString(),
     };
-    dispatch(clientSettingsActions.setFilterDate(dateForServer));
+    // dispatch(clientSettingsActions.setFilterDate(dateForServer));
   };
 
   const submitRange = () => {

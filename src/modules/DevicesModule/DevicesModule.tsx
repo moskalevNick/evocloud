@@ -12,12 +12,14 @@ import { clientActions } from '../../redux/clients/actions';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Loader } from '../../components/Loader/Loader';
 import { CloudFilters } from '../../components/CloudFilters';
-import { clientSettingsActions } from '../../redux/clients/reducers';
 import { yesterdayEndDay, yesterdayStartDay } from '../../helpers/constants';
 import { visitSettingsActions } from '../../redux/visit/reducers';
 import { exisSettingsActions } from '../../redux/exis/reducers';
 import { useTranslation } from 'react-i18next';
 import { ArrowDownIcon } from '../../components/Icons/ArrowDown';
+import { deviceActions } from '../../redux/devices/actions';
+import { GroupWidgetsIcon } from '../../components/Icons/GroupWidgetsIcon';
+import { LogsIcon } from '../../components/Icons/LogsIcon';
 
 export const DevicesModule = () => {
   const dispatch = useAppDispatch();
@@ -26,9 +28,7 @@ export const DevicesModule = () => {
   const { t } = useTranslation();
 
   // const { isFullScreenCameraOpen } = useAppSelector((state) => state.globalReducer);
-  // const { clients, isLoading, isClientLoading, filters } = useAppSelector(
-  //   (state) => state.clientReducer,
-  // );
+  const { devices } = useAppSelector((state) => state.deviceReducer);
 
   // const containerClassnames = classNames(
   //   styles.container,
@@ -60,9 +60,9 @@ export const DevicesModule = () => {
   //   }
   // }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(clientActions.getClients());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(deviceActions.getDevices());
+  }, [dispatch]);
 
   // useEffect(() => {
   //   const dateForServer = {
@@ -77,8 +77,8 @@ export const DevicesModule = () => {
   // };
 
   const headerNumberClasses = classNames(styles.headerItem, styles.headerItemNumber);
-  const headerDeviceClasses = classNames(styles.headerItem, styles.headerItemDevice);
-  const headerTitleClasses = classNames(styles.headerItem, styles.headerItemTitle);
+  const headerDeviceClasses = classNames(styles.headerItem, styles.headerItemDeviceType);
+  const headerTitleClasses = classNames(styles.headerItem, styles.headerItemName);
   const headerIDClasses = classNames(styles.headerItem, styles.headerItemID);
   const headerFirmwareClasses = classNames(styles.headerItem, styles.headerItemFirmware);
 
@@ -100,6 +100,16 @@ export const DevicesModule = () => {
         console.log('sort by device default');
         break;
     }
+  };
+
+  const getGroupWidgets = (e: React.MouseEvent<HTMLElement>, id: number) => {
+    console.log('group widgets ' + id);
+    e.stopPropagation();
+  };
+
+  const openLogs = (e: React.MouseEvent<HTMLElement>, id: number) => {
+    console.log('view log user ' + id);
+    e.stopPropagation();
   };
 
   return (
@@ -135,25 +145,27 @@ export const DevicesModule = () => {
           </div>
         </div>
         <div className={styles.listItemsWrapper}>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
-          <div className={styles.listItem}></div>
+          {devices?.map((device, i) => (
+            <div className={styles.listItem} key={device.id}>
+              <div className={styles.listItemNumber}>{i + 1}</div>
+              <div className={styles.listItemDeviceType}>NGC/NG</div>
+              <div className={styles.listItemName}>{device.name}</div>
+              <div className={styles.listItemID}>{device.id}</div>
+              <div className={styles.listItemFirmware}>{device.proshivka}</div>
+              <div className={styles.listItemUser}>User_id: {device.id_user}</div>
+              <div className={styles.buttonContainer}>
+                <button
+                  className={styles.arrowDownButton}
+                  onClick={(e) => getGroupWidgets(e, device.id)}
+                >
+                  <GroupWidgetsIcon />
+                </button>
+                <button className={styles.arrowDownButton} onClick={(e) => openLogs(e, device.id)}>
+                  <LogsIcon />
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

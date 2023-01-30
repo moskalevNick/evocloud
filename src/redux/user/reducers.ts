@@ -23,7 +23,7 @@ export const defaultFilterValues: FiltersType = {
 };
 
 export const userSlice = createSlice({
-  name: modules.CLIENTS,
+  name: modules.USER,
   initialState: {
     users: [] as UserType[],
     userGroups: [] as UserGroupType[],
@@ -102,5 +102,5 @@ export const userSlice = createSlice({
 export const userReducer = userSlice.reducer;
 export const userSettingsActions = userSlice.actions;
 
-export const selectFilters = (state: RootStateExtended<typeof userSlice>) =>
-  state.clientReducer.filters;
+// export const selectFilters = (state: RootStateExtended<typeof userSlice>) =>
+//   state.clientReducer.filters;

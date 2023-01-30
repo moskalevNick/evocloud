@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 import { DatepickerDataType } from '../../types';
 import styles from './CloudFilters.module.css';
-import { clientSettingsActions } from '../../redux/clients/reducers';
 import { useTranslation } from 'react-i18next';
 
 export const CloudFilters = () => {
@@ -24,12 +23,12 @@ export const CloudFilters = () => {
         endDate: new Date(new Date(date.endDate).setHours(23, 59, 59)).toISOString(),
       };
 
-      dispatch(clientSettingsActions.setFilterDate(dateForServer));
+      // dispatch(clientSettingsActions.setFilterDate(dateForServer));
     }
   };
 
   const setStatus = (status: string[]) => {
-    dispatch(clientSettingsActions.setFilterStatus(status));
+    // dispatch(clientSettingsActions.setFilterStatus(status));
   };
 
   const onClick = () => {
