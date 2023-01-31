@@ -17,6 +17,7 @@ import { AvatarIcon } from '../Icons/AvatarIcon';
 import { EyeIcon } from '../Icons/EyeIcon';
 import { CrossEyeIcon } from '../Icons/CrossEyeIcon';
 import { StopIcon } from '../Icons/StopIcon';
+import { userActions } from '../../redux/user/actions';
 
 export const UserCard = () => {
   const [user, setUser] = useState<UserType | undefined>(undefined);
@@ -68,16 +69,26 @@ export const UserCard = () => {
   }, [passwordInputValue, passwordRepeatInputValue]);
 
   const onSubmit = () => {
-    console.log({
-      isAdmin: isAdmin,
-      name: nameInputValue,
+    if (!id) {
+      navigate('/users');
+    }
+
+    const newUserForServer = {
+      group_id: isAdmin ? '1' : '6',
       login: loginInputValue,
       password: passwordInputValue,
-      repeatPassword: passwordRepeatInputValue,
-      emailInputValue: emailInputValue,
-      phoneInputValue: phoneInputValue,
-    });
+      name: nameInputValue,
+      email: emailInputValue,
+      phone: phoneInputValue,
+    };
 
+    if (id === 'new') {
+      dispatch(userActions.addUser(newUserForServer));
+    }
+
+    if (id && id !== 'new') {
+      dispatch(userActions.editUser({ newUser: newUserForServer, id }));
+    }
     onClose();
   };
 
@@ -210,7 +221,7 @@ export const UserCard = () => {
           <Button outlined className={styles.submitButton} onClick={onClose}>
             {t('cancel')}
           </Button>
-          <Button className={styles.submitButton} onClick={onSubmit}>
+          <Button className={styles.submitButton} onClick={onSubmit} disabled={passwordMismatch}>
             {t('save')}
           </Button>
         </div>

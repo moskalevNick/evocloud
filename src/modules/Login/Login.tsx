@@ -85,13 +85,13 @@ export const Login = () => {
               </ControlWrapperForm>
               {loginError && <ErrorMessage msg={t('wrong_login_or_password')} />}
               <div className={styles.buttonsContainer}>
-                {/* <span className={styles.checkbox}>
+                <span className={styles.checkbox}>
                   <Checkbox
                     checked={isRemember}
                     onChange={() => setRemember((prev) => !prev)}
                     label={<div className={styles.label}>{t('remember')}</div>}
                   />
-                </span> */}
+                </span>
                 <Button className={styles.button} type="submit">
                   {t('log_in')}
                 </Button>

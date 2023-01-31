@@ -4,6 +4,12 @@ export const actionNames = {
   [modules.DEVICE]: {
     getDevices: 'GET_DEVICES',
   },
+  [modules.USER]: {
+    getUsers: 'GET_USERS',
+    getUserGroups: 'GET_USER_GROUPS',
+    addUser: 'ADD_USER',
+    editUser: 'EDIT_USER',
+  },
   [modules.EXIS]: {
     getExis: 'GET_EXIS',
     editExis: 'EDIT_EXIS',
@@ -27,9 +33,5 @@ export const actionNames = {
     checkAuth: 'CHECK_AUTH',
     edit: 'EDIT_USER',
     uploadAvatar: 'UPLOAD_AVATAR',
-  },
-  [modules.USER]: {
-    getUsers: 'GET_USERS',
-    getUserGroups: 'GET_USER_GROUPS',
   },
 };

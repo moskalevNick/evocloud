@@ -3,19 +3,19 @@ import ClientsService from '../../services/ClientService';
 import { actionNames } from '../actionNames';
 import { getActionName } from '../getActionName';
 import { modules } from '../modules';
-import { ClientType, CreateClientType } from '../../types';
+import { createUserType, CreateClientType, UserType } from '../../types';
 import DeviceService from '../../services/DeviceService';
 import UserService from '../../services/UserService';
 
-type editClientType = {
-  newClient: CreateClientType;
+type editUserType = {
+  newUser: createUserType;
   id: string;
 };
 
 export const userActions = {
   getUsers: createAsyncThunk(
     getActionName(modules.USER, actionNames[modules.USER].getUsers),
-    async (_: void, thunkApi) => {
+    async () => {
       const data = await UserService.getUsers();
       return data;
     },
@@ -23,8 +23,24 @@ export const userActions = {
 
   getUserGroups: createAsyncThunk(
     getActionName(modules.USER, actionNames[modules.USER].getUserGroups),
-    async (_: void, thunkApi) => {
+    async () => {
       const data = await UserService.getUserGroups();
+      return data;
+    },
+  ),
+
+  addUser: createAsyncThunk(
+    getActionName(modules.USER, actionNames[modules.USER].addUser),
+    async (newUser: createUserType) => {
+      const data = await UserService.addUser(newUser);
+      return data;
+    },
+  ),
+
+  editUser: createAsyncThunk(
+    getActionName(modules.USER, actionNames[modules.USER].editUser),
+    async ({ newUser, id }: editUserType) => {
+      const data = await UserService.editUser(newUser, id);
       return data;
     },
   ),
@@ -41,14 +57,6 @@ export const userActions = {
   //   getActionName(modules.CLIENTS, actionNames[modules.CLIENTS].editClient),
   //   async ({ newClient, id }: editClientType) => {
   //     const data = await ClientsService.editClient(newClient, id);
-  //     return data;
-  //   },
-  // ),
-
-  // addClient: createAsyncThunk(
-  //   getActionName(modules.CLIENTS, actionNames[modules.CLIENTS].addClient),
-  //   async (newClient: Omit<ClientType, 'id' | 'images'>) => {
-  //     const data = await ClientsService.addClient(newClient);
   //     return data;
   //   },
   // ),

@@ -73,7 +73,7 @@ const globalSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(globalActions.checkAuth.fulfilled, (state, action) => {
-        // state.isAuth = action.payload.isAuth;
+        state.isAuth = action.payload.isAuth;
         // state.avatar = action.payload.avatar;
         // state.isDark = action.payload.isDark;
         // state.chatId = action.payload.chatId;

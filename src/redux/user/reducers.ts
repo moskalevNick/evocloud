@@ -95,6 +95,17 @@ export const userSlice = createSlice({
       })
       .addCase(userActions.getUserGroups.rejected, (state) => {
         state.isLoading = false;
+      })
+
+      .addCase(userActions.addUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(userActions.addUser.fulfilled, (state, action) => {
+        state.users = [...state.users, action.payload];
+        state.isLoading = false;
+      })
+      .addCase(userActions.addUser.rejected, (state) => {
+        state.isLoading = false;
       });
   },
 });

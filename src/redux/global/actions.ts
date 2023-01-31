@@ -25,12 +25,16 @@ type registrationType = {
 export const globalActions = {
   login: createAsyncThunk(
     getActionName(modules.GLOBAL, actionNames[modules.GLOBAL].login),
-    async ({ username, password }: authType) => {
+    async ({ username, password, isRemember }: authType) => {
       try {
         const response = await AuthService.login(username, password);
 
         localStorage.setItem('access-token', `${response.data.access_token}`);
-        // document.cookie = `refresh_token=${response.data.refresh_token}`;
+
+        if (isRemember) {
+          localStorage.setItem('refresh-token', response.data.refresh_token);
+          document.cookie = `refresh_token=${response.data.refresh_token}`;
+        }
 
         return {
           isAuth: true,
@@ -66,18 +70,14 @@ export const globalActions = {
       }
 
       try {
-        console.log(document.cookie);
-        // axios.defaults.withCredentials = true;
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/refresh`, {
-          withCredentials: true,
-          headers: {
-            Cookie: `token: ${document.cookie}`,
-            Authorization: `Bearer ${localStorage.getItem('access-token')}`,
-          },
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/refresh`, {
+          refresh_token: refreshToken,
         });
 
-        console.log(response);
-        localStorage.setItem('access-token', response.data.accessToken);
+        localStorage.setItem('access-token', response.data.access_token);
+        localStorage.setItem('refresh-token', response.data.refresh_token);
+        document.cookie = `refresh_token=${response.data.refresh_token}`;
+
         return {
           isAuth: true,
           ...response.data.user,

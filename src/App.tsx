@@ -24,9 +24,9 @@ export default function App() {
     }
   }, [dispatch]);
 
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
+  if (isLoading) {
+    return <Loader />;
+  }
 
   if (!isAuth) {
     return (

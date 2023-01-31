@@ -24,6 +24,7 @@ import { LogsIcon } from '../../components/Icons/LogsIcon';
 import { WidgetIcon } from '../../components/Icons/WidgetIcon';
 import { GroupWidgetsIcon } from '../../components/Icons/GroupWidgetsIcon';
 import { UserModal } from '../../components/UserModal/UserModal';
+import { globalActions } from '../../redux/global/actions';
 
 export const UsersModule = () => {
   const dispatch = useAppDispatch();

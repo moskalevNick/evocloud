@@ -2,6 +2,8 @@ import { FC, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../hooks/redux';
 import { clientActions } from '../redux/clients/actions';
+import { userActions } from '../redux/user/actions';
+import { UserType } from '../types';
 
 export type FounderProps = {
   component: FC<any>;
@@ -18,13 +20,14 @@ export const Founder: FC<FounderProps> = ({ component: Component }) => {
     }
 
     if (id === 'new') {
-      const newClientForServer = {
-        name: '',
-        status: 'ghost',
-        phone: '',
+      const newUserForServer = {
+        group_id: '6',
+        login: 'login',
+        password: '1234',
+        name: 'Unknown',
       };
 
-      // dispatch(clientActions.addClient(newClientForServer));
+      dispatch(userActions.addUser(newUserForServer));
     }
 
     if (id && id !== 'new') {
