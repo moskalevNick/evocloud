@@ -23,7 +23,7 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
   value,
   disabled = false,
   readOnly = false,
-  labels = [<SunIcon />, <MoonIcon />],
+  labels = [<MoonIcon />, <SunIcon />],
   className,
   size = 'long',
 }) => {
@@ -37,7 +37,7 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
     <label className={toggleSwitchClass}>
       <input
         type="checkbox"
-        checked={!checked}
+        checked={checked}
         onChange={onChange}
         name={name}
         value={value}

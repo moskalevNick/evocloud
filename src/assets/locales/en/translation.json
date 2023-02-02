@@ -79,5 +79,8 @@
   "edit_user_data": "Edit user data",
   "user_data": "User data",
   "invalid_characters": "Invalid characters",
-  "passwords_mismatch": "Passwords mismatch"
+  "passwords_mismatch": "Passwords mismatch",
+  "dark_theme": "Dark theme",
+  "light_theme": "Light theme",
+  "profile": "Profile"
 }

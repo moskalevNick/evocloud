@@ -157,10 +157,6 @@
   width: 200px;
 }
 
-.toggleThemeContainer {
-  margin-right: 24px;
-}
-
 .avatarContainer {
   cursor: pointer;
   width: 206px;
@@ -204,6 +200,31 @@
   background-color: var(--login-background);
   box-shadow: 0px 0px 10px var(--shadow-color);
   border-radius: 10px;
+}
+
+.toggleThemeContainer {
+  display: flex;
+  border-bottom: 1px solid var(--line-color);
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+}
+
+.toggleLabel {
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  margin-left: 12px;
+}
+
+.horizontalLine {
+  height: 1px;
+  border: none;
+  background-color: var(--line-color);
 }
 
 .badgeButton {

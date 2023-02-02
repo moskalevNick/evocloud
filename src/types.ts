@@ -164,6 +164,8 @@ export type UserType = {
   lang: string;
   admin_id: string;
   properties: any[] | null;
+  isDark?: boolean;
+  isRus?: boolean;
 };
 
 export type createUserType = {
@@ -182,14 +184,9 @@ export type createUserType = {
   lang?: string;
 };
 
-export type CreateUserType = {
-  login?: string;
-  email?: string;
-  name?: string;
-  phone?: string;
-  avatar?: string;
-  password?: string;
-  role?: string;
+export type editSettingsType = {
+  isDark?: boolean;
+  isRus?: boolean;
 };
 
 export type UserGroupType = {

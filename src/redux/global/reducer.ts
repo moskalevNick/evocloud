@@ -38,15 +38,10 @@ const globalSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(globalActions.login.fulfilled, (state, action) => {
-        state.avatar = action.payload.avatar;
-        state.isAuth = action.payload.isAuth;
-        // state.isDark = action.payload.isDark;
-        state.chatId = action.payload.chatId;
+        state.isDark = action.payload.isDark;
         state.isRus = action.payload.isRus;
-        state.maxBill = action.payload.maxBill;
-        state.minBill = action.payload.minBill;
-        state.role = action.payload.role;
-        state.cameraToken = action.payload.cameraToken;
+        state.isAuth = action.payload.isAuth;
+
         state.isLoading = false;
       })
       .addCase(globalActions.login.rejected, (state) => {
@@ -74,41 +69,36 @@ const globalSlice = createSlice({
       })
       .addCase(globalActions.checkAuth.fulfilled, (state, action) => {
         state.isAuth = action.payload.isAuth;
-        // state.avatar = action.payload.avatar;
-        // state.isDark = action.payload.isDark;
-        // state.chatId = action.payload.chatId;
-        // state.isRus = action.payload.isRus;
-        // document.body.setAttribute('dir', action.payload.isRus ? 'ru' : 'en');
-        // state.maxBill = action.payload.maxBill;
-        // state.minBill = action.payload.minBill;
-        // state.role = action.payload.role;
-        // state.cameraToken = action.payload.cameraToken;
+        state.isDark = action.payload.isDark;
+        state.isRus = action.payload.isRus;
+
         state.isLoading = false;
       })
       .addCase(globalActions.checkAuth.rejected, (state) => {
         state.isLoading = false;
-      });
+      })
 
-    // .addCase(globalActions.editSettings.pending, (state) => {
-    //   state.isLoading = true;
-    // })
-    // .addCase(globalActions.editSettings.fulfilled, (state, action) => {
-    //   state.isDark = action.payload.isDark;
-    //   state.chatId = action.payload.chatId;
-    //   state.isRus = action.payload.isRus;
-    //   document.body.setAttribute('dir', action.payload.isRus ? 'ru' : 'en');
-    //   state.minBill = action.payload.minBill;
-    //   state.maxBill = action.payload.maxBill;
-    //   Nottification({
-    //     text: action.payload.isRus
-    //       ? 'настройки аккаунта изменены успешно'
-    //       : 'account settings changed successfully',
-    //   });
-    //   state.isLoading = false;
-    // })
-    // .addCase(globalActions.editSettings.rejected, (state) => {
-    //   state.isLoading = false;
-    // })
+      .addCase(globalActions.editSettings.pending, (state) => {
+        // state.isLoading = true;
+      })
+      .addCase(globalActions.editSettings.fulfilled, (state, action) => {
+        if (action.payload.isDark !== undefined) {
+          state.isDark = action.payload.isDark;
+        }
+        if (action.payload.isRus !== undefined) {
+          state.isRus = action.payload.isRus;
+        }
+        document.body.setAttribute('dir', action.payload.isRus ? 'ru' : 'en');
+        Nottification({
+          text: action.payload.isRus
+            ? 'настройки аккаунта изменены успешно'
+            : 'account settings changed successfully',
+        });
+        state.isLoading = false;
+      })
+      .addCase(globalActions.editSettings.rejected, (state) => {
+        state.isLoading = false;
+      });
 
     // .addCase(globalActions.uploadAvatar.pending, (state) => {
     //   state.isAvatarLoading = true;

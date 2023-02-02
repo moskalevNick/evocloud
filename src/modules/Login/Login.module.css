@@ -1,26 +1,21 @@
 .container {
   display: flex;
-  min-height: 100vh;
-  background-color: var(--background-color);
-  width: 100%;
   justify-content: center;
-}
-
-.main {
   position: relative;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: var(--login-background);
-  width: 60%;
-  box-shadow: 0px 4px 13px var(--shadow-color);
-  border-radius: 24px;
+  min-height: 100vh;
+  background: linear-gradient(
+    108.08deg,
+    var(--login-background_1) -1.91%,
+    var(--login-background_2) 98.91%
+  );
+  width: 100%;
 }
 
 .formContainer {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 287px;
   gap: 10px;
 }
 
@@ -56,6 +51,19 @@
   position: absolute;
   bottom: 32px;
   left: 32px;
+}
+
+.sign {
+  position: absolute;
+  bottom: 32px;
+  left: calc(50% - 107px);
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 2px;
+  color: #295c88;
 }
 
 .wrapperToggleTheme {

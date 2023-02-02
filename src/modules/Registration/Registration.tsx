@@ -101,11 +101,11 @@ export const Registration = () => {
           <ToggleSwitch
             checked={!isDark}
             onChange={() => {
-              // dispatch(
-              //   globalActions.editSettings({
-              //     isDark: !isDark,
-              //   }),
-              // );
+              dispatch(
+                globalActions.editSettings({
+                  isDark: !isDark,
+                }),
+              );
             }}
           />
         </div>

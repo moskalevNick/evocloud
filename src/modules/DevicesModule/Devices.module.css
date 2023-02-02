@@ -92,8 +92,30 @@
   width: 321px;
 }
 
-.listItemID {
+.listItemIDWrapper {
   width: 263px;
+}
+
+.listItemID {
+  padding: 0px 12px 0px 12px;
+  width: max-content;
+  display: flex;
+  gap: 6px;
+}
+
+.copyIconWrapper {
+  display: none;
+}
+
+.listItemID:hover {
+  background: var(--label-hover-background);
+  border: 1px solid #148ef8;
+  box-shadow: 0px 0px 5px #158ef8;
+  border-radius: 7px;
+}
+
+.listItemID:hover .copyIconWrapper {
+  display: block;
 }
 
 .listItemFirmware {

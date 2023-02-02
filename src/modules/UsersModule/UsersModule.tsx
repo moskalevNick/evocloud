@@ -8,7 +8,6 @@ import { CardContainer } from '../../components/CardContainer/CardContainer';
 import { PlusIcon } from '../../components/Icons/PlusIcon';
 
 import styles from './Users.module.css';
-import { clientActions } from '../../redux/clients/actions';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Loader } from '../../components/Loader/Loader';
 import { CloudFilters } from '../../components/CloudFilters';
@@ -25,6 +24,10 @@ import { WidgetIcon } from '../../components/Icons/WidgetIcon';
 import { GroupWidgetsIcon } from '../../components/Icons/GroupWidgetsIcon';
 import { UserModal } from '../../components/UserModal/UserModal';
 import { globalActions } from '../../redux/global/actions';
+import { GroupWidgetsActiveIcon } from '../../components/Icons/GroupWidgetsActiveIcon';
+import { WidgetActiveIcon } from '../../components/Icons/WidgetActiveIcon';
+import { LogsActiveIcon } from '../../components/Icons/LogsActiveIcon';
+import { EditActiveIcon } from '../../components/Icons/EditActiveIcon';
 
 export const UsersModule = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +37,10 @@ export const UsersModule = () => {
 
   const { users, userGroups, isLoading } = useAppSelector((state) => state.userReducer);
   const [isUserModalOpen, setUserModalOpen] = useState(false);
+  const [activeGroupWidgets, setActiveGroupWidgets] = useState<number | null>(null);
+  const [activeWidget, setActiveWidget] = useState<number | null>(null);
+  const [activeLogs, setActiveLogs] = useState<number | null>(null);
+  const [activeEdit, setActiveEdit] = useState<number | null>(null);
 
   const headerNumberClasses = classNames(styles.headerItem, styles.headerItemNumber);
   const headerNameClasses = classNames(styles.headerItem, styles.headerItemName);
@@ -158,17 +165,38 @@ export const UsersModule = () => {
                   <button
                     className={styles.arrowDownButton}
                     onClick={(e) => getGroupWidgets(e, user.id)}
+                    onMouseOver={() => setActiveGroupWidgets(user.id)}
+                    onMouseLeave={() => setActiveGroupWidgets(null)}
                   >
-                    <GroupWidgetsIcon />
+                    {activeGroupWidgets === user.id ? (
+                      <GroupWidgetsActiveIcon />
+                    ) : (
+                      <GroupWidgetsIcon />
+                    )}
                   </button>
-                  <button className={styles.arrowDownButton} onClick={(e) => newWidget(e, user.id)}>
-                    <WidgetIcon />
+                  <button
+                    className={styles.arrowDownButton}
+                    onClick={(e) => newWidget(e, user.id)}
+                    onMouseOver={() => setActiveWidget(user.id)}
+                    onMouseLeave={() => setActiveWidget(null)}
+                  >
+                    {activeWidget === user.id ? <WidgetActiveIcon /> : <WidgetIcon />}
                   </button>
-                  <button className={styles.arrowDownButton} onClick={(e) => openLogs(e, user.id)}>
-                    <LogsIcon />
+                  <button
+                    className={styles.arrowDownButton}
+                    onClick={(e) => openLogs(e, user.id)}
+                    onMouseOver={() => setActiveLogs(user.id)}
+                    onMouseLeave={() => setActiveLogs(null)}
+                  >
+                    {activeLogs === user.id ? <LogsActiveIcon /> : <LogsIcon />}
                   </button>
-                  <button className={styles.arrowDownButton} onClick={(e) => editUser(e, user.id)}>
-                    <EditIcon />
+                  <button
+                    className={styles.arrowDownButton}
+                    onClick={(e) => editUser(e, user.id)}
+                    onMouseOver={() => setActiveEdit(user.id)}
+                    onMouseLeave={() => setActiveEdit(null)}
+                  >
+                    {activeEdit === user.id ? <EditActiveIcon /> : <EditIcon />}
                   </button>
                 </div>
               </div>

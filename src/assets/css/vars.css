@@ -1,6 +1,8 @@
 body[color-theme='light'] {
   --background-color: #f3f7fd;
   --login-background: #fff;
+  --login-background_1: rgb(233, 193, 48);
+  --login-background_2: rgb(221, 36, 36);
   --header-background: #fff;
   --shadow-color: #e7f0f9;
   --input-background: #f5faff;
@@ -39,12 +41,16 @@ body[color-theme='light'] {
   --background-loader: #fff;
   --shadow-spinner: 0px 0px 19px #b8c0cc;
   --background-spinner: #d6e5fb;
-  --active-background: #5f97c6;
+  --active-background: #cad2d8;
+  --button-hover-background: #f3f7fd;
+  --label-hover-background: #f3f7fd;
 }
 
 body[color-theme='dark'] {
   --background-color: #0f3557;
   --login-background: #152a40;
+  --login-background_1: rgba(20, 53, 84, 1);
+  --login-background_2: rgba(10, 27, 43, 1);
   --header-background: #092740;
   --shadow-color: #0c1f32;
   --input-background: #123a5b;
@@ -84,6 +90,8 @@ body[color-theme='dark'] {
   --shadow-spinner: 0px 0px 20px rgba(11, 45, 79, 0.44);
   --background-spinner: rgba(20, 135, 242, 0.17);
   --active-background: #0c2c47;
+  --button-hover-background: #20659e;
+  --label-hover-background: #113858;
 }
 
 body[view-calendar='default'] {

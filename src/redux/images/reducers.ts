@@ -3,7 +3,6 @@ import { CameraFrameType, ClientType, ImageType } from '../../types';
 import { modules } from '../modules';
 import { imagesActions } from './actions';
 import { Nottification } from '../../components/Nottification/Nottification';
-import { clientActions } from '../clients/actions';
 import i18next from 'i18next';
 
 type ImagesType = Record<string, Array<ImageType>>;
@@ -79,7 +78,6 @@ const imageSlice = createSlice({
           locale === 'ru' ? 'Изображение успешно загружено' : 'Image successfully upload';
 
         Nottification({
-          avatar: action.payload.publicUrl,
           text: nottificationText,
         });
       })
@@ -104,7 +102,6 @@ const imageSlice = createSlice({
 
         state.isLoading = false;
         Nottification({
-          avatar: action.payload.publicUrl,
           text: nottificationText,
         });
       })

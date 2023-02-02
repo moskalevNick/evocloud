@@ -3,8 +3,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 122px;
-  height: 36px;
+  width: 52px;
+  height: 30px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -12,7 +12,7 @@
 }
 
 .shortSwitch {
-  width: 96px;
+  width: 52px;
 }
 
 .switch input {
@@ -28,24 +28,24 @@
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: 8px;
+  border-radius: 40px;
   background-color: var(--toggle-background);
 }
 
 .slider:before {
   position: absolute;
   content: '';
-  height: 36px;
-  width: 61px;
-  right: 0;
-  bottom: 0;
+  height: 22px;
+  width: 22px;
+  right: 4px;
+  bottom: 4px;
   background: linear-gradient(180deg, #419cf0 0%, #0080f7 100%);
-  border-radius: 8px;
+  border-radius: 12px;
   transition: 0.4s;
 }
 
 .shortSwitch > .slider:before {
-  width: 48px;
+  width: 22px;
 }
 
 .switch:hover > .slider::before {
@@ -61,7 +61,11 @@ input:checked + .slider::before {
 }
 
 .shortSwitch > input:checked + .slider::before {
-  transform: translateX(-48px);
+  transform: translateX(-22px);
+}
+
+.switch > input:checked + .slider::before {
+  transform: translateX(-22px);
 }
 
 .firstLabel {

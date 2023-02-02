@@ -17,7 +17,6 @@ import { exisActions } from '../../redux/exis/actions';
 import { visitActions } from '../../redux/visit/actions';
 import { CrossIcon } from '../Icons/CrossIcon';
 import { Button } from '../Button/Button';
-import { clientActions } from '../../redux/clients/actions';
 import { t } from 'i18next';
 
 type CardType = {

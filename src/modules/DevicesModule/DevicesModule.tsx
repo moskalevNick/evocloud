@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from '../../components/Button/Button';
@@ -8,7 +8,6 @@ import { CardContainer } from '../../components/CardContainer/CardContainer';
 import { PlusIcon } from '../../components/Icons/PlusIcon';
 
 import styles from './Devices.module.css';
-import { clientActions } from '../../redux/clients/actions';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Loader } from '../../components/Loader/Loader';
 import { CloudFilters } from '../../components/CloudFilters';
@@ -20,15 +19,22 @@ import { ArrowDownIcon } from '../../components/Icons/ArrowDown';
 import { deviceActions } from '../../redux/devices/actions';
 import { GroupWidgetsIcon } from '../../components/Icons/GroupWidgetsIcon';
 import { LogsIcon } from '../../components/Icons/LogsIcon';
+import { GroupWidgetsActiveIcon } from '../../components/Icons/GroupWidgetsActiveIcon';
+import { LogsActiveIcon } from '../../components/Icons/LogsActiveIcon';
+import { CopyIcon } from '../../components/Icons/CopyIcon';
+import { Nottification } from '../../components/Nottification/Nottification';
 
 export const DevicesModule = () => {
   const dispatch = useAppDispatch();
   // const navigate = useNavigate();
   // const { id } = useParams();
   const { t } = useTranslation();
+  const [activeGroupWidgets, setActiveGroupWidgets] = useState<number | null>(null);
+  const [activeLogs, setActiveLogs] = useState<number | null>(null);
 
   // const { isFullScreenCameraOpen } = useAppSelector((state) => state.globalReducer);
   const { devices } = useAppSelector((state) => state.deviceReducer);
+  const { isRus, isAuth } = useAppSelector((state) => state.globalReducer);
 
   // const containerClassnames = classNames(
   //   styles.container,
@@ -112,6 +118,13 @@ export const DevicesModule = () => {
     e.stopPropagation();
   };
 
+  const copyID = (id: number) => {
+    navigator.clipboard.writeText(id.toString());
+    Nottification({
+      text: isRus ? 'ID устройства скопирован' : 'Device ID copied',
+    });
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>{t('devices')}</div>
@@ -150,18 +163,36 @@ export const DevicesModule = () => {
               <div className={styles.listItemNumber}>{i + 1}</div>
               <div className={styles.listItemDeviceType}>NGC/NG</div>
               <div className={styles.listItemName}>{device.name}</div>
-              <div className={styles.listItemID}>{device.id}</div>
+              <div className={styles.listItemIDWrapper}>
+                <div className={styles.listItemID} onClick={() => copyID(device.id)}>
+                  {device.id}
+                  <div className={styles.copyIconWrapper}>
+                    <CopyIcon />
+                  </div>
+                </div>
+              </div>
               <div className={styles.listItemFirmware}>{device.proshivka}</div>
               <div className={styles.listItemUser}>User_id: {device.id_user}</div>
               <div className={styles.buttonContainer}>
                 <button
                   className={styles.arrowDownButton}
                   onClick={(e) => getGroupWidgets(e, device.id)}
+                  onMouseOver={() => setActiveGroupWidgets(device.id)}
+                  onMouseLeave={() => setActiveGroupWidgets(null)}
                 >
-                  <GroupWidgetsIcon />
+                  {activeGroupWidgets === device.id ? (
+                    <GroupWidgetsActiveIcon />
+                  ) : (
+                    <GroupWidgetsIcon />
+                  )}
                 </button>
-                <button className={styles.arrowDownButton} onClick={(e) => openLogs(e, device.id)}>
-                  <LogsIcon />
+                <button
+                  className={styles.arrowDownButton}
+                  onClick={(e) => openLogs(e, device.id)}
+                  onMouseOver={() => setActiveLogs(device.id)}
+                  onMouseLeave={() => setActiveLogs(null)}
+                >
+                  {activeLogs === device.id ? <LogsActiveIcon /> : <LogsIcon />}
                 </button>
               </div>
             </div>

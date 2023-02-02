@@ -55,26 +55,6 @@ export const userSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      // .addCase(globalActions.checkAuth.fulfilled, (state, action) => {
-      //   state.filters = {
-      //     ...state.filters,
-      //     range: {
-      //       min: action.payload.minBill,
-      //       max: action.payload.maxBill,
-      //     },
-      //   };
-      // })
-
-      // .addCase(globalActions.editSettings.fulfilled, (state, action) => {
-      //   state.filters = {
-      //     ...state.filters,
-      //     range: {
-      //       min: action.payload.minBill,
-      //       max: action.payload.maxBill,
-      //     },
-      //   };
-      // })
-
       .addCase(userActions.getUsers.pending, (state) => {
         state.isLoading = true;
       })
@@ -105,6 +85,27 @@ export const userSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(userActions.addUser.rejected, (state) => {
+        state.isLoading = false;
+      })
+
+      .addCase(userActions.editUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(userActions.editUser.fulfilled, (state, action) => {
+        const replacableIndex = state.users.findIndex((user) => user.id === action.payload.id);
+        state.users[replacableIndex] = action.payload;
+
+        const locale = i18next.resolvedLanguage;
+        const nottificationText: string =
+          locale === 'ru' ? 'Клиент успешно обновлен' : 'This client successfully updated';
+
+        Nottification({
+          name: action.payload.name,
+          text: nottificationText,
+        });
+        state.isLoading = false;
+      })
+      .addCase(userActions.editUser.rejected, (state) => {
         state.isLoading = false;
       });
   },

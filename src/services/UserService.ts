@@ -1,5 +1,5 @@
 import $api from '../http';
-import { createUserType, UserGroupType, UserType } from '../types';
+import { createUserType, editSettingsType, UserGroupType, UserType } from '../types';
 
 export default class UserService {
   static async getUsers(): Promise<UserType[]> {
@@ -15,7 +15,11 @@ export default class UserService {
     return response.data.user;
   }
   static async editUser(newClient: createUserType, id: string): Promise<UserType> {
-    const response = await $api.post(`editUser/${id}`, newClient);
-    return response.data;
+    const response = await $api.post(`/editUser/${id}`, newClient);
+    return response.data.user;
+  }
+  static async editSetting(newClient: editSettingsType): Promise<UserType> {
+    const response = await $api.post('/editUser', newClient);
+    return response.data.user;
   }
 }

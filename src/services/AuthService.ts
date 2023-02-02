@@ -15,7 +15,7 @@ export default class AuthService {
     return $api.post(`/refresh`, { refreshToken });
   }
 
-  static async logout(refreshToken: string) {
-    return $api.post(`${path}/logout`, { refreshToken });
+  static async logout() {
+    return $api.get('/logout');
   }
 }

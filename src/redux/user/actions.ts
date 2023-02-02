@@ -3,7 +3,7 @@ import ClientsService from '../../services/ClientService';
 import { actionNames } from '../actionNames';
 import { getActionName } from '../getActionName';
 import { modules } from '../modules';
-import { createUserType, CreateClientType, UserType } from '../../types';
+import { createUserType, CreateClientType, UserType, editSettingsType } from '../../types';
 import DeviceService from '../../services/DeviceService';
 import UserService from '../../services/UserService';
 
@@ -41,6 +41,14 @@ export const userActions = {
     getActionName(modules.USER, actionNames[modules.USER].editUser),
     async ({ newUser, id }: editUserType) => {
       const data = await UserService.editUser(newUser, id);
+      return data;
+    },
+  ),
+
+  editSettings: createAsyncThunk(
+    getActionName(modules.USER, actionNames[modules.USER].editSettings),
+    async (newUser: editSettingsType) => {
+      const data = await UserService.editSetting(newUser);
       return data;
     },
   ),

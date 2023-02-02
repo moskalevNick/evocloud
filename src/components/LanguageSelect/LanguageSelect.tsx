@@ -4,7 +4,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { globalSettingActions } from '../../redux/global/reducer';
 import { ToggleSwitch } from '../ToggleSwitch/ToggleSwitch';
 
-export const LanguageSelect = () => {
+type LanguageSelectType = {
+  size?: 'long' | 'short';
+};
+
+export const LanguageSelect: React.FC<LanguageSelectType> = ({ size }) => {
   const { i18n } = useTranslation();
   const dispatch = useAppDispatch();
   const { isRus, isAuth } = useAppSelector((state) => state.globalReducer);
@@ -32,10 +36,18 @@ export const LanguageSelect = () => {
     setStateRus((prev) => !prev);
   }, [isStateRus]);
 
-  // useEffect(() => {
-  //   i18n.changeLanguage(isStateRus ? 'ru' : 'en');
-  //   dispatch(globalSettingActions.setIsRussian(isStateRus ? true : false));
-  // }, [isStateRus]);
+  useEffect(() => {
+    i18n.changeLanguage(isStateRus ? 'ru' : 'en');
+    dispatch(globalSettingActions.setIsRussian(isStateRus ? true : false));
+  }, [isStateRus]);
 
-  return <ToggleSwitch checked={!isStateRus} labels={['РУС', 'ENG']} readOnly />;
+  return (
+    <ToggleSwitch
+      checked={isStateRus}
+      labels={['РУ', 'EN']}
+      readOnly
+      size={size}
+      onChange={changeLang}
+    />
+  );
 };

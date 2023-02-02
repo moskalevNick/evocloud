@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../hooks/redux';
-import { clientActions } from '../redux/clients/actions';
 import { userActions } from '../redux/user/actions';
 import { UserType } from '../types';
 

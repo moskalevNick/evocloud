@@ -5,7 +5,7 @@ import { getActionName } from '../getActionName';
 import { modules } from '../modules';
 import AuthService from '../../services/AuthService';
 import axios from 'axios';
-import { UserType } from '../../types';
+import { editSettingsType, UserType } from '../../types';
 import UserService from '../../services/UserService';
 import i18next from 'i18next';
 import Cookies from 'js-cookie';
@@ -38,12 +38,11 @@ export const globalActions = {
 
         return {
           isAuth: true,
-          ...response.data,
+          ...response.data.user_data,
         };
       } catch (e: any) {
         Nottification({
           text: e.response.data.description,
-          avatar: Logo,
         });
         return {
           isAuth: false,
@@ -80,7 +79,7 @@ export const globalActions = {
 
         return {
           isAuth: true,
-          ...response.data.user,
+          ...response.data.user_data,
         };
       } catch (e) {
         console.log(e);
@@ -91,31 +90,24 @@ export const globalActions = {
   logout: createAsyncThunk(
     getActionName(modules.GLOBAL, actionNames[modules.GLOBAL].logout),
     async () => {
-      const refreshToken = localStorage.getItem('refresh-token');
-      let response;
-      if (refreshToken) {
-        response = await AuthService.logout(refreshToken);
-      } else {
-        localStorage.removeItem('token');
-        window.location.href = '/';
-      }
+      const response = await AuthService.logout();
+      console.log(response);
 
-      if (response?.status === 201) {
-        localStorage.removeItem('token');
-        // localStorage.removeItem('access-token');
-        window.location.href = '/';
-      }
+      localStorage.removeItem('refresh-token');
+      localStorage.removeItem('access-token');
+      document.cookie = 'refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      window.location.href = '/';
 
       return true;
     },
   ),
 
-  // editSettings: createAsyncThunk(
-  //   getActionName(modules.GLOBAL, actionNames[modules.GLOBAL].edit),
-  //   async (newUser: UserType) => {
-  //     return await UserService.editUser(newUser);
-  //   },
-  // ),
+  editSettings: createAsyncThunk(
+    getActionName(modules.GLOBAL, actionNames[modules.GLOBAL].editUser),
+    async (newUser: editSettingsType) => {
+      return UserService.editSetting(newUser);
+    },
+  ),
 
   // uploadAvatar: createAsyncThunk(
   //   getActionName(modules.GLOBAL, actionNames[modules.GLOBAL].uploadAvatar),

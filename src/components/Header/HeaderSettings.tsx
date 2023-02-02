@@ -14,6 +14,7 @@ import { Loader } from '../Loader/Loader';
 import { LanguageSelect } from '../LanguageSelect/LanguageSelect';
 import { useTranslation } from 'react-i18next';
 import { UploadIconRus } from '../Icons/UploadIconRus';
+import { ProfileIcon } from '../Icons/ProfileIcon';
 
 type HeaderSettingsType = {};
 
@@ -47,29 +48,26 @@ export const HeaderSettings: React.FC<HeaderSettingsType> = () => {
 
   const logout = async () => {
     await dispatch(globalActions.logout());
-    setOpenLogoutModal(false);
+    // setOpenLogoutModal(false);
   };
 
-  // const submit = () => {
-  //   dispatch(
-  //     globalActions.editSettings({
-  //       minBill: minBillInputValue,
-  //       maxBill: maxBillInputValue,
-  //       chatId: botInputValue,
-  //       isRus: i18n.resolvedLanguage === 'ru',
-  //     }),
-  //   );
+  const submit = () => {
+    dispatch(
+      globalActions.editSettings({
+        isRus: i18n.resolvedLanguage === 'ru',
+      }),
+    );
 
-  //   setOpenSettingModal(false);
-  // };
+    setOpenSettingModal(false);
+  };
 
-  // const changeTheme = () => {
-  //   dispatch(
-  //     globalActions.editSettings({
-  //       isDark: !isDark,
-  //     }),
-  //   );
-  // };
+  const changeTheme = () => {
+    dispatch(
+      globalActions.editSettings({
+        isDark: !isDark,
+      }),
+    );
+  };
 
   // const uploadAvatar = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   if (event.target.files) {
@@ -94,31 +92,32 @@ export const HeaderSettings: React.FC<HeaderSettingsType> = () => {
           <div className={styles.avatarHeader}>EVO Electronics</div>
         </div>
         {isOpenBadge && (
-          <>
-            <div className={styles.badge} ref={refBadge}>
-              {/* <div className={styles.toggleThemeContainer}>
-                <ToggleSwitch checked={isDark} size="short" />
-              </div> */}
-              <Button
-                className={styles.badgeButton}
-                onClick={() => {
-                  setOpenSettingModal(true);
-                }}
-                beforeIcon={<SettingIcon />}
-              >
-                <p className={styles.buttonLabel}>{t('settings')}</p>
-              </Button>
-              <Button
-                className={styles.badgeButton}
-                onClick={() => {
-                  setOpenLogoutModal(true);
-                }}
-                beforeIcon={<LogoutIcon />}
-              >
-                <p className={styles.buttonLabel}>{t('exit')}</p>
-              </Button>
+          <div className={styles.badge} ref={refBadge}>
+            <div className={styles.toggleThemeContainer}>
+              <ToggleSwitch checked={isDark} size="short" onChange={changeTheme} />
+              <div className={styles.toggleLabel}>
+                {isDark ? t('dark_theme') : t('light_theme')}
+              </div>
             </div>
-          </>
+            <Button
+              className={styles.badgeButton}
+              onClick={() => {
+                setOpenSettingModal(true);
+              }}
+              beforeIcon={<ProfileIcon />}
+            >
+              <p className={styles.buttonLabel}>{t('profile')}</p>
+            </Button>
+            <Button
+              className={styles.badgeButton}
+              onClick={() => {
+                setOpenLogoutModal(true);
+              }}
+              beforeIcon={<LogoutIcon />}
+            >
+              <p className={styles.buttonLabel}>{t('exit')}</p>
+            </Button>
+          </div>
         )}
       </div>
       <Modal
@@ -178,7 +177,9 @@ export const HeaderSettings: React.FC<HeaderSettingsType> = () => {
               >
                 {t('cancel')}
               </Button>
-              <Button className={styles.logoutButton}>{t('save')}</Button>
+              <Button className={styles.logoutButton} onClick={submit}>
+                {t('save')}
+              </Button>
             </div>
           </div>
         )}

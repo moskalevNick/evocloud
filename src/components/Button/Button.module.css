@@ -17,7 +17,7 @@
 }
 
 .button:hover {
-  background: linear-gradient(180deg, #64B4FF 0%, #007AEB 100%);
+  background: var(--button-hover-background);
 }
 
 .button:active {
@@ -28,11 +28,11 @@
   background: var(--button-disabled-background);
   cursor: auto;
   border: none;
-  color: #8F9499;
+  color: #8f9499;
   box-shadow: none;
 }
 
-.contentClasss{
+.contentClasss {
   margin: 8px 0;
   height: 18px;
   font-weight: 600;
@@ -46,32 +46,32 @@
 
 .outlined {
   background: transparent;
-  border: 1.5px solid #1487F2;
-  color: #1487F2;
+  border: 1.5px solid #1487f2;
+  color: #1487f2;
 }
 
 .outlined:hover {
-  background: linear-gradient(180deg, #64B4FF 0%, #007AEB 100%);
+  background: linear-gradient(180deg, #64b4ff 0%, #007aeb 100%);
   color: #ffffff;
 }
 
-.outlined:disabled{
+.outlined:disabled {
   background: var(--button-disabled-background);
   cursor: auto;
   border: none;
-  color: #8F9499;
+  color: #8f9499;
   box-shadow: none;
 }
 
 .orange {
   background: transparent;
-  border: 1.5px solid #FF7C32;;
-  color: #FF7C32;
+  border: 1.5px solid #ff7c32;
+  color: #ff7c32;
   border-radius: 8px;
 }
 
 .orange:hover {
-  background: linear-gradient(180deg, #FFA877 -21.05%, #EC6C23 100%);
+  background: linear-gradient(180deg, #ffa877 -21.05%, #ec6c23 100%);
 }
 
 .orange:active {

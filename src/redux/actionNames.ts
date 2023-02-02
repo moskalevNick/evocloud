@@ -9,6 +9,7 @@ export const actionNames = {
     getUserGroups: 'GET_USER_GROUPS',
     addUser: 'ADD_USER',
     editUser: 'EDIT_USER',
+    editSettings: 'EDIT_SETTINGS',
   },
   [modules.EXIS]: {
     getExis: 'GET_EXIS',
@@ -31,7 +32,6 @@ export const actionNames = {
     registration: 'REGISTRATION',
     logout: 'LOGOUT',
     checkAuth: 'CHECK_AUTH',
-    edit: 'EDIT_USER',
-    uploadAvatar: 'UPLOAD_AVATAR',
+    editUser: 'EDIT_USER',
   },
 };

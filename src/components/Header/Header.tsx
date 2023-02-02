@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import styles from './Header.module.css';
-import Logo from '../../assets/images/logo.png';
+import Logo from '../../assets/images/smallLogo.png';
 import { Input } from '../Input/Input';
 import { SearchIcon } from '../Icons/SearchIcon';
 import { ArrowLeftIcon } from '../Icons/ArrowLeftIcon';
@@ -14,7 +14,6 @@ import { imagesActions } from '../../redux/images/actions';
 import { Loader } from '../Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import { yesterdayEndDay, yesterdayStartDay } from '../../helpers/constants';
-import { clientActions } from '../../redux/clients/actions';
 
 export const Header = () => {
   const { i18n, t } = useTranslation();

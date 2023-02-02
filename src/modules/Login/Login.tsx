@@ -17,6 +17,8 @@ import { Loader } from '../../components/Loader/Loader';
 import { LanguageSelect } from '../../components/LanguageSelect/LanguageSelect';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+import { EyeIcon } from '../../components/Icons/EyeIcon';
+import { CrossEyeIcon } from '../../components/Icons/CrossEyeIcon';
 
 type FormType = {
   username: string;
@@ -34,7 +36,8 @@ export const Login = () => {
   const dispatch = useAppDispatch();
   const [isRemember, setRemember] = useState(true);
   const [loginError, setLoginError] = useState(false);
-  const { isDark } = useAppSelector((state) => state.globalReducer);
+  const [isShowPassword, showPassword] = useState(false);
+  const [isDark, setDark] = useState(true);
   const { isLoading } = useAppSelector((state) => state.globalReducer);
   const { t, i18n } = useTranslation();
 
@@ -72,49 +75,53 @@ export const Login = () => {
 
   return (
     <div className={styles.container}>
-      <main className={styles.main}>
-        <div className={styles.formContainer}>
-          <img src={Logo} width="24" height="24" alt="EVO logo" className={styles.logo} />
-          <FormProvider {...methods}>
-            <form noValidate onSubmit={submit} autoComplete="off">
-              <ControlWrapperForm label={t('login')} name="username" error={loginError}>
-                <Input placeholder={t('enter_your_login') as string} />
-              </ControlWrapperForm>
-              <ControlWrapperForm label={t('password')} name="password" error={loginError}>
-                <Input placeholder={t('enter_your_password') as string} />
-              </ControlWrapperForm>
-              {loginError && <ErrorMessage msg={t('wrong_login_or_password')} />}
-              <div className={styles.buttonsContainer}>
-                <span className={styles.checkbox}>
-                  <Checkbox
-                    checked={isRemember}
-                    onChange={() => setRemember((prev) => !prev)}
-                    label={<div className={styles.label}>{t('remember')}</div>}
-                  />
-                </span>
-                <Button className={styles.button} type="submit">
-                  {t('log_in')}
-                </Button>
-              </div>
-            </form>
-          </FormProvider>
-        </div>
-        <div className={styles.wrapperToggleEng}>
-          <LanguageSelect />
-        </div>
-        <div className={styles.wrapperToggleTheme}>
-          <ToggleSwitch
-            checked={isDark}
-            onChange={() => {
-              // dispatch(
-              //   globalActions.editSettings({
-              //     isDark: !isDark,
-              //   }),
-              // );
-            }}
-          />
-        </div>
-      </main>
+      <div className={styles.formContainer}>
+        <img src={Logo} width="238" height="34" alt="EVO logo" className={styles.logo} />
+        <FormProvider {...methods}>
+          <form noValidate onSubmit={submit} autoComplete="off">
+            <ControlWrapperForm label={t('login')} name="username" error={loginError}>
+              <Input placeholder={t('enter_your_login') as string} />
+            </ControlWrapperForm>
+            <ControlWrapperForm label={t('password')} name="password" error={loginError}>
+              <Input
+                placeholder={t('enter_your_password') as string}
+                type={isShowPassword ? 'text' : 'password'}
+                afterIcon={
+                  <div onClick={() => showPassword((prev) => !prev)}>
+                    {isShowPassword ? <EyeIcon /> : <CrossEyeIcon />}
+                  </div>
+                }
+              />
+            </ControlWrapperForm>
+            {loginError && <ErrorMessage msg={t('wrong_login_or_password')} />}
+            <div className={styles.buttonsContainer}>
+              <span className={styles.checkbox}>
+                <Checkbox
+                  checked={isRemember}
+                  onChange={() => setRemember((prev) => !prev)}
+                  label={<div className={styles.label}>{t('remember')}</div>}
+                />
+              </span>
+              <Button className={styles.button} type="submit">
+                {t('log_in')}
+              </Button>
+            </div>
+          </form>
+        </FormProvider>
+      </div>
+      <div className={styles.wrapperToggleEng}>
+        <LanguageSelect size="short" />
+      </div>
+      <div className={styles.sign}>DESIGNED BY EVO CONTROLS</div>
+      <div className={styles.wrapperToggleTheme}>
+        <ToggleSwitch
+          checked={isDark}
+          size="short"
+          onChange={() => {
+            setDark((prev) => !prev);
+          }}
+        />
+      </div>
     </div>
   );
 };

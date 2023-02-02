@@ -2,7 +2,6 @@ import { ClientType, ExisType } from '../../types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { modules } from '../modules';
 import { exisActions } from './actions';
-import { clientActions } from '../clients/actions';
 
 type PinnedExisesType = Record<string, ExisType | undefined>;
 
