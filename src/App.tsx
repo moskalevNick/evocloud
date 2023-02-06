@@ -27,10 +27,6 @@ export default function App() {
     }
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log(isDesktop);
-  }, [isDesktop]);
-
   if (!isDesktop) {
     return <WidthLimit />;
   }
