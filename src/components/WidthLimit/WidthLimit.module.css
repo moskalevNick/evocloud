@@ -1,0 +1,12 @@
+.container {
+  color: var(--text-color);
+  background-color: var(--background-color);
+  padding: 0 200px;
+  height: 100vh;
+  width: 100wv;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: larger;
+}

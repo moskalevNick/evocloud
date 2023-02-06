@@ -82,5 +82,6 @@
   "passwords_mismatch": "Passwords mismatch",
   "dark_theme": "Dark theme",
   "light_theme": "Light theme",
-  "profile": "Profile"
+  "profile": "Profile",
+  "limit": "For comfortable use, we recommend using a device with a higher resolution"
 }

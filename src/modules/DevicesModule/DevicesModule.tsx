@@ -172,7 +172,7 @@ export const DevicesModule = () => {
                 </div>
               </div>
               <div className={styles.listItemFirmware}>{device.proshivka}</div>
-              <div className={styles.listItemUser}>User_id: {device.id_user}</div>
+              <div className={styles.listItemUser}>{device.id_user}</div>
               <div className={styles.buttonContainer}>
                 <button
                   className={styles.arrowDownButton}
