@@ -23,6 +23,7 @@ import { GroupWidgetsActiveIcon } from '../../components/Icons/GroupWidgetsActiv
 import { LogsActiveIcon } from '../../components/Icons/LogsActiveIcon';
 import { CopyIcon } from '../../components/Icons/CopyIcon';
 import { Nottification } from '../../components/Nottification/Nottification';
+import { CircleIcon } from '../../components/Icons/CircleIcon';
 
 export const DevicesModule = () => {
   const dispatch = useAppDispatch();
@@ -161,7 +162,10 @@ export const DevicesModule = () => {
           {devices?.map((device, i) => (
             <div className={styles.listItem} key={device.id}>
               <div className={styles.listItemNumber}>{i + 1}</div>
-              <div className={styles.listItemDeviceType}>NGC/NG</div>
+              <div className={styles.listItemDeviceType}>
+                <CircleIcon fill={device.status === 'online' ? '#13DA92' : '#F83068'} />
+                NGC/NG
+              </div>
               <div className={styles.listItemName}>{device.name}</div>
               <div className={styles.listItemIDWrapper}>
                 <div className={styles.listItemID} onClick={() => copyID(device.id)}>
