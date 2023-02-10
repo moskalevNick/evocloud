@@ -26,7 +26,7 @@ export const deviceSlice = createSlice({
   initialState: {
     devices: [] as DeviceType[],
     // currentClient: null as ClientType | null,
-    // isLoading: false,
+    isLoading: false,
     // isClientLoading: false,
     // filters: defaultFilterValues,
   },
@@ -52,9 +52,36 @@ export const deviceSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(deviceActions.getDevices.fulfilled, (state, action) => {
-      state.devices = action.payload.devices;
-    });
+    builder
+      .addCase(deviceActions.getDevices.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deviceActions.getDevices.fulfilled, (state, action) => {
+        state.devices = action.payload.devices;
+        state.isLoading = false;
+      })
+      .addCase(deviceActions.getDevices.rejected, (state) => {
+        state.isLoading = false;
+      })
+
+      .addCase(deviceActions.editDevice.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deviceActions.editDevice.fulfilled, (state, action) => {
+        state.isLoading = false;
+
+        const locale = i18next.resolvedLanguage;
+        const nottificationText: string =
+          locale === 'ru' ? 'Контроллер успешно обновлен' : 'Device successfully updated';
+
+        Nottification({
+          name: `${action.payload.x_evo_device} (${action.payload.name})`,
+          text: nottificationText,
+        });
+      })
+      .addCase(deviceActions.editDevice.rejected, (state) => {
+        state.isLoading = false;
+      });
 
     // .addCase(globalActions.editSettings.fulfilled, (state, action) => {
     //   state.filters = {

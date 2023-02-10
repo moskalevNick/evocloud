@@ -2,8 +2,8 @@
   min-width: 364px;
   padding: 14px 20px 14px 14px;
   background-color: var(--background-datepicker);
-  border-radius: 15px;
-  box-shadow: var(--shadow-nottification);
+  /* border-radius: 15px; */
+  /* box-shadow: var(--shadow-nottification); */
   color: var(--text-color);
   display: flex;
   align-items: center;

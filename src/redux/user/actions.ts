@@ -53,6 +53,14 @@ export const userActions = {
     },
   ),
 
+  getCurrentUser: createAsyncThunk(
+    getActionName(modules.USER, actionNames[modules.USER].editSettings),
+    async (userId: number) => {
+      const data = await UserService.getCurrentUser(userId);
+      return data;
+    },
+  ),
+
   // getClient: createAsyncThunk(
   //   getActionName(modules.CLIENTS, actionNames[modules.CLIENTS].getClient),
   //   async (id: string) => {

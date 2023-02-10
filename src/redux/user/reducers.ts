@@ -27,17 +27,18 @@ export const userSlice = createSlice({
   initialState: {
     users: [] as UserType[],
     userGroups: [] as UserGroupType[],
-    currentClient: null as ClientType | null,
+    currentUser: null as UserType | null,
     isLoading: false,
+    isModalLoading: false,
     isClientLoading: false,
     filters: defaultFilterValues,
   },
   reducers: {
-    setCurrentClient: (state, action) => {
-      state.currentClient = action.payload;
+    setCurrentUser: (state, action) => {
+      state.currentUser = action.payload;
     },
-    clearCurrentClient: (state) => {
-      state.currentClient = null;
+    clearCurrentUser: (state) => {
+      state.currentUser = null;
     },
     setFilterDate: (state, action) => {
       state.filters.date = action.payload;
@@ -107,6 +108,17 @@ export const userSlice = createSlice({
       })
       .addCase(userActions.editUser.rejected, (state) => {
         state.isLoading = false;
+      })
+
+      .addCase(userActions.getCurrentUser.pending, (state) => {
+        state.isModalLoading = true;
+      })
+      .addCase(userActions.getCurrentUser.fulfilled, (state, action) => {
+        state.currentUser = action.payload;
+        state.isModalLoading = false;
+      })
+      .addCase(userActions.getCurrentUser.rejected, (state) => {
+        state.isModalLoading = false;
       });
   },
 });

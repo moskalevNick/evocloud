@@ -83,5 +83,7 @@
   "dark_theme": "Dark theme",
   "light_theme": "Light theme",
   "profile": "Profile",
-  "limit": "For comfortable use, we recommend using a device with a higher resolution"
+  "limit": "For comfortable use, we recommend using a device with a higher resolution",
+  "user_controllers": "User controllers",
+  "amount": "Amount"
 }

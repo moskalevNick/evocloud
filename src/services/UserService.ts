@@ -22,4 +22,8 @@ export default class UserService {
     const response = await $api.post('/editUser', newClient);
     return response.data.user;
   }
+  static async getCurrentUser(userId: number): Promise<UserType> {
+    const response = await $api.get(`/userInfo/${userId}`);
+    return response.data.result;
+  }
 }

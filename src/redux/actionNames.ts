@@ -3,6 +3,7 @@ import { modules } from './modules';
 export const actionNames = {
   [modules.DEVICE]: {
     getDevices: 'GET_DEVICES',
+    editDevice: 'EDIT_DEVICE',
   },
   [modules.USER]: {
     getUsers: 'GET_USERS',
@@ -10,6 +11,7 @@ export const actionNames = {
     addUser: 'ADD_USER',
     editUser: 'EDIT_USER',
     editSettings: 'EDIT_SETTINGS',
+    getCurrentUser: 'GET_CURRENT_USER',
   },
   [modules.EXIS]: {
     getExis: 'GET_EXIS',

@@ -64,6 +64,7 @@ export default function App() {
             <Route path="devices" element={<DevicesModule />} />
             <Route path="users" element={<UsersModule />} />
             <Route path="users/:id" element={<UsersModule />} />
+            <Route path="users/controllers/:id" element={<UsersModule />} />
             <Route path="*" element={<Navigate to="/devices" replace={true} />} />
           </Route>
         </Routes>

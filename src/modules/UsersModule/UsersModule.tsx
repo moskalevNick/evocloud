@@ -28,6 +28,9 @@ import { GroupWidgetsActiveIcon } from '../../components/Icons/GroupWidgetsActiv
 import { WidgetActiveIcon } from '../../components/Icons/WidgetActiveIcon';
 import { LogsActiveIcon } from '../../components/Icons/LogsActiveIcon';
 import { EditActiveIcon } from '../../components/Icons/EditActiveIcon';
+import { deviceActions } from '../../redux/devices/actions';
+import { ControllersModal } from '../../components/ControllersModal/ControllersModal';
+import { userSettingsActions } from '../../redux/user/reducers';
 
 export const UsersModule = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +40,7 @@ export const UsersModule = () => {
 
   const { users, userGroups, isLoading } = useAppSelector((state) => state.userReducer);
   const [isUserModalOpen, setUserModalOpen] = useState(false);
+  const [isControllersModalOpen, setControllersModalOpen] = useState<number | null>(null);
   const [activeGroupWidgets, setActiveGroupWidgets] = useState<number | null>(null);
   const [activeWidget, setActiveWidget] = useState<number | null>(null);
   const [activeLogs, setActiveLogs] = useState<number | null>(null);
@@ -53,9 +57,15 @@ export const UsersModule = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (id) {
+    if (window.location.pathname.split('/')[2] === 'controllers') {
+      setControllersModalOpen(Number(id));
+    } else if (id) {
       setUserModalOpen(true);
-    } else setUserModalOpen(false);
+    } else {
+      setUserModalOpen(false);
+      setControllersModalOpen(null);
+      dispatch(userSettingsActions.clearCurrentUser());
+    }
   }, [dispatch, id]);
 
   const sortUsers = (param: string) => {
@@ -101,8 +111,9 @@ export const UsersModule = () => {
     console.log('view log user ' + id);
     e.stopPropagation();
   };
-  const newWidget = (e: React.MouseEvent<HTMLElement>, id: number) => {
-    console.log('new widget ' + id);
+  const getControllers = (e: React.MouseEvent<HTMLElement>, id: number) => {
+    navigate(`/users/controllers/${id}`);
+    // setControllersModalOpen(id);
     e.stopPropagation();
   };
   const getGroupWidgets = (e: React.MouseEvent<HTMLElement>, id: number) => {
@@ -176,7 +187,7 @@ export const UsersModule = () => {
                   </button>
                   <button
                     className={styles.arrowDownButton}
-                    onClick={(e) => newWidget(e, user.id)}
+                    onClick={(e) => getControllers(e, user.id)}
                     onMouseOver={() => setActiveWidget(user.id)}
                     onMouseLeave={() => setActiveWidget(null)}
                   >
@@ -205,6 +216,7 @@ export const UsersModule = () => {
         </div>
       </div>
       {isUserModalOpen && <UserModal />}
+      {isControllersModalOpen && <ControllersModal id={isControllersModalOpen} />}
     </div>
   );
 };

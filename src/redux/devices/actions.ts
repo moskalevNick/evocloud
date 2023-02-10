@@ -3,11 +3,11 @@ import ClientsService from '../../services/ClientService';
 import { actionNames } from '../actionNames';
 import { getActionName } from '../getActionName';
 import { modules } from '../modules';
-import { ClientType, CreateClientType } from '../../types';
+import { CreateDeviceType } from '../../types';
 import DeviceService from '../../services/DeviceService';
 
-type editClientType = {
-  newClient: CreateClientType;
+type editDeviceType = {
+  newDevice: CreateDeviceType;
   id: string;
 };
 
@@ -31,13 +31,13 @@ export const deviceActions = {
     },
   ),
 
-  // editClient: createAsyncThunk(
-  //   getActionName(modules.CLIENTS, actionNames[modules.CLIENTS].editClient),
-  //   async ({ newClient, id }: editClientType) => {
-  //     const data = await ClientsService.editClient(newClient, id);
-  //     return data;
-  //   },
-  // ),
+  editDevice: createAsyncThunk(
+    getActionName(modules.DEVICE, actionNames[modules.DEVICE].editDevice),
+    async ({ newDevice, id }: editDeviceType) => {
+      const data = await DeviceService.editDevice(newDevice, id);
+      return data.device;
+    },
+  ),
 
   // addClient: createAsyncThunk(
   //   getActionName(modules.CLIENTS, actionNames[modules.CLIENTS].addClient),

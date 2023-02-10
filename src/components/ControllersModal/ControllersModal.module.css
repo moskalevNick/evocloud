@@ -1,0 +1,93 @@
+.modalControllers {
+  position: relative;
+  min-width: 1240px;
+  min-height: 600px;
+  max-height: 80%;
+  padding: 0 !important;
+  color: var(--text-color);
+}
+
+.modalLabel {
+  position: absolute;
+  top: 15px;
+  left: 25px;
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 34px;
+}
+
+.controllersContainer {
+  width: 100%;
+  height: 100%;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.userControllersWrapper {
+  margin: 0 10px;
+  border-radius: 15px;
+  position: relative;
+  width: 100%;
+  height: calc(100% - 90px);
+  overflow-y: scroll;
+  background-color: var(--header-background);
+}
+
+.otherControllersWrapper {
+  margin: 0 10px;
+  border-radius: 15px;
+  position: relative;
+  width: 100%;
+  height: calc(100% - 90px);
+  overflow-y: scroll;
+  background-color: var(--header-background);
+}
+
+.userDevicesAmount {
+  position: absolute;
+  bottom: 10px;
+  left: 28px;
+}
+
+.otherDevicesAmount {
+  position: absolute;
+  bottom: 10px;
+  left: 648px;
+}
+
+.controllerContainer {
+  position: relative;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding-left: 28px;
+}
+
+.addButton {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  position: absolute;
+  right: 5px;
+}
+
+.submitButtonsWrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}
+
+.submitButton {
+  width: 104px;
+  height: 27px;
+  margin-left: 10px;
+  border-radius: 6px;
+}
