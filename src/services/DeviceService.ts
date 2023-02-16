@@ -1,14 +1,5 @@
 import $api from '../http';
-import {
-  clientFilterType,
-  ClientType,
-  CreateClientType,
-  CreateDeviceType,
-  FiltersType,
-  SimilarType,
-} from '../types';
-
-// const path = 'clients';
+import { CreateDeviceType } from '../types';
 
 export default class DeviceService {
   static async getDevices(): Promise<any> {

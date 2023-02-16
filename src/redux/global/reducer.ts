@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { UserAvatarType } from './../../types';
 import { modules } from '../modules';
 import { globalActions } from './actions';
 import { Nottification } from '../../components/Nottification/Nottification';
@@ -8,22 +7,12 @@ const globalSlice = createSlice({
   name: modules.GLOBAL,
   initialState: {
     role: 'user',
-    isFullScreenCameraOpen: false,
     isRus: true,
     isAuth: false,
     isDark: true,
-    chatId: null,
-    maxBill: 0,
-    minBill: 0,
     isLoading: false,
-    isAvatarLoading: false,
-    avatar: null as UserAvatarType | null,
-    cameraToken: '',
   },
   reducers: {
-    setFSCamera: (state, action) => {
-      state.isFullScreenCameraOpen = action.payload;
-    },
     setIsRussian: (state, action) => {
       state.isRus = action.payload;
     },
@@ -99,22 +88,6 @@ const globalSlice = createSlice({
       .addCase(globalActions.editSettings.rejected, (state) => {
         state.isLoading = false;
       });
-
-    // .addCase(globalActions.uploadAvatar.pending, (state) => {
-    //   state.isAvatarLoading = true;
-    // })
-    // .addCase(globalActions.uploadAvatar.fulfilled, (state, action) => {
-    //   state.avatar = action.payload;
-    //   state.isAvatarLoading = false;
-    //   const isRus = state.isRus;
-    //   Nottification({
-    //     avatar: action.payload.publicUrl,
-    //     text: isRus ? 'Фото профиля успешно обновлено' : 'Avatar successfully upload',
-    //   });
-    // })
-    // .addCase(globalActions.uploadAvatar.rejected, (state) => {
-    //   state.isAvatarLoading = false;
-    // });
   },
 });
 

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { Modal } from '../Modal/Modal';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Loader } from '../Loader/Loader';
-import { UserCard } from '../UserCard/UserCard';
 
 import styles from './ControllersModal.module.css';
 import { userActions } from '../../redux/user/actions';
@@ -15,14 +14,12 @@ import { Button } from '../Button/Button';
 
 export const ControllersModal: React.FC<{ id: number }> = ({ id }) => {
   const { isModalLoading, currentUser } = useAppSelector((state) => state.userReducer);
-  const { isLoading } = useAppSelector((state) => state.deviceReducer);
-  const { devices } = useAppSelector((state) => state.deviceReducer);
+  const { isLoading, devices } = useAppSelector((state) => state.deviceReducer);
   const [userDevices, setUserDevices] = useState<DeviceType[]>([]);
   const [otherDevices, setOtherDevices] = useState<DeviceType[]>([]);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  // const { id } = useParams();
 
   const onClose = () => {
     navigate(-1);
@@ -31,7 +28,7 @@ export const ControllersModal: React.FC<{ id: number }> = ({ id }) => {
   useEffect(() => {
     dispatch(userActions.getCurrentUser(id));
     dispatch(deviceActions.getDevices());
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     currentUser?.devices && setUserDevices(currentUser.devices);
@@ -88,7 +85,9 @@ export const ControllersModal: React.FC<{ id: number }> = ({ id }) => {
 
   return (
     <Modal open={true} onClose={onClose} className={styles.modalControllers}>
-      <div className={styles.modalLabel}>{t('user_controllers')}</div>
+      <div className={styles.modalLabel}>
+        {t('user_controllers')} {currentUser?.name}
+      </div>
       <div className={styles.controllersContainer}>
         <div className={styles.userControllersWrapper}>
           {userDevices.map((device) => (

@@ -1,19 +1,8 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-
-import { Button } from '../../components/Button/Button';
-import { CardContainer } from '../../components/CardContainer/CardContainer';
-
-import { PlusIcon } from '../../components/Icons/PlusIcon';
 
 import styles from './Devices.module.css';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { Loader } from '../../components/Loader/Loader';
-import { CloudFilters } from '../../components/CloudFilters';
-import { yesterdayEndDay, yesterdayStartDay } from '../../helpers/constants';
-import { visitSettingsActions } from '../../redux/visit/reducers';
-import { exisSettingsActions } from '../../redux/exis/reducers';
 import { useTranslation } from 'react-i18next';
 import { ArrowDownIcon } from '../../components/Icons/ArrowDown';
 import { deviceActions } from '../../redux/devices/actions';
@@ -27,61 +16,16 @@ import { CircleIcon } from '../../components/Icons/CircleIcon';
 
 export const DevicesModule = () => {
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
-  // const { id } = useParams();
   const { t } = useTranslation();
   const [activeGroupWidgets, setActiveGroupWidgets] = useState<number | null>(null);
   const [activeLogs, setActiveLogs] = useState<number | null>(null);
 
-  // const { isFullScreenCameraOpen } = useAppSelector((state) => state.globalReducer);
   const { devices } = useAppSelector((state) => state.deviceReducer);
-  const { isRus, isAuth } = useAppSelector((state) => state.globalReducer);
-
-  // const containerClassnames = classNames(
-  //   styles.container,
-  //   isFullScreenCameraOpen && styles.containerWithCamera,
-  // );
-
-  // const isDefault = () => {
-  //   const defaultDateRange = {
-  //     startDate: yesterdayStartDay,
-  //     endDate: yesterdayEndDay,
-  //   };
-
-  //   if (
-  //     filters.date.startDate &&
-  //     filters.date.endDate &&
-  //     defaultDateRange.startDate.toDateString() ===
-  //       new Date(filters.date.startDate).toDateString() &&
-  //     defaultDateRange.endDate.toDateString() === new Date(filters.date.endDate).toDateString()
-  //   ) {
-  //     return t('customers_added_yesterday');
-  //   } else return t('customers_added_for_selected_period');
-  // };
-
-  // useEffect(() => {
-  //   if (!id) {
-  //     dispatch(visitSettingsActions.clearVisits());
-  //     dispatch(exisSettingsActions.clearExises());
-  //     dispatch(clientSettingsActions.clearCurrentClient());
-  //   }
-  // }, [dispatch]);
+  const { isRus } = useAppSelector((state) => state.globalReducer);
 
   useEffect(() => {
     dispatch(deviceActions.getDevices());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   const dateForServer = {
-  //     startDate: yesterdayStartDay.toISOString(),
-  //     endDate: yesterdayEndDay.toISOString(),
-  //   };
-  //   dispatch(clientSettingsActions.setFilterDate(dateForServer));
-  // }, [dispatch]);
-
-  // const addNewClient = () => {
-  //   navigate('/cloud/new');
-  // };
 
   const headerNumberClasses = classNames(styles.headerItem, styles.headerItemNumber);
   const headerDeviceClasses = classNames(styles.headerItem, styles.headerItemDeviceType);

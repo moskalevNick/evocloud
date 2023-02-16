@@ -34,10 +34,6 @@ export const Registration = () => {
     defaultValues,
   });
 
-  useEffect(() => {
-    dispatch(globalSettingActions.setFSCamera(false));
-  }, [dispatch]);
-
   useLayoutEffect(() => {
     document.body.setAttribute('color-theme', !isDark ? 'light' : 'dark');
   }, [isDark]);

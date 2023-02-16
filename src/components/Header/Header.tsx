@@ -4,29 +4,15 @@ import styles from './Header.module.css';
 import Logo from '../../assets/images/smallLogo.png';
 import { Input } from '../Input/Input';
 import { SearchIcon } from '../Icons/SearchIcon';
-import { ArrowLeftIcon } from '../Icons/ArrowLeftIcon';
-import { FullScreenIcon } from '../Icons/FullScreenIcon';
-import classNames from 'classnames';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { globalSettingActions } from '../../redux/global/reducer';
+import { useAppSelector } from '../../hooks/redux';
 import { HeaderSettings } from './HeaderSettings';
-import { imagesActions } from '../../redux/images/actions';
-import { Loader } from '../Loader/Loader';
 import { useTranslation } from 'react-i18next';
-import { yesterdayEndDay, yesterdayStartDay } from '../../helpers/constants';
 
 export const Header = () => {
-  const { i18n, t } = useTranslation();
-  const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const { pathname } = useLocation();
-  const [isOpenSearchInput, setOpenSearchInput] = useState(false);
   const [placeholderText, setPlaceholderText] = useState(`${t('device_name_or_ID')}`);
-  const isOpenFullScreenCamera = useAppSelector(
-    (state) => state.globalReducer.isFullScreenCameraOpen,
-  );
   const { isDark } = useAppSelector((state) => state.globalReducer);
-  const { cameraToken } = useAppSelector((state) => state.globalReducer);
-  const cameraView = useAppSelector((state) => state.imageReducer.cameraFrame);
 
   const activeStyle = {
     fontWeight: '700',
@@ -60,28 +46,14 @@ export const Header = () => {
           setPlaceholderText(`${t('device_name_or_ID')}`);
           break;
       }
-  }, [pathname]);
+  }, [pathname, t]);
 
   useEffect(() => {
     document.body.setAttribute('color-theme', !isDark ? 'light' : 'dark');
   }, [isDark]);
 
-  // useEffect(() => {
-  //   if (i18n.resolvedLanguage === 'ru') {
-  //     setPlaceholderText('Название уст-ва или ID');
-  //   } else setPlaceholderText('Device name or ID');
-  // }, [i18n.resolvedLanguage]);
-
   const onInputChange = (e: string) => {
     // dispatch(clientSettingsActions.setSearchString(e));
-  };
-
-  const setYesterday = () => {
-    const dateForServer = {
-      startDate: yesterdayStartDay.toISOString(),
-      endDate: yesterdayEndDay.toISOString(),
-    };
-    // dispatch(clientSettingsActions.setFilterDate(dateForServer));
   };
 
   return (

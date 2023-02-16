@@ -1,18 +1,14 @@
 import { combineReducers, configureStore, Slice } from '@reduxjs/toolkit';
+import { widgetReducer } from './widgets/reducers';
 import { deviceReducer } from './devices/reducers';
-import { visitReducer } from './visit/reducers';
-import { imageReducer } from './images/reducers';
-import { exisReducer } from './exis/reducers';
 import { globalReducer } from './global/reducer';
 import { userReducer } from './user/reducers';
 
 const rootReducer = combineReducers({
   globalReducer,
-  exisReducer,
   deviceReducer,
-  imageReducer,
-  visitReducer,
   userReducer,
+  widgetReducer,
 });
 
 const store = configureStore({

@@ -85,5 +85,9 @@
   "profile": "Profile",
   "limit": "For comfortable use, we recommend using a device with a higher resolution",
   "user_controllers": "User controllers",
-  "amount": "Amount"
+  "amount": "Amount",
+  "user_widgets_and_groups": "User groups & widgets",
+  "groups": "Groups",
+  "widgets": "Widgets",
+  "clear": "Clear"
 }

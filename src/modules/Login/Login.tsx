@@ -1,5 +1,6 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import Logo from '../../assets/images/logo.png';
 import { Checkbox } from '../../components/Checkbox/Checkbox';
 import { Input } from '../../components/Input/Input';
@@ -7,16 +8,11 @@ import { Button } from '../../components/Button/Button';
 import { ControlWrapperForm } from '../../components/ControlWrapper/ControlWrapperForm';
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
 import { ToggleSwitch } from '../../components/ToggleSwitch/ToggleSwitch';
-import { MoonIconPreview } from '../../components/Icons/MoonIconPreview';
-import { PlanetIcon } from '../../components/Icons/PlanetIcon';
 import styles from './Login.module.css';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { globalSettingActions } from '../../redux/global/reducer';
 import { globalActions } from '../../redux/global/actions';
 import { Loader } from '../../components/Loader/Loader';
 import { LanguageSelect } from '../../components/LanguageSelect/LanguageSelect';
-import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
 import { EyeIcon } from '../../components/Icons/EyeIcon';
 import { CrossEyeIcon } from '../../components/Icons/CrossEyeIcon';
 
@@ -39,16 +35,12 @@ export const Login = () => {
   const [isShowPassword, showPassword] = useState(false);
   const [isDark, setDark] = useState(true);
   const { isLoading } = useAppSelector((state) => state.globalReducer);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const methods = useForm<FormType>({
     mode: 'onChange',
     defaultValues,
   });
-
-  useEffect(() => {
-    dispatch(globalSettingActions.setFSCamera(false));
-  }, [dispatch]);
 
   useLayoutEffect(() => {
     document.body.setAttribute('color-theme', !isDark ? 'light' : 'dark');

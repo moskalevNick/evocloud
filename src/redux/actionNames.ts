@@ -5,6 +5,10 @@ export const actionNames = {
     getDevices: 'GET_DEVICES',
     editDevice: 'EDIT_DEVICE',
   },
+  [modules.WIDGET]: {
+    getWidgets: 'GET_WIDGETS',
+    getGroupWidgets: 'GET_GROUP_WIDGETS',
+  },
   [modules.USER]: {
     getUsers: 'GET_USERS',
     getUserGroups: 'GET_USER_GROUPS',
@@ -12,22 +16,6 @@ export const actionNames = {
     editUser: 'EDIT_USER',
     editSettings: 'EDIT_SETTINGS',
     getCurrentUser: 'GET_CURRENT_USER',
-  },
-  [modules.EXIS]: {
-    getExis: 'GET_EXIS',
-    editExis: 'EDIT_EXIS',
-    createExis: 'CREATE_EXIS',
-    deleteExis: 'DELETE_EXIS',
-  },
-  [modules.VISIT]: {
-    getVisits: 'GET_VISITS',
-    updateVisit: 'UPDATE_VISIT',
-  },
-  [modules.IMAGE]: {
-    getImages: 'GET_IMAGES',
-    uploadImage: 'UPLOAD_IMAGE',
-    deleteImage: 'DELETE_IMAGE',
-    getCameraFrame: 'GET_CAMERA_FRAME',
   },
   [modules.GLOBAL]: {
     login: 'LOGIN',

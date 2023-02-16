@@ -1,0 +1,133 @@
+.modalWidgets {
+  position: relative;
+  width: 1240px;
+  min-height: 600px;
+  max-height: 80%;
+  padding: 0 !important;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.modalLabel {
+  position: absolute;
+  top: 15px;
+  left: 25px;
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 34px;
+}
+
+.mainContainer {
+  margin-top: 100px;
+  padding-bottom: 10px;
+  width: 100%;
+  height: calc(100% - 100px);
+  display: flex;
+  background-color: var(--header-background);
+  border-radius: 0 0 16px 16px;
+}
+
+.containerLabelGroups {
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  padding: 10px 10px 10px 30px;
+  background-color: var(--header-background);
+  display: flex;
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 34px;
+}
+
+.containerLabelWidgets {
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  left: 310px;
+  padding: 10px;
+  display: flex;
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 34px;
+}
+
+.addButton {
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  margin-left: 20px;
+}
+
+.groupsContainer {
+  width: 50%;
+  height: 100%;
+  border-right: 2px solid #173b59;
+  overflow-y: auto;
+}
+
+.groupWrapper {
+  background-color: var(--widget-background);
+  margin: 15px auto;
+  width: 246px;
+  border-radius: 6px;
+  height: 34px;
+  cursor: pointer;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.02em;
+  color: #e3f2ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.activeGroupWrapper {
+  background-color: #148ef8;
+}
+
+.clearButton {
+  margin-top: 50px;
+}
+
+.widgetsContainer {
+  width: 150%;
+  height: fit-content;
+  max-height: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 15px;
+  padding: 15px;
+  overflow-y: auto;
+  align-items: center;
+}
+
+.widgetWrapper {
+  height: 110px;
+  width: 110px;
+  background-color: var(--widget-background);
+  border-radius: 6px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.02em;
+  color: #e3f2ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

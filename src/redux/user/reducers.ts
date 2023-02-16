@@ -1,26 +1,9 @@
 import { UserType, UserGroupType } from './../../types';
-import { createSlice, current } from '@reduxjs/toolkit';
-import { ClientType, FiltersType } from '../../types';
+import { createSlice } from '@reduxjs/toolkit';
 import { modules } from '../modules';
 import { userActions } from './actions';
 import { Nottification } from '../../components/Nottification/Nottification';
-import { yesterdayStartDay, yesterdayEndDay } from '../../helpers/constants';
-import { globalActions } from '../global/actions';
-import { RootStateExtended } from '../store';
 import i18next from 'i18next';
-
-export const defaultFilterValues: FiltersType = {
-  searchString: '',
-  date: {
-    startDate: yesterdayStartDay.toISOString(),
-    endDate: yesterdayEndDay.toISOString(),
-  },
-  range: {
-    min: 0,
-    max: 9999,
-  },
-  status: [],
-};
 
 export const userSlice = createSlice({
   name: modules.USER,
@@ -31,7 +14,6 @@ export const userSlice = createSlice({
     isLoading: false,
     isModalLoading: false,
     isClientLoading: false,
-    filters: defaultFilterValues,
   },
   reducers: {
     setCurrentUser: (state, action) => {
@@ -39,18 +21,6 @@ export const userSlice = createSlice({
     },
     clearCurrentUser: (state) => {
       state.currentUser = null;
-    },
-    setFilterDate: (state, action) => {
-      state.filters.date = action.payload;
-    },
-    setFilterRange: (state, action) => {
-      state.filters.range = action.payload;
-    },
-    setFilterStatus: (state, action) => {
-      state.filters.status = action.payload;
-    },
-    setSearchString: (state, action) => {
-      state.filters.searchString = action.payload;
     },
   },
 
@@ -125,6 +95,3 @@ export const userSlice = createSlice({
 
 export const userReducer = userSlice.reducer;
 export const userSettingsActions = userSlice.actions;
-
-// export const selectFilters = (state: RootStateExtended<typeof userSlice>) =>
-//   state.clientReducer.filters;

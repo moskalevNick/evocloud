@@ -228,3 +228,42 @@ export type CreateDeviceType = {
   properties?: string;
   deleted?: number;
 };
+
+export type WidgetType = {
+  user_id: string;
+  group_id: string;
+  controller: DeviceType;
+  type_uvh: number;
+  comment: string;
+  favorite: string;
+  min: string;
+  max: string;
+  min2: string;
+  max2: string;
+  bar_prev_value: string;
+  vuh_rgb_red: string;
+  vuh_rgb_green: string;
+  vuh_rgb_blue: string;
+  rtsp_address: string;
+  control_elements: any;
+  hash: string;
+  label_on: string;
+  label_off: string;
+  id: number;
+  deleted: number;
+  controller_id: string;
+  properties: any;
+  name: string;
+  type: any;
+  group: GroupWidgetsType;
+};
+
+export type GroupWidgetsType = {
+  user_id: string;
+  comment: string;
+  control_elements: any;
+  id: number;
+  deleted: number;
+  properties: any;
+  name: string;
+};

@@ -3,19 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from '../../components/Button/Button';
-import { CardContainer } from '../../components/CardContainer/CardContainer';
 
 import { PlusIcon } from '../../components/Icons/PlusIcon';
 
 import styles from './Users.module.css';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Loader } from '../../components/Loader/Loader';
-import { CloudFilters } from '../../components/CloudFilters';
-import { yesterdayEndDay, yesterdayStartDay } from '../../helpers/constants';
-import { visitSettingsActions } from '../../redux/visit/reducers';
-import { exisSettingsActions } from '../../redux/exis/reducers';
 import { useTranslation } from 'react-i18next';
-import UserService from '../../services/UserService';
 import { userActions } from '../../redux/user/actions';
 import { ArrowDownIcon } from '../../components/Icons/ArrowDown';
 import { EditIcon } from '../../components/Icons/EditIcon';
@@ -23,14 +17,14 @@ import { LogsIcon } from '../../components/Icons/LogsIcon';
 import { WidgetIcon } from '../../components/Icons/WidgetIcon';
 import { GroupWidgetsIcon } from '../../components/Icons/GroupWidgetsIcon';
 import { UserModal } from '../../components/UserModal/UserModal';
-import { globalActions } from '../../redux/global/actions';
 import { GroupWidgetsActiveIcon } from '../../components/Icons/GroupWidgetsActiveIcon';
 import { WidgetActiveIcon } from '../../components/Icons/WidgetActiveIcon';
 import { LogsActiveIcon } from '../../components/Icons/LogsActiveIcon';
 import { EditActiveIcon } from '../../components/Icons/EditActiveIcon';
-import { deviceActions } from '../../redux/devices/actions';
 import { ControllersModal } from '../../components/ControllersModal/ControllersModal';
 import { userSettingsActions } from '../../redux/user/reducers';
+import { WidgetsModal } from '../../components/WidgetsModal/WidgetsModal';
+import { widgetSettingsActions } from '../../redux/widgets/reducers';
 
 export const UsersModule = () => {
   const dispatch = useAppDispatch();
@@ -38,9 +32,10 @@ export const UsersModule = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { users, userGroups, isLoading } = useAppSelector((state) => state.userReducer);
+  const { users, isLoading } = useAppSelector((state) => state.userReducer);
   const [isUserModalOpen, setUserModalOpen] = useState(false);
   const [isControllersModalOpen, setControllersModalOpen] = useState<number | null>(null);
+  const [isWidgetsModalOpen, setWidgetsModalOpen] = useState<number | null>(null);
   const [activeGroupWidgets, setActiveGroupWidgets] = useState<number | null>(null);
   const [activeWidget, setActiveWidget] = useState<number | null>(null);
   const [activeLogs, setActiveLogs] = useState<number | null>(null);
@@ -51,22 +46,33 @@ export const UsersModule = () => {
   const headerLoginClasses = classNames(styles.headerItem, styles.headerItemLogin);
   const headerStatusClasses = classNames(styles.headerItem, styles.headerItemStatus);
 
+  const pathName = window.location.pathname.split('/')[2];
+
   useEffect(() => {
     dispatch(userActions.getUsers());
     dispatch(userActions.getUserGroups());
   }, [dispatch]);
 
   useEffect(() => {
-    if (window.location.pathname.split('/')[2] === 'controllers') {
-      setControllersModalOpen(Number(id));
-    } else if (id) {
-      setUserModalOpen(true);
-    } else {
-      setUserModalOpen(false);
-      setControllersModalOpen(null);
-      dispatch(userSettingsActions.clearCurrentUser());
+    switch (pathName) {
+      case 'info':
+        setUserModalOpen(true);
+        break;
+      case 'controllers':
+        setControllersModalOpen(Number(id));
+        break;
+      case 'widgets':
+        setWidgetsModalOpen(Number(id));
+        break;
+      default:
+        setUserModalOpen(false);
+        setControllersModalOpen(null);
+        setWidgetsModalOpen(null);
+        dispatch(userSettingsActions.clearCurrentUser());
+        dispatch(widgetSettingsActions.clearCurrentWidgets());
+        dispatch(widgetSettingsActions.clearCurrentGroupWidgets());
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, pathName]);
 
   const sortUsers = (param: string) => {
     switch (param) {
@@ -103,8 +109,8 @@ export const UsersModule = () => {
     navigate('/users/new');
   };
 
-  const editUser = (e: React.MouseEvent<HTMLElement>, id: number) => {
-    console.log('edit user ' + id);
+  const getUserInfo = (e: React.MouseEvent<HTMLElement>, id: number) => {
+    navigate(`/users/info/${id}`);
     e.stopPropagation();
   };
   const openLogs = (e: React.MouseEvent<HTMLElement>, id: number) => {
@@ -113,11 +119,10 @@ export const UsersModule = () => {
   };
   const getControllers = (e: React.MouseEvent<HTMLElement>, id: number) => {
     navigate(`/users/controllers/${id}`);
-    // setControllersModalOpen(id);
     e.stopPropagation();
   };
   const getGroupWidgets = (e: React.MouseEvent<HTMLElement>, id: number) => {
-    console.log('group widgets ' + id);
+    navigate(`/users/widgets/${id}`);
     e.stopPropagation();
   };
 
@@ -166,7 +171,7 @@ export const UsersModule = () => {
               <div
                 className={styles.listItem}
                 key={user.id}
-                onClick={() => navigate(`/users/${user.id}`)}
+                onClick={(e) => getUserInfo(e, user.id)}
               >
                 <div className={styles.listItemNumber}>{i + 1}</div>
                 <div className={styles.listItemName}>{user.name}</div>
@@ -203,7 +208,7 @@ export const UsersModule = () => {
                   </button>
                   <button
                     className={styles.arrowDownButton}
-                    onClick={(e) => editUser(e, user.id)}
+                    onClick={(e) => getUserInfo(e, user.id)}
                     onMouseOver={() => setActiveEdit(user.id)}
                     onMouseLeave={() => setActiveEdit(null)}
                   >
@@ -217,6 +222,7 @@ export const UsersModule = () => {
       </div>
       {isUserModalOpen && <UserModal />}
       {isControllersModalOpen && <ControllersModal id={isControllersModalOpen} />}
+      {isWidgetsModalOpen && <WidgetsModal id={isWidgetsModalOpen} />}
     </div>
   );
 };

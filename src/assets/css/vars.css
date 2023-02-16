@@ -44,6 +44,7 @@ body[color-theme='light'] {
   --active-background: #cad2d8;
   --button-hover-background: #f3f7fd;
   --label-hover-background: #f3f7fd;
+  --widget-background: #f3f7fd;
 }
 
 body[color-theme='dark'] {
@@ -92,6 +93,7 @@ body[color-theme='dark'] {
   --active-background: #0c2c47;
   --button-hover-background: #20659e;
   --label-hover-background: #113858;
+  --widget-background: #173b59;
 }
 
 body[view-calendar='default'] {

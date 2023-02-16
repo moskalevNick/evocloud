@@ -35,7 +35,6 @@ export const UserCard = () => {
   const isUserClassnames = classNames(styles.isAdminButton, !isAdmin && styles.activeButton);
   const isAdminClassnames = classNames(styles.isAdminButton, isAdmin && styles.activeButton);
 
-  const images = useAppSelector((state) => state.imageReducer.images);
   const { users } = useAppSelector((state) => state.userReducer);
 
   const dispatch = useAppDispatch();
