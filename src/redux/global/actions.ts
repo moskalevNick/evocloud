@@ -5,17 +5,16 @@ import { getActionName } from '../getActionName';
 import { modules } from '../modules';
 import AuthService from '../../services/AuthService';
 import axios from 'axios';
-import { editSettingsType, UserType } from '../../types';
+import { editSettingsType } from '../../types';
 import UserService from '../../services/UserService';
-import i18next from 'i18next';
 import Cookies from 'js-cookie';
-import Logo from '../../assets/images/logo.png';
 
 type authType = {
   username: string;
   password: string;
   isRemember: boolean;
 };
+
 type registrationType = {
   username: string;
   password: string;
@@ -83,6 +82,14 @@ export const globalActions = {
         };
       } catch (e) {
         console.log(e);
+
+        // localStorage.removeItem('access-token');
+        // localStorage.removeItem('refresh-token');
+        // document.cookie = `refresh_token=`;
+        // window.location.href = '/';
+        // return {
+        //   isAuth: false,
+        // };
       }
     },
   ),

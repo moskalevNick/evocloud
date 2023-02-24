@@ -12,6 +12,7 @@ import { Button } from '../Button/Button';
 import { PlusIcon } from '../Icons/PlusIcon';
 import { WidgetType } from '../../types';
 import classNames from 'classnames';
+import { Widget } from '../Widget/Widget';
 
 export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
   const { isModalLoading, currentUser } = useAppSelector((state) => state.userReducer);
@@ -96,10 +97,8 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
           />
         </div>
         <div className={styles.widgetsContainer}>
-          {currentWidgets.map((widget) => (
-            <div className={styles.widgetWrapper} key={widget.id}>
-              {widget.name}
-            </div>
+          {currentWidgets?.map((widget) => (
+            <Widget WidgetData={widget} key={widget.id} />
           ))}
         </div>
       </div>

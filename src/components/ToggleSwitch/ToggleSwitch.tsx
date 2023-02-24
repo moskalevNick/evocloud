@@ -14,6 +14,7 @@ export type ToggleSwitchProps = {
   readOnly?: boolean;
   size?: 'long' | 'short';
   labels?: React.ReactNode[];
+  isWidget?: boolean;
 };
 
 export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
@@ -26,11 +27,18 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
   labels = [<MoonIcon />, <SunIcon />],
   className,
   size = 'long',
+  isWidget = false,
 }) => {
   const toggleSwitchClass = classNames(
     styles.switch,
     size === 'short' && styles.shortSwitch,
     className,
+  );
+
+  const sliderClasses = classNames(
+    styles.slider,
+    isWidget && styles.widgetSlider,
+    isWidget && checked && styles.activeWidgetSlider,
   );
 
   return (
@@ -44,7 +52,7 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
         disabled={disabled}
         readOnly={readOnly}
       />
-      <span className={styles.slider}>
+      <span className={sliderClasses}>
         <div className={styles.firstLabel}>{labels[0]}</div>
         <div className={styles.secondLabel}>{labels[1]}</div>
       </span>

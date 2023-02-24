@@ -89,5 +89,7 @@
   "user_widgets_and_groups": "User groups & widgets",
   "groups": "Groups",
   "widgets": "Widgets",
-  "clear": "Clear"
+  "clear": "Clear",
+  "open": "Open",
+  "closed": "Closed"
 }

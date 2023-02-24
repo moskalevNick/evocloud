@@ -102,13 +102,12 @@ export const Login = () => {
         </FormProvider>
       </div>
       <div className={styles.wrapperToggleEng}>
-        <LanguageSelect size="short" />
+        <LanguageSelect />
       </div>
       <div className={styles.sign}>DESIGNED BY EVO CONTROLS</div>
       <div className={styles.wrapperToggleTheme}>
         <ToggleSwitch
           checked={isDark}
-          size="short"
           onChange={() => {
             setDark((prev) => !prev);
           }}

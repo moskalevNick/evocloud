@@ -20,4 +20,9 @@ export const widgetActions = {
       return data;
     },
   ),
+
+  getStream: createAsyncThunk(
+    getActionName(modules.WIDGET, actionNames[modules.WIDGET].getCameraFrame),
+    async (cameraToken: string) => await WidgetService.getStream(cameraToken),
+  ),
 };

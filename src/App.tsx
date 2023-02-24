@@ -13,13 +13,13 @@ import { WidthLimit } from './components/WidthLimit/WidthLimit';
 export default function App() {
   const dispatch = useAppDispatch();
   const isDesktop = useMediaQuery('(min-width: 1200px)');
-  const { isAuth, isLoading } = useAppSelector((state) => state.globalReducer);
+  const { isAuth, isLoading, isRus } = useAppSelector((state) => state.globalReducer);
 
   useEffect(() => {
     if (localStorage.getItem('access-token')) {
       dispatch(globalActions.checkAuth());
     }
-  }, [dispatch]);
+  }, [dispatch, isRus]);
 
   if (!isDesktop) {
     return <WidthLimit />;

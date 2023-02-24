@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { widgetActions } from './actions';
-import { GroupWidgetsType, WidgetType } from '../../types';
+import { CameraFrameType, GroupWidgetsType, WidgetType } from '../../types';
 import { modules } from '../modules';
+
+type FramesType = Record<string, CameraFrameType>;
 
 export const widgetSlice = createSlice({
   name: modules.WIDGET,
@@ -9,6 +11,7 @@ export const widgetSlice = createSlice({
     widgets: [] as WidgetType[],
     groupWidgets: [] as GroupWidgetsType[],
     isLoading: false,
+    cameraFrame: {} as FramesType,
   },
   reducers: {
     clearCurrentWidgets: (state) => {
@@ -16,6 +19,9 @@ export const widgetSlice = createSlice({
     },
     clearCurrentGroupWidgets: (state) => {
       state.groupWidgets = [];
+    },
+    resetCameraFrame: (state) => {
+      state.cameraFrame = {};
     },
   },
 
@@ -41,6 +47,20 @@ export const widgetSlice = createSlice({
       })
       .addCase(widgetActions.getGroupWidgets.rejected, (state) => {
         state.isLoading = false;
+      })
+
+      .addCase(widgetActions.getStream.pending, (state) => {
+        // state.isLoading = true;
+      })
+      .addCase(widgetActions.getStream.fulfilled, (state, action) => {
+        // console.log(action.meta.arg);
+        state.cameraFrame[action.meta.arg] = action.payload[0];
+        // state.cameraFrame = action.payload[0];
+
+        // state.isLoading = false;
+      })
+      .addCase(widgetActions.getStream.rejected, (state) => {
+        // state.isLoading = false;
       });
   },
 });

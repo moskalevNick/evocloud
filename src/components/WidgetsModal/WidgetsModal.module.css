@@ -5,7 +5,7 @@
   max-height: 80%;
   padding: 0 !important;
   color: var(--text-color);
-  background-color: var(--background-color);
+  background-color: var(--header-background);
 }
 
 .modalLabel {
@@ -103,31 +103,12 @@
   width: 150%;
   height: fit-content;
   max-height: 100%;
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  max-width: fit-content;
+  min-width: 75%;
+  display: flex;
+  flex-wrap: wrap;
   gap: 15px;
   padding: 15px;
   overflow-y: auto;
   align-items: center;
-}
-
-.widgetWrapper {
-  height: 110px;
-  width: 110px;
-  background-color: var(--widget-background);
-  border-radius: 6px;
-  font-family: 'Gilroy';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
-  display: flex;
-  align-items: center;
-  letter-spacing: 0.02em;
-  color: #e3f2ff;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
 }

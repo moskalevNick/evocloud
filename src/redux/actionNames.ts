@@ -8,6 +8,7 @@ export const actionNames = {
   [modules.WIDGET]: {
     getWidgets: 'GET_WIDGETS',
     getGroupWidgets: 'GET_GROUP_WIDGETS',
+    getCameraFrame: 'GET_CAMERA_FRAME',
   },
   [modules.USER]: {
     getUsers: 'GET_USERS',
