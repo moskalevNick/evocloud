@@ -46,23 +46,23 @@ export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => 
     }
   }, [WidgetData]);
 
-  useEffect(() => {
-    if (StreamToken) {
-      setCameraStream(StreamToken);
-    }
-  }, [StreamToken]);
+  // useEffect(() => {
+  //   if (StreamToken) {
+  //     setCameraStream(StreamToken);
+  //   }
+  // }, [StreamToken]);
 
-  useEffect(() => {
-    if (cameraStream) {
-      // const interval = setInterval(() => {
-      //   dispatch(widgetActions.getStream(cameraStream));
-      // }, 500);
-      // return () => {
-      //   clearInterval(interval);
-      //   dispatch(widgetSettingsActions.resetCameraFrame());
-      // };
-    }
-  }, [dispatch, cameraStream]);
+  // useEffect(() => {
+  //   if (cameraStream) {
+  //     const interval = setInterval(() => {
+  //       dispatch(widgetActions.getStream(cameraStream));
+  //     }, 500);
+  //     return () => {
+  //       clearInterval(interval);
+  //       dispatch(widgetSettingsActions.resetCameraFrame());
+  //     };
+  //   }
+  // }, [dispatch, cameraStream]);
 
   const iconClick = (value: string) => {
     console.log('icon value = ', value);
@@ -363,7 +363,7 @@ export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => 
                 return (
                   <div className={styles.littleWidgetWrapper}>
                     {WidgetData.type ? WidgetData.type.name : WidgetData.name}
-                    <img src={`${process.env.REACT_APP_API_URL}${WidgetData.type?.icon}`} />
+                    {/* <img src={`${process.env.REACT_APP_API_URL}${WidgetData.type?.icon}`} /> */}
                   </div>
                 );
             }
