@@ -54,13 +54,13 @@ export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => 
 
   useEffect(() => {
     if (cameraStream) {
-      const interval = setInterval(() => {
-        dispatch(widgetActions.getStream(cameraStream));
-      }, 500);
-      return () => {
-        clearInterval(interval);
-        dispatch(widgetSettingsActions.resetCameraFrame());
-      };
+      // const interval = setInterval(() => {
+      //   dispatch(widgetActions.getStream(cameraStream));
+      // }, 500);
+      // return () => {
+      //   clearInterval(interval);
+      //   dispatch(widgetSettingsActions.resetCameraFrame());
+      // };
     }
   }, [dispatch, cameraStream]);
 
