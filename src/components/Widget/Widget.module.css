@@ -1,4 +1,5 @@
 .bigWidgetWrapper {
+  position: relative;
   width: 235px;
   height: 235px;
   padding: 10px;
@@ -17,7 +18,107 @@
   align-items: center;
 }
 
+.bigWidgetWrapper > .widgetName {
+  white-space: nowrap;
+}
+
+.colorCircle {
+  width: 50px;
+  height: 50px;
+}
+
+.colorPickerCover {
+  position: absolute;
+  top: 60px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  cursor: not-allowed;
+}
+
+.tempPickerCover {
+  position: absolute;
+  top: 59px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  cursor: not-allowed;
+}
+
+.circleBar {
+  height: 140px;
+  width: 140px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    #ada9f3 0deg,
+    #cae7f5 144.6deg,
+    #feebe0 172.15deg,
+    #ffddd3 211.88deg,
+    #f8dee0 244.9deg,
+    #ada9f3 360deg
+  );
+  display: flex;
+  align-items: center;
+}
+
+.tempPickerWrapper {
+  position: relative;
+  display: flex;
+}
+
+.minGrad {
+  align-self: end;
+  width: 20px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  color: #6083d6;
+}
+
+.maxGrad {
+  align-self: end;
+  width: 20px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+
+  color: #dc7e94;
+}
+
+.labelTemp {
+  position: absolute;
+  top: 17px;
+  left: 37px;
+  width: 106px;
+  height: 106px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(274.35deg, #eff6ff 3.77%, #fefeff 93.34%);
+
+  font-style: normal;
+  font-weight: 300;
+  font-size: 28px;
+  line-height: 33px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #284a69;
+}
+
 .middleWidgetWrapper {
+  position: relative;
   width: 235px;
   height: 110px;
   padding: 0 10px;
@@ -33,10 +134,23 @@
 
   display: flex;
   flex-direction: column;
+}
+
+.percentBar {
+  width: 25px;
+}
+
+.bar {
+  height: 20px;
+  width: 140px;
+  border-radius: 4px;
+  display: flex;
   align-items: center;
+  padding: 0 2px;
 }
 
 .littleWidgetWrapper {
+  padding: 0 10px;
   position: relative;
   width: 110px;
   height: 110px;
@@ -51,8 +165,6 @@
   color: #e3f2ff;
 
   display: flex;
-  align-items: center;
-  text-align: center;
   flex-direction: column;
 }
 
@@ -101,8 +213,22 @@
 
 .toggleWrapper {
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   left: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-align: center;
+}
+
+.toggleWrapperTemp {
+  position: absolute;
+  bottom: 10px;
+  left: 100px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-align: center;
 }
 
 .redPoint {
@@ -174,14 +300,15 @@
 .buttonsContainer {
   position: absolute;
   bottom: 10px;
-  width: 100%;
+  width: calc(100%-20px);
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  gap: 10px;
 }
 
 .openCloseBtns {
-  width: 45px;
   height: 24px;
+  width: 40px;
   background: #daf2f3;
   border-radius: 6px;
   fill: #3d67d6;
@@ -242,6 +369,7 @@
 }
 
 .widgetName {
+  max-height: 34px;
   width: 100%;
   margin: 5px 0;
   font-family: 'Gilroy';
@@ -251,10 +379,14 @@
   line-height: 17px;
   letter-spacing: 0.02em;
   color: #e3f2ff;
+  overflow: hidden;
 }
 
 .widgetGroupName {
   width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+
   margin-bottom: 5px;
   font-family: 'Gilroy';
   font-style: normal;

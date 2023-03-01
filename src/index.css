@@ -133,3 +133,7 @@ body {
   width: fit-content;
   max-width: 420px;
 }
+
+.IroSlider {
+  display: none !important;
+}

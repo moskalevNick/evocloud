@@ -17,7 +17,7 @@ export const BinaryButton: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData 
       ? '0'
       : WidgetData.control_elements.input.on.device;
 
-  const currentStateValueOn = states.states.find(
+  const currentStateValueOn = states.states?.find(
     (state: any) => state.device.toString() === device,
   )[WidgetData.control_elements.input.on.object][Number(WidgetData.control_elements.input.on.addr)];
 

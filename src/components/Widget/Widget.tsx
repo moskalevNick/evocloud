@@ -13,6 +13,9 @@ import { BinaryButton } from './BinaryButton';
 import { Button } from '../Button/Button';
 import { OpenIcon } from '../Icons/OpenIcon';
 import { CloseIcon } from '../Icons/CloseIcon';
+import { BarButton } from './BarButton';
+import { Rgb } from './Rgb';
+import { TempReg } from './TempReg';
 
 type widgetSizeType = 'big' | 'middle' | 'little';
 
@@ -73,42 +76,57 @@ export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => 
       {(() => {
         switch (widgetSize) {
           case 'big':
-            return (
-              <div className={styles.bigWidgetWrapper}>
-                <div className={styles.widgetName}> {WidgetData.name}</div>
-                <div className={styles.widgetGroupName}> {WidgetData.group.name}</div>
-                {cameraStream && cameraView && (
-                  <div>
-                    {cameraView[StreamToken]?.img_small ? (
-                      <img
-                        src={`http://cams.evocontrols.com:8282${cameraView[StreamToken]?.img_small}`}
-                        className={styles.webcam}
-                        height={145}
-                        alt="webcam"
-                      />
-                    ) : (
-                      <Loader />
+            switch (WidgetData.type?.name) {
+              case 'rtsp':
+                return (
+                  <div className={styles.bigWidgetWrapper}>
+                    <div className={styles.widgetName}> {WidgetData.name}</div>
+                    <div className={styles.widgetGroupName}> {WidgetData.group.name}</div>
+                    waiting for tolya's fix
+                    {cameraStream && cameraView && (
+                      <div>
+                        {cameraView[StreamToken]?.img_small ? (
+                          <img
+                            src={`http://cams.evocontrols.com:8282${cameraView[StreamToken]?.img_small}`}
+                            className={styles.webcam}
+                            height={145}
+                            alt="webcam"
+                          />
+                        ) : (
+                          <Loader />
+                        )}
+                      </div>
                     )}
                   </div>
-                )}
-              </div>
-            );
+                );
+              case 'rgb':
+                if (WidgetData.controller?.current_raw_state) {
+                  return <Rgb WidgetData={WidgetData} />;
+                } else
+                  return (
+                    <div className={styles.littleWidgetWrapper}>
+                      widget without controller state
+                    </div>
+                  );
+              case 'temp_regulator_button':
+                if (WidgetData.controller?.current_raw_state) {
+                  return <TempReg WidgetData={WidgetData} />;
+                } else
+                  return (
+                    <div className={styles.littleWidgetWrapper}>
+                      widget without controller state
+                    </div>
+                  );
+              default:
+                return (
+                  <div className={styles.bigWidgetWrapper}>
+                    big widget {WidgetData.type ? WidgetData.type.name : WidgetData.name}
+                  </div>
+                );
+            }
           case 'middle':
             if (WidgetData.controller?.current_raw_state) {
-              const states = JSON.parse(WidgetData.controller.current_raw_state);
-              const currentDeviceState = states.states.find(
-                (state: any) =>
-                  state.device.toString() === WidgetData.control_elements.input.device,
-              );
-
-              console.log(currentDeviceState);
-
-              return (
-                <div className={styles.middleWidgetWrapper}>
-                  <div className={styles.widgetName}> {WidgetData.name}</div>
-                  <div className={styles.widgetGroupName}> {WidgetData.group.name}</div>
-                </div>
-              );
+              return <BarButton WidgetData={WidgetData} />;
             } else
               return (
                 <div className={styles.littleWidgetWrapper}>widget without controller state</div>
@@ -164,7 +182,7 @@ export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => 
                   );
                   const currentTemperature = Math.round(
                     currentDeviceState[WidgetData.control_elements.input.object][
-                      Number(WidgetData.control_elements.input.addr)
+                      Number(WidgetData.control_elements.input.addr) - 1
                     ] / 100,
                   );
 
@@ -198,7 +216,7 @@ export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => 
                     (state: any) =>
                       state.device.toString() === WidgetData.control_elements.input.on.device,
                   )[WidgetData.control_elements.input.on.object][
-                    Number(WidgetData.control_elements.input.on.addr)
+                    Number(WidgetData.control_elements.input.on.addr) - 1
                   ];
 
                   let currentStateValueOff;
@@ -213,7 +231,7 @@ export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => 
                       (state: any) =>
                         state.device.toString() === WidgetData.control_elements.input.off.device,
                     )[WidgetData.control_elements.input.off.object][
-                      Number(WidgetData.control_elements.input.off.addr)
+                      Number(WidgetData.control_elements.input.off.addr) - 1
                     ];
 
                     conditionForOff = WidgetData.control_elements.input.off.condition;
@@ -282,8 +300,8 @@ export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => 
 
                   return (
                     <div className={styles.littleWidgetWrapper}>
-                      <div className={styles.widgetName}> {WidgetData.name}</div>
-                      <div className={styles.widgetGroupName}> {WidgetData.group.name}</div>
+                      <div className={styles.widgetName}>{WidgetData.name}</div>
+                      <div className={styles.widgetGroupName}>{WidgetData.group.name}</div>
                       <div className={styles.pointWrapper}>
                         {WidgetData.type?.name === 'open_close_button' ? (
                           isOn ? (
@@ -312,7 +330,7 @@ export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => 
                   );
                   const currentPercents = Math.round(
                     currentDeviceState[WidgetData.control_elements.input.object][
-                      Number(WidgetData.control_elements.input.addr)
+                      Number(WidgetData.control_elements.input.addr) - 1
                     ] / 100,
                   );
 

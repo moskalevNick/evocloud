@@ -37,7 +37,7 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
   useEffect(() => {
     if (!activeGroup) {
       setCurrentWidgets(widgets);
-    } else {
+    } else if (widgets) {
       setCurrentWidgets(widgets.filter((widget) => widget.group_id === activeGroup?.toString()));
     }
   }, [activeGroup, widgets]);

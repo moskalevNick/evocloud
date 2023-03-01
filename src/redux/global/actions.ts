@@ -61,7 +61,8 @@ export const globalActions = {
   checkAuth: createAsyncThunk(
     getActionName(modules.GLOBAL, actionNames[modules.GLOBAL].checkAuth),
     async () => {
-      const refreshToken = Cookies.get('refresh_token');
+      // let refreshToken: string | undefined | null = Cookies.get('refresh_token');
+      const refreshToken = localStorage.getItem('refresh-token');
 
       if (!refreshToken) {
         return false;
@@ -74,7 +75,7 @@ export const globalActions = {
 
         localStorage.setItem('access-token', response.data.access_token);
         localStorage.setItem('refresh-token', response.data.refresh_token);
-        document.cookie = `refresh_token=${response.data.refresh_token}`;
+        // document.cookie = `refresh_token=${response.data.refresh_token}`;
 
         return {
           isAuth: true,
