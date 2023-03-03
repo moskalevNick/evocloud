@@ -1,4 +1,6 @@
 .bigWidgetWrapper {
+  grid-column: auto / span 2;
+  grid-row: auto / span 2;
   position: relative;
   width: 235px;
   height: 235px;
@@ -118,6 +120,7 @@
 }
 
 .middleWidgetWrapper {
+  grid-column: auto / span 2;
   position: relative;
   width: 235px;
   height: 110px;
@@ -173,7 +176,6 @@
 }
 
 .littleWidgetIconsWrapper {
-  padding-top: 20px;
   width: 110px;
   height: 110px;
   background-color: var(--widget-background);
@@ -326,7 +328,7 @@
 }
 
 .middleWidgetIconsWrapper {
-  padding-top: 20px;
+  grid-column: auto / span 2;
   width: 235px;
   height: 110px;
   background-color: var(--widget-background);
@@ -337,21 +339,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-}
-
-.widgetLabel {
-  position: absolute;
-  width: 100%;
-  top: 2px;
-  font-family: 'Gilroy';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  letter-spacing: 0.02em;
-  color: #e3f2ff;
 }
 
 .icon {
@@ -372,6 +359,20 @@
   max-height: 34px;
   width: 100%;
   margin: 5px 0;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.02em;
+  color: #e3f2ff;
+  overflow: hidden;
+}
+
+.widgetIconsName {
+  max-height: 15px;
+  white-space: nowrap;
+  width: 100%;
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 600;

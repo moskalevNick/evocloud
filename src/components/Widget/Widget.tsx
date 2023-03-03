@@ -139,9 +139,9 @@ export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => 
               case 'icons':
                 return (
                   <div className={styles.littleWidgetIconsContainer}>
-                    <div className={styles.widgetLabel}>{WidgetData.name}</div>
                     {WidgetData.control_elements.input.icons.length < 5 ? (
                       <div className={styles.littleWidgetIconsWrapper}>
+                        <div className={styles.widgetIconsName}>{WidgetData.name}</div>
                         {WidgetData.control_elements.input.icons.map((icon: any) => {
                           return (
                             <div key={icon.icon}>
@@ -157,6 +157,7 @@ export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => 
                       </div>
                     ) : (
                       <div className={styles.middleWidgetIconsWrapper}>
+                        <div className={styles.widgetIconsName}>{WidgetData.name}</div>
                         {WidgetData.control_elements.input.icons.map((icon: any) => {
                           return (
                             <div key={icon.icon}>

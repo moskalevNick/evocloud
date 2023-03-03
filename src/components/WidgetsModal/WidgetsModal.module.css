@@ -105,10 +105,9 @@
   max-height: 100%;
   max-width: fit-content;
   min-width: 75%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
   gap: 15px;
   padding: 15px;
   overflow-y: auto;
-  align-items: center;
 }

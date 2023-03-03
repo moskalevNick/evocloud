@@ -110,9 +110,6 @@ export const TempReg: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) =>
     let alpha = (Math.atan(coordX / coordY) * 180) / Math.PI;
 
     switch (currentQuater) {
-      case 5:
-        alpha = 20;
-        break;
       case 2:
         alpha = 180 + alpha;
         break;
