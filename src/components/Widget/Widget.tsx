@@ -19,9 +19,11 @@ import { TempReg } from './TempReg';
 
 type widgetSizeType = 'big' | 'middle' | 'little';
 
-export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => {
+export const Widget: React.FC<{ WidgetData: WidgetType; size: string }> = ({
+  WidgetData,
+  size,
+}) => {
   const dispatch = useAppDispatch();
-  const [widgetSize, setWidgetSize] = useState<widgetSizeType>('little');
   const [StreamToken, setStreamToken] = useState<string>('');
   const [cameraStream, setCameraStream] = useState<string>('');
   const cameraView = useAppSelector((state) => state.widgetReducer.cameraFrame);
@@ -32,22 +34,10 @@ export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => 
   // }, [cameraView]);
 
   useEffect(() => {
-    if (WidgetData.type && WidgetData.type.name) {
-      switch (WidgetData.type.name) {
-        case 'rtsp':
-          setStreamToken(WidgetData.control_elements.input.token);
-          setWidgetSize('big');
-          break;
-        case 'temp_regulator_button':
-        case 'rgb':
-          setWidgetSize('big');
-          break;
-        case 'bar_button':
-          setWidgetSize('middle');
-          break;
-      }
+    if (size === 'rtsp') {
+      setStreamToken(WidgetData.control_elements.input.token);
     }
-  }, [WidgetData]);
+  }, [size]);
 
   // useEffect(() => {
   //   if (StreamToken) {
@@ -74,7 +64,7 @@ export const Widget: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => 
   return (
     <>
       {(() => {
-        switch (widgetSize) {
+        switch (size) {
           case 'big':
             switch (WidgetData.type?.name) {
               case 'rtsp':

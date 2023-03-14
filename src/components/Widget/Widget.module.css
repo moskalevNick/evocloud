@@ -2,8 +2,8 @@
   grid-column: auto / span 2;
   grid-row: auto / span 2;
   position: relative;
-  width: 235px;
-  height: 235px;
+  width: 247px;
+  height: 247px;
   padding: 10px;
   background-color: var(--widget-background);
   border-radius: 6px;
@@ -122,7 +122,7 @@
 .middleWidgetWrapper {
   grid-column: auto / span 2;
   position: relative;
-  width: 235px;
+  width: 247px;
   height: 110px;
   padding: 0 10px;
   background-color: var(--widget-background);
@@ -329,7 +329,7 @@
 
 .middleWidgetIconsWrapper {
   grid-column: auto / span 2;
-  width: 235px;
+  width: 247px;
   height: 110px;
   background-color: var(--widget-background);
   border-radius: 6px;

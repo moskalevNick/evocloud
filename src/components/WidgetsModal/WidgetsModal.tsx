@@ -19,6 +19,9 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
   const { widgets, groupWidgets, isLoading } = useAppSelector((state) => state.widgetReducer);
   const [activeGroup, setActiveGroup] = useState<number | null>(null);
   const [currentWidgets, setCurrentWidgets] = useState<WidgetType[]>(widgets);
+  const [bigWidgets, setBigWidgets] = useState<WidgetType[]>([]);
+  const [middleWidgets, setMiddleWidgets] = useState<WidgetType[]>([]);
+  const [littleWidgets, setLittleWidgets] = useState<WidgetType[]>([]);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -41,6 +44,31 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
       setCurrentWidgets(widgets.filter((widget) => widget.group_id === activeGroup?.toString()));
     }
   }, [activeGroup, widgets]);
+
+  useEffect(() => {
+    if (currentWidgets.length) {
+      setBigWidgets([]);
+      setMiddleWidgets([]);
+      setLittleWidgets([]);
+      currentWidgets.forEach((widget) => {
+        if (widget.type) {
+          if (
+            widget.type.name === 'rtsp' ||
+            widget.type.name === 'temp_regulator_button' ||
+            widget.type.name === 'rgb'
+          ) {
+            setBigWidgets((prev) => [...prev, widget]);
+          } else if (widget.type.name === 'bar_button' || widget.type.name === 'icons') {
+            setMiddleWidgets((prev) => [...prev, widget]);
+          } else setLittleWidgets((prev) => [...prev, widget]);
+        }
+      });
+    } else {
+      setBigWidgets([]);
+      setMiddleWidgets([]);
+      setLittleWidgets([]);
+    }
+  }, [currentWidgets]);
 
   const addNewGroup = () => {
     console.log('new group');
@@ -97,8 +125,14 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
           />
         </div>
         <div className={styles.widgetsContainer}>
-          {currentWidgets?.map((widget) => (
-            <Widget WidgetData={widget} key={widget.id} />
+          {littleWidgets?.map((widget) => (
+            <Widget WidgetData={widget} key={widget.id} size="little" />
+          ))}
+          {middleWidgets?.map((widget) => (
+            <Widget WidgetData={widget} key={widget.id} size="middle" />
+          ))}
+          {bigWidgets?.map((widget) => (
+            <Widget WidgetData={widget} key={widget.id} size="big" />
           ))}
         </div>
       </div>

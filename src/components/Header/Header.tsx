@@ -12,7 +12,7 @@ export const Header = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const [placeholderText, setPlaceholderText] = useState(`${t('device_name_or_ID')}`);
-  const { isDark } = useAppSelector((state) => state.globalReducer);
+  const { isDark, role } = useAppSelector((state) => state.globalReducer);
 
   const activeStyle = {
     fontWeight: '700',
@@ -75,13 +75,35 @@ export const Header = () => {
           >
             {t('devices')}
           </NavLink>
-          <NavLink
-            to="/users"
-            className={styles.section}
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
-          >
-            {t('users')}
-          </NavLink>
+          {role === 'admin' && (
+            <NavLink
+              to="/distributors"
+              end
+              className={styles.section}
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              {t('distributors')}
+            </NavLink>
+          )}
+          {(role === 'distributor' || role === 'admin') && (
+            <NavLink
+              to="/integrators"
+              end
+              className={styles.section}
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              {t('integrators')}
+            </NavLink>
+          )}
+          {role !== 'user' && (
+            <NavLink
+              to="/users"
+              className={styles.section}
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              {t('users')}
+            </NavLink>
+          )}
         </div>
       </>
       <HeaderSettings />

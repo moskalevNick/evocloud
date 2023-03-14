@@ -17,6 +17,7 @@ export const actionNames = {
     editUser: 'EDIT_USER',
     editSettings: 'EDIT_SETTINGS',
     getCurrentUser: 'GET_CURRENT_USER',
+    getUserInfo: 'GET_USER_INFO',
   },
   [modules.GLOBAL]: {
     login: 'LOGIN',

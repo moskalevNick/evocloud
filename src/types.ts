@@ -167,14 +167,15 @@ export type UserType = {
   isDark?: boolean;
   isRus?: boolean;
   devices?: DeviceType[];
+  childs?: UserType[];
 };
 
 export type createUserType = {
   id?: string;
-  group_id: string;
-  login: string;
+  group_id?: string;
+  login?: string;
   password: string;
-  name: string;
+  name?: string;
   email?: string;
   phone?: string;
   company_name?: string;

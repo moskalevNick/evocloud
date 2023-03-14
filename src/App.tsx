@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
-import { Login } from './modules/Login/Login';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Login } from './modules/Login/Login';
 import { DevicesModule } from './modules/DevicesModule/DevicesModule';
 import { Layout } from './modules/Layout/Layout';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
@@ -9,11 +9,13 @@ import { globalActions } from './redux/global/actions';
 import { Loader } from './components/Loader/Loader';
 import { UsersModule } from './modules/UsersModule/UsersModule';
 import { WidthLimit } from './components/WidthLimit/WidthLimit';
+import { IntegratorsModule } from './modules/IntegratorsModule/IntegratorsModule';
+import { DistributorsModule } from './modules/DistributorsModule/DistributorsModule';
 
 export default function App() {
   const dispatch = useAppDispatch();
   const isDesktop = useMediaQuery('(min-width: 1200px)');
-  const { isAuth, isLoading, isRus } = useAppSelector((state) => state.globalReducer);
+  const { isAuth, isLoading, isRus, role } = useAppSelector((state) => state.globalReducer);
 
   useEffect(() => {
     if (localStorage.getItem('access-token')) {
@@ -39,27 +41,26 @@ export default function App() {
     );
   }
 
-  // if (role === 'admin') {
-  //   return (
-  //     <BrowserRouter>
-  //       <Routes>
-  //         <Route path="/registration" element={<Registration />} />
-  //         <Route path="*" element={<Navigate to="/registration" replace={true} />} />
-  //       </Routes>
-  //     </BrowserRouter>
-  //   );
-  // }
-
   return (
     <BrowserRouter>
       <div>
         <Routes>
           <Route element={<Layout />}>
             <Route path="devices" element={<DevicesModule />} />
-            <Route path="users" element={<UsersModule />} />
-            <Route path="users/info/:id" element={<UsersModule />} />
-            <Route path="users/controllers/:id" element={<UsersModule />} />
-            <Route path="users/widgets/:id" element={<UsersModule />} />
+            {role === 'admin' && <Route path="distributors" element={<DistributorsModule />} />}
+            {role === 'admin' && (
+              <Route path="distributors/info/:id" element={<DistributorsModule />} />
+            )}
+            {(role === 'distributor' || role === 'admin') && (
+              <Route path="integrators" element={<IntegratorsModule />} />
+            )}
+            {(role === 'distributor' || role === 'admin') && (
+              <Route path="integrators/info/:id" element={<IntegratorsModule />} />
+            )}
+            {role !== 'user' && <Route path="users" element={<UsersModule />} />}
+            {role !== 'user' && <Route path="users/info/:id" element={<UsersModule />} />}
+            {role !== 'user' && <Route path="users/controllers/:id" element={<UsersModule />} />}
+            {role !== 'user' && <Route path="users/widgets/:id" element={<UsersModule />} />}
             <Route path="*" element={<Navigate to="/devices" replace={true} />} />
           </Route>
         </Routes>

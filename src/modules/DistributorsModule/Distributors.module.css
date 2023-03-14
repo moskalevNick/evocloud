@@ -16,10 +16,17 @@
   color: #8dc5f6;
 }
 
+.addButton {
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  margin-left: 20px;
+}
+
 .listWrapper {
   background-color: var(--header-background);
   margin-top: 30px;
-  height: calc(100vh - 217px);
+  height: calc(100vh - 218px);
   border-radius: 18px;
   overflow-y: hidden;
 }
@@ -42,29 +49,34 @@
 }
 
 .headerItemNumber {
-  width: 69px;
-}
-
-.headerItemDeviceType {
-  width: 141px;
+  width: 79px;
 }
 
 .headerItemName {
-  width: 321px;
+  width: 400px;
 }
 
-.headerItemID {
-  width: 263px;
+.headerItemTotalDevices {
+  width: 236px;
 }
 
-.headerItemFirmware {
-  width: 133px;
+.headerItemUserDevices {
+  width: 183px;
+}
+
+.headerItemOnlineDevices {
+  width: 80px;
 }
 
 .arrowDownButton {
   cursor: pointer;
   border: none;
   background-color: transparent;
+}
+
+.listItemsWrapper {
+  height: calc(100% - 52px);
+  overflow-y: scroll;
 }
 
 .listItem {
@@ -74,61 +86,6 @@
   display: flex;
   align-items: center;
   padding-left: 28px;
-}
-
-.listItemsWrapper {
-  height: calc(100% - 52px);
-  overflow-y: scroll;
-}
-
-.listItemNumber {
-  width: 69px;
-}
-
-.listItemDeviceType {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 141px;
-}
-
-.listItemName {
-  width: 321px;
-}
-
-.listItemIDWrapper {
-  width: 263px;
-}
-
-.listItemID {
-  padding: 0px 12px 0px 12px;
-  width: max-content;
-  display: flex;
-  gap: 6px;
-}
-
-.copyIconWrapper {
-  display: none;
-}
-
-.listItemID:hover {
-  background: var(--label-hover-background);
-  border: 1px solid #148ef8;
-  box-shadow: 0px 0px 5px #158ef8;
-  border-radius: 7px;
-}
-
-.listItemID:hover .copyIconWrapper {
-  display: block;
-}
-
-.listItemFirmware {
-  width: 133px;
-}
-
-.buttonContainer {
-  position: absolute;
-  right: 28px;
 }
 
 .listItemAfter {
@@ -161,4 +118,52 @@
 
 .listItem:hover {
   background-color: var(--active-background);
+}
+
+.listItemNumber {
+  width: 79px;
+}
+
+.listItemName {
+  width: 400px;
+}
+
+.listItemTotalDevices {
+  width: 236px;
+}
+
+.listItemUserDevices {
+  width: 183px;
+}
+
+.listItemOnlineDevices {
+  width: 80px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.listItemOfflineDevices {
+  width: 80px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.buttonContainer {
+  position: absolute;
+  right: 8px;
+}
+
+.administratorContainer {
+  padding: 3px 12px;
+  background: #433b14;
+  border-radius: 5px;
+  color: #ff9d42;
+}
+
+.userContainer {
+  padding: 3px 12px;
+  background: #043b6a;
+  border-radius: 5px;
+  color: #148ef8;
 }

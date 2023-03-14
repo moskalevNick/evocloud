@@ -19,6 +19,7 @@ export const DevicesModule = () => {
   const { t } = useTranslation();
   const [activeGroupWidgets, setActiveGroupWidgets] = useState<number | null>(null);
   const [activeLogs, setActiveLogs] = useState<number | null>(null);
+  const [hoverElement, setHoverElement] = useState<number | null>(null);
 
   const { devices } = useAppSelector((state) => state.deviceReducer);
   const { isRus } = useAppSelector((state) => state.globalReducer);
@@ -32,6 +33,14 @@ export const DevicesModule = () => {
   const headerTitleClasses = classNames(styles.headerItem, styles.headerItemName);
   const headerIDClasses = classNames(styles.headerItem, styles.headerItemID);
   const headerFirmwareClasses = classNames(styles.headerItem, styles.headerItemFirmware);
+  const listItemBeforeClassnames = classNames(
+    styles.listItemAfter,
+    styles.listItemAfterBeforeActive,
+  );
+  const listItemAfterClassnames = classNames(
+    styles.listItemBefore,
+    styles.listItemAfterBeforeActive,
+  );
 
   const sortDevices = (param: string) => {
     switch (param) {
@@ -104,7 +113,17 @@ export const DevicesModule = () => {
         </div>
         <div className={styles.listItemsWrapper}>
           {devices?.map((device, i) => (
-            <div className={styles.listItem} key={device.id}>
+            <div
+              className={styles.listItem}
+              key={device.id}
+              onMouseOver={() => setHoverElement(device.id)}
+              onMouseLeave={() => setHoverElement(null)}
+            >
+              <div
+                className={
+                  hoverElement === device.id ? listItemBeforeClassnames : styles.listItemAfter
+                }
+              />
               <div className={styles.listItemNumber}>{i + 1}</div>
               <div className={styles.listItemDeviceType}>
                 <CircleIcon fill={device.status === 'online' ? '#13DA92' : '#F83068'} />
@@ -143,6 +162,11 @@ export const DevicesModule = () => {
                   {activeLogs === device.id ? <LogsActiveIcon /> : <LogsIcon />}
                 </button>
               </div>
+              <div
+                className={
+                  hoverElement === device.id ? listItemAfterClassnames : styles.listItemAfter
+                }
+              />
             </div>
           ))}
         </div>

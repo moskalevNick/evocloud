@@ -1,41 +1,51 @@
 import styles from './UserCard.module.css';
-import React, { useEffect, useState, useMemo, FC } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
 import classNames from 'classnames';
-import Draggable, { DraggableData } from 'react-draggable';
-import { ClientType, CreateClientType, ImageType, UserType } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { t } from 'i18next';
 import { PlusIcon } from '../Icons/PlusIcon';
-import { EditIcon } from '../Icons/EditIcon';
 import { EditIconActive } from '../Icons/EditIconActive';
 import { AvatarIcon } from '../Icons/AvatarIcon';
 import { EyeIcon } from '../Icons/EyeIcon';
 import { CrossEyeIcon } from '../Icons/CrossEyeIcon';
 import { StopIcon } from '../Icons/StopIcon';
 import { userActions } from '../../redux/user/actions';
+import { userSettingsActions } from '../../redux/user/reducers';
 
 export const UserCard = () => {
-  const [user, setUser] = useState<UserType | undefined>(undefined);
+  const { currentUser } = useAppSelector((state) => state.userReducer);
   const [isShowPassword, showPassword] = useState(false);
   const [isShowPasswordRepeat, showPasswordRepeat] = useState(false);
   const [passwordMismatch, setPasswordMismatch] = useState(true);
 
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [nameInputValue, setNameInputValue] = useState('');
-  const [loginInputValue, setLoginInputValue] = useState('');
+  const [currentRole, setCurrentRole] = useState('user');
+  const [nameInputValue, setNameInputValue] = useState(currentUser?.name || '');
+  const [loginInputValue, setLoginInputValue] = useState(currentUser?.login || '');
   const [passwordInputValue, setPasswordInputValue] = useState('');
   const [passwordRepeatInputValue, setPasswordRepeatInputValue] = useState('');
-  const [emailInputValue, setEmailInputValue] = useState('');
-  const [phoneInputValue, setPhoneInputValue] = useState('');
+  const [emailInputValue, setEmailInputValue] = useState(currentUser?.email || '');
+  const [phoneInputValue, setPhoneInputValue] = useState(currentUser?.phone || '');
 
-  const isUserClassnames = classNames(styles.isAdminButton, !isAdmin && styles.activeButton);
-  const isAdminClassnames = classNames(styles.isAdminButton, isAdmin && styles.activeButton);
-
-  const { users } = useAppSelector((state) => state.userReducer);
+  const isUserClassnames = classNames(
+    styles.isAdminButton,
+    currentRole === 'user' && styles.activeButton,
+  );
+  const isIntegratorClassnames = classNames(
+    styles.isAdminButton,
+    currentRole === 'integrator' && styles.activeButton,
+  );
+  const isDistributorClassnames = classNames(
+    styles.isAdminButton,
+    currentRole === 'distributor' && styles.activeButton,
+  );
+  const isAdminClassnames = classNames(
+    styles.isAdminButton,
+    currentRole === 'administrator' && styles.activeButton,
+  );
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -43,20 +53,47 @@ export const UserCard = () => {
 
   useEffect(() => {
     if (id && id !== 'new') {
-      const currentUser: UserType | undefined = users.find((user) => user.id.toString() === id);
-      currentUser && setUser(currentUser);
+      dispatch(userActions.getCurrentUser(Number(id)));
+    } else if (id === 'new') {
+      dispatch(userSettingsActions.clearCurrentUser());
     }
-  }, [id, users]);
+  }, [id, dispatch]);
 
   useEffect(() => {
-    if (user) {
-      user.group_id === '1' && setIsAdmin(true);
-      setNameInputValue(user.name);
-      setLoginInputValue(user.login);
-      setEmailInputValue(user.email);
-      setPhoneInputValue(user.phone);
+    if (currentUser && id !== 'new') {
+      setNameInputValue(currentUser.name);
+      setLoginInputValue(currentUser.login);
+      setEmailInputValue(currentUser.email);
+      setPhoneInputValue(currentUser.phone);
+      switch (currentUser.group_id) {
+        case '1':
+          setCurrentRole('administrator');
+          break;
+        case '2':
+          setCurrentRole('integrator');
+          break;
+        case '3':
+          setCurrentRole('distributor');
+          break;
+        case '6':
+        default:
+          break;
+      }
+    } else if (!currentUser) {
+      setCurrentRole('user');
+      setNameInputValue('');
+      setLoginInputValue('');
+      setEmailInputValue('');
+      setPhoneInputValue('');
     }
-  }, [user]);
+  }, [currentUser, id]);
+
+  useEffect(() => {
+    const resetCurrentUser = () => {
+      dispatch(userSettingsActions.clearCurrentUser());
+    };
+    return resetCurrentUser();
+  }, [dispatch]);
 
   useEffect(() => {
     if (passwordInputValue && passwordRepeatInputValue) {
@@ -71,8 +108,25 @@ export const UserCard = () => {
       navigate('/users');
     }
 
+    let groupId;
+
+    switch (currentRole) {
+      case 'administrator':
+        groupId = '1';
+        break;
+      case 'integrator':
+        groupId = '2';
+        break;
+      case 'distributor':
+        groupId = '3';
+        break;
+      default:
+        groupId = '6';
+        break;
+    }
+
     const newUserForServer = {
-      group_id: isAdmin ? '1' : '6',
+      group_id: groupId,
       login: loginInputValue,
       password: passwordInputValue,
       name: nameInputValue,
@@ -122,13 +176,23 @@ export const UserCard = () => {
       <div className={styles.horizontalLine} />
       <div className={styles.userMainDataContainer}>
         <div className={styles.userAvatar}>
-          {user && user.avatar ? <img src={user.avatar} /> : <AvatarIcon />}
+          {currentUser && currentUser.avatar ? (
+            <img src={currentUser.avatar} alt={`avatar ${currentUser.name}`} />
+          ) : (
+            <AvatarIcon />
+          )}
         </div>
         <div className={styles.isAdminWrapper}>
-          <button className={isUserClassnames} onClick={() => setIsAdmin(false)}>
+          <button className={isUserClassnames} onClick={() => setCurrentRole('user')}>
             {t('user')}
           </button>
-          <button className={isAdminClassnames} onClick={() => setIsAdmin(true)}>
+          <button className={isIntegratorClassnames} onClick={() => setCurrentRole('integrator')}>
+            {t('integrator')}
+          </button>
+          <button className={isDistributorClassnames} onClick={() => setCurrentRole('distributor')}>
+            {t('distributor')}
+          </button>
+          <button className={isAdminClassnames} onClick={() => setCurrentRole('administrator')}>
             {t('administrator')}
           </button>
         </div>

@@ -112,19 +112,14 @@
 
 .wrapperSectionToggle {
   display: flex;
-  justify-content: space-between;
-  position: absolute;
-  right: 47%;
-  width: 122px;
+  justify-content: center;
+  margin-right: 300px;
+  width: calc(100% - 500px);
   height: 100%;
   color: var(--input-placeholder-color);
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
-}
-
-.wrapperSectionToggleWithOpenCamera {
-  width: 108px;
 }
 
 .section {
@@ -255,81 +250,106 @@
   background-color: var(--line-color);
 }
 
+.downLine {
+  position: absolute;
+  bottom: 58px;
+  left: 0px;
+  background-color: var(--line-color);
+  width: 100%;
+  height: 1px;
+  border: none;
+}
+
 /* modal settings */
 .modalSettings {
   width: 976px;
   height: 593px;
 }
 
-.billsWrapper {
-  width: 904px;
-  display: flex;
-  margin: 24px 0;
-}
-
-.minBillWrapper {
-  width: 202px;
-  display: flex;
-  margin-right: 24px;
-}
-
-.labelInput {
+.profileNameWrapper {
   display: flex;
   align-items: center;
-  width: 105px;
-  margin-right: 14px;
+  padding: 10px;
+  gap: 20px;
+}
+
+.profileName {
+  font-family: 'Gilroy';
+  font-style: normal;
   font-weight: 600;
-  font-size: 14px;
-}
-
-.billInput {
-  width: 91px;
-  height: 42px;
-  margin-left: 14px;
-}
-
-.botWrapper {
-  margin: 24px 0;
-}
-
-.botLabel {
-  font-weight: 600;
-  font-size: 14px;
-  margin-bottom: 16px;
-}
-
-.botInput {
-  width: 296px;
-  height: 42px;
-}
-
-.uploadPhotoWrapper {
-  margin: 24px 0;
+  font-size: 18px;
+  line-height: 21px;
   display: flex;
   align-items: center;
+  letter-spacing: 0.02em;
+  color: #8dc5f6;
 }
 
-.uploadButton,
-.uploadButton:hover {
-  width: 72px;
-  height: 72px;
-  padding: 0;
-  border: none;
-  background: transparent;
+.status {
+  margin-top: 5px;
+}
+
+.line {
+  margin: 0;
+}
+
+.emailPhoneContainer {
+  padding: 24px 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.phoneLabel,
+.emailLabel {
+  padding-bottom: 12px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+
+  color: #6d9cc5;
+}
+
+.inputWrapper {
+  width: 280px;
+}
+
+.inputLabel {
+  height: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.passwordsContainer {
+  padding: 24px 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.sendSMSButton {
+  margin-top: 30px;
+  align-self: flex-start;
+  width: 104px;
+  height: 27px;
+  margin-left: 10px;
+  border-radius: 6px;
+}
+
+.submitButton {
   position: absolute;
-  opacity: 0;
-}
-
-.labelUpload {
-  margin-left: 16px;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.languageLabel {
-  margin-bottom: 16px;
-  font-weight: 600;
-  font-size: 14px;
+  bottom: 25px;
+  right: 20px;
+  width: 104px;
+  height: 27px;
+  margin-top: 30px;
+  margin-left: 10px;
+  border-radius: 6px;
 }
 
 /* modal logout */

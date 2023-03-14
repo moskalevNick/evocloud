@@ -5,11 +5,14 @@ import { userActions } from './actions';
 import { Nottification } from '../../components/Nottification/Nottification';
 import i18next from 'i18next';
 
+type UsersInfoType = Record<string, UserType>;
+
 export const userSlice = createSlice({
   name: modules.USER,
   initialState: {
     users: [] as UserType[],
     userGroups: [] as UserGroupType[],
+    usersInfo: {} as UsersInfoType,
     currentUser: null as UserType | null,
     isLoading: false,
     isModalLoading: false,
@@ -21,6 +24,9 @@ export const userSlice = createSlice({
     },
     clearCurrentUser: (state) => {
       state.currentUser = null;
+    },
+    clearUsersInfo: (state) => {
+      state.usersInfo = {};
     },
   },
 
@@ -88,6 +94,17 @@ export const userSlice = createSlice({
         state.isModalLoading = false;
       })
       .addCase(userActions.getCurrentUser.rejected, (state) => {
+        state.isModalLoading = false;
+      })
+
+      .addCase(userActions.getUserInfo.pending, (state) => {
+        state.isModalLoading = true;
+      })
+      .addCase(userActions.getUserInfo.fulfilled, (state, action) => {
+        state.usersInfo[action.meta.arg] = action.payload;
+        state.isModalLoading = false;
+      })
+      .addCase(userActions.getUserInfo.rejected, (state) => {
         state.isModalLoading = false;
       });
   },

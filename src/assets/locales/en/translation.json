@@ -62,9 +62,11 @@
   "date": "Date",
   "wrong_login_or_password": "Wrong login or password",
   "distributors": "Distributors",
+  "distributor": "Distributor",
   "devices": "Devices",
   "device": "Device",
   "integrators": "Integrators",
+  "integrator": "Integrator",
   "users": "Users",
   "user": "User",
   "device_name_or_ID": "Device name or ID",
@@ -91,5 +93,12 @@
   "widgets": "Widgets",
   "clear": "Clear",
   "open": "Open",
-  "closed": "Closed"
+  "closed": "Closed",
+  "name_fullname": "Name/Fullname",
+  "send_sms": "Send SMS",
+  "total_controllers": "Total controllers",
+  "user_devices": "User controllers",
+  "online": "Online",
+  "offline": "Offline",
+  "integrator_devices": "Integrators devices"
 }

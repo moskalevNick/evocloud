@@ -62,9 +62,11 @@
   "date": "Дата",
   "wrong_login_or_password": "Неправильный логин или пароль",
   "distributors": "Дистрибьюторы",
+  "distributor": "Дистрибьютор",
   "devices": "Устройства",
   "device": "Устройство",
   "integrators": "Интеграторы",
+  "integrator": "Интегратор",
   "users": "Пользователи",
   "user": "Пользователь",
   "device_name_or_ID": "Название уст-ва или ID",
@@ -91,5 +93,12 @@
   "widgets": "Виджеты",
   "clear": "Очистить",
   "open": "Открыто",
-  "closed": "Закрыто"
+  "closed": "Закрыто",
+  "name_fullname": "Название/ФИО",
+  "send_sms": "Выслать СМС",
+  "total_controllers": "Всего контроллеров",
+  "user_devices": "У пользователей",
+  "online": "В сети",
+  "offline": "Не в сети",
+  "integrator_devices": "У интеграторов"
 }

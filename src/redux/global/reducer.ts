@@ -6,6 +6,7 @@ import { Nottification } from '../../components/Nottification/Nottification';
 const globalSlice = createSlice({
   name: modules.GLOBAL,
   initialState: {
+    userId: null as number | null,
     role: 'user',
     isRus: true,
     isAuth: false,
@@ -30,6 +31,23 @@ const globalSlice = createSlice({
         state.isDark = action.payload.isDark;
         state.isRus = action.payload.isRus;
         state.isAuth = action.payload.isAuth;
+        state.userId = action.payload.user_id;
+
+        switch (action.payload.group_id) {
+          case 1:
+            state.role = 'admin';
+            break;
+          case 2:
+            state.role = 'integrator';
+            break;
+          case 3:
+            state.role = 'distributor';
+            break;
+          case 6:
+          case null:
+          default:
+            break;
+        }
 
         state.isLoading = false;
       })
@@ -60,6 +78,23 @@ const globalSlice = createSlice({
         state.isAuth = action.payload.isAuth;
         state.isDark = action.payload.isDark;
         state.isRus = action.payload.isRus;
+        state.userId = action.payload.user_id;
+
+        switch (action.payload.group_id) {
+          case 1:
+            state.role = 'admin';
+            break;
+          case 2:
+            state.role = 'integrator';
+            break;
+          case 3:
+            state.role = 'distributor';
+            break;
+          case 6:
+          case null:
+          default:
+            break;
+        }
 
         state.isLoading = false;
       })

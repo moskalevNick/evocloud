@@ -76,7 +76,6 @@
 }
 
 .listItem {
-  cursor: pointer;
   position: relative;
   height: 48px;
   display: flex;
@@ -84,32 +83,31 @@
   padding-left: 28px;
 }
 
-.listItem::after {
+.listItemAfter {
   display: none;
   content: '';
   width: 0;
   height: 75%;
   position: absolute;
   border-left: 2px solid #158ef8;
-  bottom: 110%;
+  bottom: 10%;
   right: 0;
   box-shadow: 2px 0px 18px 3px #158ef8;
 }
 
-.listItem::before {
+.listItemBefore {
   display: none;
   content: '';
   width: 0;
   height: 75%;
   position: absolute;
   border-right: 2px solid #158ef8;
-  bottom: 110%;
+  bottom: 10%;
   left: 0;
   box-shadow: 2px 0px 18px 3px #158ef8;
 }
 
-.listItem:hover + .listItem::before,
-.listItem:hover + .listItem::after {
+.listItemAfterBeforeActive {
   display: block;
 }
 
@@ -132,18 +130,4 @@
 .buttonContainer {
   position: absolute;
   right: 28px;
-}
-
-.administratorContainer {
-  padding: 3px 12px;
-  background: #433b14;
-  border-radius: 5px;
-  color: #ff9d42;
-}
-
-.userContainer {
-  padding: 3px 12px;
-  background: #043b6a;
-  border-radius: 5px;
-  color: #148ef8;
 }
