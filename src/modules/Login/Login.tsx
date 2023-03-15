@@ -72,12 +72,13 @@ export const Login = () => {
         <FormProvider {...methods}>
           <form noValidate onSubmit={submit} autoComplete="off">
             <ControlWrapperForm label={t('login')} name="username" error={loginError}>
-              <Input placeholder={t('enter_your_login') as string} />
+              <Input placeholder={t('enter_your_login') as string} autoComplete="on" />
             </ControlWrapperForm>
             <ControlWrapperForm label={t('password')} name="password" error={loginError}>
               <Input
                 placeholder={t('enter_your_password') as string}
                 type={isShowPassword ? 'text' : 'password'}
+                autoComplete="on"
                 afterIcon={
                   <div onClick={() => showPassword((prev) => !prev)}>
                     {isShowPassword ? <EyeIcon /> : <CrossEyeIcon />}

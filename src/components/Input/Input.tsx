@@ -13,6 +13,7 @@ export type InputProps = {
   className?: string;
   name?: string;
   type?: string;
+  autoComplete?: string;
   placeholder?: string;
   value?: number | string;
   beforeIcon?: React.ReactNode;
@@ -33,6 +34,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       hasError = false,
       name,
       type = 'text',
+      autoComplete = 'off',
       placeholder,
       value,
       beforeIcon,
@@ -63,6 +65,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <div className={containerClass}>
         {beforeIcon && <span className={styles.beforeIcon}>{beforeIcon}</span>}
         <input
+          autoComplete={autoComplete}
           aria-label={ariaLabel}
           readOnly={readOnly}
           onKeyDown={onKeyDown}

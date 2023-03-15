@@ -7,7 +7,6 @@ import AuthService from '../../services/AuthService';
 import axios from 'axios';
 import { editSettingsType } from '../../types';
 import UserService from '../../services/UserService';
-import Cookies from 'js-cookie';
 
 type authType = {
   username: string;
