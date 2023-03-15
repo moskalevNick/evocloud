@@ -1,5 +1,4 @@
-.input,
-.input:-webkit-autofill {
+.input {
   height: 44px;
   width: 100%;
   background: var(--input-background);
@@ -12,8 +11,7 @@
   color: var(--text-input-color);
 }
 
-.input:focus,
-.input:-webkit-autofill:focus {
+.input:focus {
   color: var(--textActive-input-color);
 }
 
