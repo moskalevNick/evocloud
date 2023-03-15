@@ -84,13 +84,13 @@ export const globalActions = {
       } catch (e) {
         console.log(e);
 
-        // localStorage.removeItem('access-token');
-        // localStorage.removeItem('refresh-token');
-        // document.cookie = `refresh_token=`;
-        // window.location.href = '/';
-        // return {
-        //   isAuth: false,
-        // };
+        localStorage.removeItem('access-token');
+        localStorage.removeItem('refresh-token');
+        document.cookie = `refresh_token=`;
+        window.location.href = '/';
+        return {
+          isAuth: false,
+        };
       }
     },
   ),
