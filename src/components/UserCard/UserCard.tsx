@@ -238,7 +238,7 @@ export const UserCard = () => {
               </div>
             )}
           </form>
-          <div className={styles.inputWrapper}>
+          <form className={styles.inputWrapper} autoComplete="off">
             <div className={styles.inputLabel}>{t('repeat_password')}</div>
             <Input
               placeholder={(t('enter_2') + t('password')) as string}
@@ -258,7 +258,7 @@ export const UserCard = () => {
                 <span className={styles.errorLabel}>{t('passwords_mismatch')}</span>
               </div>
             )}
-          </div>
+          </form>
           <div className={styles.inputWrapper}>
             <div className={styles.inputLabel}>E-mail</div>
             <Input
