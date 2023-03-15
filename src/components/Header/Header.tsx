@@ -63,6 +63,8 @@ export const Header = () => {
         <Input
           beforeIcon={<SearchIcon />}
           placeholder={placeholderText}
+          id="some_id"
+          autocomplete="new-password"
           containerClassName={styles.inputHeader}
           onChange={(e) => onInputChange(e.target.value)}
         />
