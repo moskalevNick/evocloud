@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { globalActions } from '../../redux/global/actions';
 import { globalSettingActions } from '../../redux/global/reducer';
 import { ToggleSwitch } from '../ToggleSwitch/ToggleSwitch';
 
@@ -32,13 +33,18 @@ export const LanguageSelect: React.FC<LanguageSelectType> = ({ size }) => {
   const changeLang = useCallback(() => {
     if (!isAuth) {
       setUnautorizedLang(isStateRus ? 'ru' : 'en');
+    } else {
+      dispatch(
+        globalActions.editSettings({
+          isRus: !isStateRus,
+        }),
+      );
     }
     setStateRus((prev) => !prev);
   }, [isStateRus]);
 
   useEffect(() => {
     i18n.changeLanguage(isStateRus ? 'ru' : 'en');
-    dispatch(globalSettingActions.setIsRussian(isStateRus ? true : false));
   }, [isStateRus]);
 
   return (

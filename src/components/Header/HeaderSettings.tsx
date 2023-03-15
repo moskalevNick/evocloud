@@ -17,6 +17,7 @@ import { Input } from '../Input/Input';
 import { EyeIcon } from '../Icons/EyeIcon';
 import { CrossEyeIcon } from '../Icons/CrossEyeIcon';
 import { StopIcon } from '../Icons/StopIcon';
+import { LanguageSelect } from '../LanguageSelect/LanguageSelect';
 
 type HeaderSettingsType = {};
 
@@ -94,13 +95,13 @@ export const HeaderSettings: React.FC<HeaderSettingsType> = () => {
   //   setOpenSettingModal(false);
   // };
 
-  const changeTheme = () => {
-    dispatch(
-      globalActions.editSettings({
-        isDark: !isDark,
-      }),
-    );
-  };
+  // const changeTheme = () => {
+  //   dispatch(
+  //     globalActions.editSettings({
+  //       isDark: !isDark,
+  //     }),
+  //   );
+  // };
 
   const closeProfileModal = () => {
     setOpenSettingModal(false);
@@ -141,12 +142,13 @@ export const HeaderSettings: React.FC<HeaderSettingsType> = () => {
         </div>
         {isOpenBadge && (
           <div className={styles.badge} ref={refBadge}>
-            {/* <div className={styles.toggleThemeContainer}>
-              <ToggleSwitch checked={isDark} onChange={changeTheme} />
+            <div className={styles.toggleThemeContainer}>
+              {/* <ToggleSwitch checked={isDark} onChange={changeTheme} />
               <div className={styles.toggleLabel}>
                 {isDark ? t('dark_theme') : t('light_theme')}
-              </div>
-            </div> */}
+              </div> */}
+              <LanguageSelect />
+            </div>
             <Button
               className={styles.badgeButton}
               onClick={() => {

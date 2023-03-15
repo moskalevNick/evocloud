@@ -11,6 +11,7 @@ import { UsersModule } from './modules/UsersModule/UsersModule';
 import { WidthLimit } from './components/WidthLimit/WidthLimit';
 import { IntegratorsModule } from './modules/IntegratorsModule/IntegratorsModule';
 import { DistributorsModule } from './modules/DistributorsModule/DistributorsModule';
+import i18n from './i18n';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -21,7 +22,12 @@ export default function App() {
     if (localStorage.getItem('access-token')) {
       dispatch(globalActions.checkAuth());
     }
-  }, [dispatch, isRus]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem('i18nextLng', isRus ? 'ru' : 'en');
+    i18n.changeLanguage(isRus ? 'ru' : 'en');
+  }, [isRus]);
 
   if (!isDesktop) {
     return <WidthLimit />;
