@@ -141,12 +141,12 @@ export const HeaderSettings: React.FC<HeaderSettingsType> = () => {
         </div>
         {isOpenBadge && (
           <div className={styles.badge} ref={refBadge}>
-            <div className={styles.toggleThemeContainer}>
+            {/* <div className={styles.toggleThemeContainer}>
               <ToggleSwitch checked={isDark} onChange={changeTheme} />
               <div className={styles.toggleLabel}>
                 {isDark ? t('dark_theme') : t('light_theme')}
               </div>
-            </div>
+            </div> */}
             <Button
               className={styles.badgeButton}
               onClick={() => {

@@ -106,14 +106,14 @@ export const Login = () => {
         <LanguageSelect />
       </div>
       <div className={styles.sign}>DESIGNED BY EVO CONTROLS</div>
-      <div className={styles.wrapperToggleTheme}>
+      {/* <div className={styles.wrapperToggleTheme}>
         <ToggleSwitch
           checked={isDark}
           onChange={() => {
             setDark((prev) => !prev);
           }}
         />
-      </div>
+      </div> */}
     </div>
   );
 };
