@@ -59,12 +59,10 @@ export const Header = () => {
   return (
     <div className={styles.wrapper}>
       <img src={Logo} width="27" height="27" alt="EVO logo" />
-      <>
+      <form autoComplete="off">
         <Input
           beforeIcon={<SearchIcon />}
           placeholder={placeholderText}
-          type="search"
-          autocomplete="off"
           containerClassName={styles.inputHeader}
           onChange={(e) => onInputChange(e.target.value)}
         />
@@ -107,7 +105,7 @@ export const Header = () => {
             </NavLink>
           )}
         </div>
-      </>
+      </form>
       <HeaderSettings />
     </div>
   );
