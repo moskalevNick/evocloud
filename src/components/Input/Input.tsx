@@ -34,7 +34,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       hasError = false,
       name,
       type = 'text',
-      autoComplete = 'off',
+      autoComplete = 'nope',
       placeholder,
       value,
       beforeIcon,
