@@ -26,6 +26,7 @@ import { userSettingsActions } from '../../redux/user/reducers';
 import { WidgetsModal } from '../../components/WidgetsModal/WidgetsModal';
 import { widgetSettingsActions } from '../../redux/widgets/reducers';
 import { getStatusIcon } from '../../helpers/getStatusIcon';
+import { NewWidgetModal } from '../../components/NewWidgetModal/NewWidgetModal';
 
 export const UsersModule = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ export const UsersModule = () => {
   const [isUserModalOpen, setUserModalOpen] = useState(false);
   const [isControllersModalOpen, setControllersModalOpen] = useState<number | null>(null);
   const [isWidgetsModalOpen, setWidgetsModalOpen] = useState<number | null>(null);
+  const [isNewWidgetModalOpen, setNewWidgetModalOpen] = useState<number | null>(null);
   const [hoverElement, setHoverElement] = useState<number | null>(null);
   const [activeGroupWidgets, setActiveGroupWidgets] = useState<number | null>(null);
   const [activeWidget, setActiveWidget] = useState<number | null>(null);
@@ -72,12 +74,18 @@ export const UsersModule = () => {
         setControllersModalOpen(Number(id));
         break;
       case 'widgets':
+        setNewWidgetModalOpen(null);
         setWidgetsModalOpen(Number(id));
+        break;
+      case 'createwidget':
+        setWidgetsModalOpen(null);
+        setNewWidgetModalOpen(Number(id));
         break;
       default:
         setUserModalOpen(false);
         setControllersModalOpen(null);
         setWidgetsModalOpen(null);
+        setNewWidgetModalOpen(null);
         dispatch(userSettingsActions.clearCurrentUser());
         dispatch(widgetSettingsActions.clearCurrentWidgets());
         dispatch(widgetSettingsActions.clearCurrentGroupWidgets());
@@ -233,6 +241,7 @@ export const UsersModule = () => {
       {isUserModalOpen && <UserModal />}
       {isControllersModalOpen && <ControllersModal id={isControllersModalOpen} />}
       {isWidgetsModalOpen && <WidgetsModal id={isWidgetsModalOpen} />}
+      {isNewWidgetModalOpen && <NewWidgetModal id={isNewWidgetModalOpen} />}
     </div>
   );
 };

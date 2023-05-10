@@ -19,6 +19,22 @@ export const deviceActions = {
     },
   ),
 
+  getDevice: createAsyncThunk(
+    getActionName(modules.DEVICE, actionNames[modules.DEVICE].getDevice),
+    async (id: string) => {
+      const data = await DeviceService.getDevice(id);
+      return data;
+    },
+  ),
+
+  getComparisonConditions: createAsyncThunk(
+    getActionName(modules.DEVICE, actionNames[modules.DEVICE].getComparisonConditions),
+    async () => {
+      const data = await DeviceService.getComparisonConditions();
+      return data;
+    },
+  ),
+
   editDevice: createAsyncThunk(
     getActionName(modules.DEVICE, actionNames[modules.DEVICE].editDevice),
     async ({ newDevice, id }: editDeviceType) => {

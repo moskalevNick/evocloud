@@ -67,6 +67,7 @@ export default function App() {
             {role !== 'user' && <Route path="users/info/:id" element={<UsersModule />} />}
             {role !== 'user' && <Route path="users/controllers/:id" element={<UsersModule />} />}
             {role !== 'user' && <Route path="users/widgets/:id" element={<UsersModule />} />}
+            {role !== 'user' && <Route path="users/createwidget/:id" element={<UsersModule />} />}
             <Route path="*" element={<Navigate to="/devices" replace={true} />} />
           </Route>
         </Routes>

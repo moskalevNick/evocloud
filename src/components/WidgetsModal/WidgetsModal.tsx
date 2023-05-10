@@ -10,14 +10,14 @@ import { widgetActions } from '../../redux/widgets/actions';
 import { userActions } from '../../redux/user/actions';
 import { Button } from '../Button/Button';
 import { PlusIcon } from '../Icons/PlusIcon';
-import { WidgetType } from '../../types';
+import { GroupWidgetsType, WidgetType } from '../../types';
 import classNames from 'classnames';
 import { Widget } from '../Widget/Widget';
 
 export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
   const { isModalLoading, currentUser } = useAppSelector((state) => state.userReducer);
   const { widgets, groupWidgets, isLoading } = useAppSelector((state) => state.widgetReducer);
-  const [activeGroup, setActiveGroup] = useState<number | null>(null);
+  const [activeGroup, setActiveGroup] = useState<GroupWidgetsType | null>(null);
   const [currentWidgets, setCurrentWidgets] = useState<WidgetType[]>(widgets);
   const [bigWidgets, setBigWidgets] = useState<WidgetType[]>([]);
   const [middleWidgets, setMiddleWidgets] = useState<WidgetType[]>([]);
@@ -28,7 +28,7 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
   const clearButtonClassnames = classNames(styles.groupWrapper, styles.clearButton);
 
   const onClose = () => {
-    navigate(-1);
+    navigate('/users');
   };
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
     if (!activeGroup) {
       setCurrentWidgets(widgets);
     } else if (widgets) {
-      setCurrentWidgets(widgets.filter((widget) => widget.group_id === activeGroup?.toString()));
+      setCurrentWidgets(widgets.filter((widget) => widget.group_id === activeGroup?.id.toString()));
     }
   }, [activeGroup, widgets]);
 
@@ -58,7 +58,7 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
             widget.type.name === 'rgb'
           ) {
             setBigWidgets((prev) => [...prev, widget]);
-          } else if (widget.type.name === 'bar_button' || widget.type.name === 'icons') {
+          } else if (widget.type.name === 'bar_button') {
             setMiddleWidgets((prev) => [...prev, widget]);
           } else setLittleWidgets((prev) => [...prev, widget]);
         }
@@ -73,9 +73,11 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
   const addNewGroup = () => {
     console.log('new group');
   };
-  const addNewWidget = () => {
-    console.log('new widget');
+  const addNewWidget = (e: React.MouseEvent<HTMLElement>) => {
+    navigate(`/users/createwidget/${id}`);
+    e.stopPropagation();
   };
+  console.log();
 
   if (isModalLoading || isLoading) return <Loader />;
 
@@ -98,10 +100,10 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
             <div
               className={classNames(
                 styles.groupWrapper,
-                activeGroup === group.id && styles.activeGroupWrapper,
+                activeGroup?.id === group.id && styles.activeGroupWrapper,
               )}
               key={group.id}
-              onClick={() => setActiveGroup(group.id)}
+              onClick={() => setActiveGroup(group)}
             >
               {group.name}
             </div>
@@ -118,10 +120,11 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
         </div>
         <div className={styles.containerLabelWidgets}>
           {t('widgets')}
+          {`: ${activeGroup?.name || ''}`}
           <Button
             beforeIcon={<PlusIcon fill="white" />}
             className={styles.addButton}
-            onClick={addNewWidget}
+            onClick={(e) => addNewWidget(e)}
           />
         </div>
         <div className={styles.widgetsContainer}>

@@ -22,7 +22,7 @@ export const Rgb: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => {
   const currentDeviceState = states.state
     ? states.state
     : states.states.find(
-        (state: any) => state.device.toString() === WidgetData.control_elements.input.red.device,
+        (state: any) => state.device.toString() === WidgetData.control_elements.change.red.device,
       );
   // const currentDeviceStateGreen = states.states.find(
   //   (state: any) => state.device.toString() === WidgetData.control_elements.input.green.device,
@@ -32,18 +32,18 @@ export const Rgb: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => {
   // );
 
   const currentValueRed = Math.round(
-    currentDeviceState[WidgetData.control_elements.input.red.object][
-      Number(WidgetData.control_elements.input.red.addr) - 1
+    currentDeviceState[WidgetData.control_elements.change.red.object][
+      Number(WidgetData.control_elements.change.red.addr) - 1
     ] / 100,
   );
   const currentValueGreen = Math.round(
-    currentDeviceState[WidgetData.control_elements.input.green.object][
-      Number(WidgetData.control_elements.input.green.addr) - 1
+    currentDeviceState[WidgetData.control_elements.change.green.object][
+      Number(WidgetData.control_elements.change.green.addr) - 1
     ] / 100,
   );
   const currentValueBlue = Math.round(
-    currentDeviceState[WidgetData.control_elements.input.blue.object][
-      Number(WidgetData.control_elements.input.blue.addr) - 1
+    currentDeviceState[WidgetData.control_elements.change.blue.object][
+      Number(WidgetData.control_elements.change.blue.addr) - 1
     ] / 100,
   );
 

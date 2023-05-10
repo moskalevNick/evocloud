@@ -17,8 +17,6 @@ import { BarButton } from './BarButton';
 import { Rgb } from './Rgb';
 import { TempReg } from './TempReg';
 
-type widgetSizeType = 'big' | 'middle' | 'little';
-
 export const Widget: React.FC<{ WidgetData: WidgetType; size: string }> = ({
   WidgetData,
   size,
@@ -34,10 +32,10 @@ export const Widget: React.FC<{ WidgetData: WidgetType; size: string }> = ({
   // }, [cameraView]);
 
   useEffect(() => {
-    if (size === 'rtsp') {
+    if (WidgetData.type?.name === 'rtsp') {
       setStreamToken(WidgetData.control_elements.input.token);
     }
-  }, [size]);
+  }, [WidgetData]);
 
   // useEffect(() => {
   //   if (StreamToken) {
@@ -129,9 +127,16 @@ export const Widget: React.FC<{ WidgetData: WidgetType; size: string }> = ({
               case 'icons':
                 return (
                   <div className={styles.littleWidgetIconsContainer}>
-                    {WidgetData.control_elements.input.icons.length < 5 ? (
-                      <div className={styles.littleWidgetIconsWrapper}>
-                        <div className={styles.widgetIconsName}>{WidgetData.name}</div>
+                    {/* {WidgetData.control_elements.input.icons.length < 5 ? ( */}
+                    <div className={styles.widgetIconsWrapper}>
+                      <div className={styles.widgetIconsName}>{WidgetData.name}</div>
+                      <div
+                        className={
+                          WidgetData.control_elements.input.icons.length < 5
+                            ? styles.iconsContainerWithoutScroll
+                            : styles.iconsContainerWithScroll
+                        }
+                      >
                         {WidgetData.control_elements.input.icons.map((icon: any) => {
                           return (
                             <div key={icon.icon}>
@@ -145,7 +150,8 @@ export const Widget: React.FC<{ WidgetData: WidgetType; size: string }> = ({
                           );
                         })}
                       </div>
-                    ) : (
+                    </div>
+                    {/* ) : (
                       <div className={styles.middleWidgetIconsWrapper}>
                         <div className={styles.widgetIconsName}>{WidgetData.name}</div>
                         {WidgetData.control_elements.input.icons.map((icon: any) => {
@@ -161,7 +167,7 @@ export const Widget: React.FC<{ WidgetData: WidgetType; size: string }> = ({
                           );
                         })}
                       </div>
-                    )}
+                    )} */}
                   </div>
                 );
               case 'temp':
@@ -330,7 +336,9 @@ export const Widget: React.FC<{ WidgetData: WidgetType; size: string }> = ({
                       <div className={styles.widgetName}> {WidgetData.name}</div>
                       <div className={styles.widgetGroupName}> {WidgetData.group.name}</div>
                       <div className={styles.temperatureWrapper}>
-                        <div className={styles.temperature}>{currentPercents}%</div>
+                        <div className={styles.temperature}>
+                          {isNaN(currentPercents) ? '--' : currentPercents}%
+                        </div>
                       </div>
                     </div>
                   );

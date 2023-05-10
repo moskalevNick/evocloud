@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { DeviceType } from '../../types';
+import { ComparisonConditionsType, DeviceType } from '../../types';
 import { modules } from '../modules';
 import { deviceActions } from './actions';
 import { Nottification } from '../../components/Nottification/Nottification';
@@ -9,7 +9,10 @@ export const deviceSlice = createSlice({
   name: modules.DEVICE,
   initialState: {
     devices: [] as DeviceType[],
+    currentDevice: null as DeviceType | null,
+    comparisonConditions: [] as ComparisonConditionsType[],
     isLoading: false,
+    isGetDeviceLoading: false,
   },
   reducers: {},
 
@@ -24,6 +27,28 @@ export const deviceSlice = createSlice({
       })
       .addCase(deviceActions.getDevices.rejected, (state) => {
         state.isLoading = false;
+      })
+
+      .addCase(deviceActions.getDevice.pending, (state) => {
+        state.isGetDeviceLoading = true;
+      })
+      .addCase(deviceActions.getDevice.fulfilled, (state, action) => {
+        state.currentDevice = action.payload.device;
+        state.isGetDeviceLoading = false;
+      })
+      .addCase(deviceActions.getDevice.rejected, (state) => {
+        state.isGetDeviceLoading = false;
+      })
+
+      .addCase(deviceActions.getComparisonConditions.pending, (state) => {
+        state.isGetDeviceLoading = true;
+      })
+      .addCase(deviceActions.getComparisonConditions.fulfilled, (state, action) => {
+        state.comparisonConditions = action.payload.conditions;
+        state.isGetDeviceLoading = false;
+      })
+      .addCase(deviceActions.getComparisonConditions.rejected, (state) => {
+        state.isGetDeviceLoading = false;
       })
 
       .addCase(deviceActions.editDevice.pending, (state) => {

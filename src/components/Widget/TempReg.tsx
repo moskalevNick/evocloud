@@ -180,7 +180,7 @@ export const TempReg: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) =>
         >
           <div style={lineStyles} />
         </div>
-        <div className={styles.labelTemp}>{currentValue}°</div>
+        <div className={styles.labelTemp}>{isNaN(currentValue) ? '--' : currentValue}°</div>
         <div className={styles.maxGrad}>
           {Number(WidgetData.max) > 100 ? Number(WidgetData.max) / 100 : WidgetData.max}°
         </div>

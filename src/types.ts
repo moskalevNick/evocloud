@@ -268,3 +268,19 @@ export type GroupWidgetsType = {
   properties: any;
   name: string;
 };
+
+export type WidgetDescriptionType = {
+  name: string;
+  description: string;
+  icon: string;
+  id: number;
+  deleted: number;
+};
+
+export type ComparisonConditionsType = {
+  name: string;
+  value: string;
+  id: number;
+  deleted: number;
+  properties: any;
+};

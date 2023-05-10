@@ -25,7 +25,7 @@ export const BarButton: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) 
 
   let currentDeviceState;
 
-  if (WidgetData.control_elements.input.device) {
+  if (WidgetData.control_elements.input?.device) {
     currentDeviceState = states.states.find(
       (state: any) => state.device.toString() === WidgetData.control_elements.input.device,
     );

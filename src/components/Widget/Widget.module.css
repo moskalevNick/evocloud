@@ -175,12 +175,24 @@
   position: relative;
 }
 
-.littleWidgetIconsWrapper {
+.widgetIconsWrapper {
   width: 110px;
   height: 110px;
   background-color: var(--widget-background);
   border-radius: 6px;
+}
 
+.iconsContainerWithScroll {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 90px;
+  overflow-y: scroll;
+}
+
+.iconsContainerWithoutScroll {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -370,6 +382,7 @@
 }
 
 .widgetIconsName {
+  text-align: center;
   max-height: 15px;
   white-space: nowrap;
   width: 100%;
