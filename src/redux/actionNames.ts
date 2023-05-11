@@ -23,6 +23,9 @@ export const actionNames = {
     addAdvancedOpencloseWidget: 'ADD_ADVANCED_OPENCLOSE_WIDGET',
     addPowerMetterWidget: 'ADD_POWER_METTER_WIDGET',
     addDoubleBarButtonWidget: 'ADD_DOUBLE_BAR_BUTTON_WIDGET',
+    addGroupWidgets: 'ADD_GROUP_WIDGETS',
+    removeGroupWidgets: 'REMOVE_GROUP_WIDGETS',
+    editGroupWidgets: 'EDIT_GROUP_WIDGETS',
   },
   [modules.USER]: {
     getUsers: 'GET_USERS',

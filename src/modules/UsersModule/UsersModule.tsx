@@ -27,18 +27,21 @@ import { WidgetsModal } from '../../components/WidgetsModal/WidgetsModal';
 import { widgetSettingsActions } from '../../redux/widgets/reducers';
 import { getStatusIcon } from '../../helpers/getStatusIcon';
 import { NewWidgetModal } from '../../components/NewWidgetModal/NewWidgetModal';
+import { GroupWidgetModal } from '../../components/GroupWidgetModal/GroupWidgetModal';
 
 export const UsersModule = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { id } = useParams();
+  const { groupId } = useParams();
 
   const { users, isLoading } = useAppSelector((state) => state.userReducer);
   const [isUserModalOpen, setUserModalOpen] = useState(false);
   const [isControllersModalOpen, setControllersModalOpen] = useState<number | null>(null);
   const [isWidgetsModalOpen, setWidgetsModalOpen] = useState<number | null>(null);
   const [isNewWidgetModalOpen, setNewWidgetModalOpen] = useState<number | null>(null);
+  const [isGroupWidgetModalOpen, setGroupWidgetModalOpen] = useState<number | null>(null);
   const [hoverElement, setHoverElement] = useState<number | null>(null);
   const [activeGroupWidgets, setActiveGroupWidgets] = useState<number | null>(null);
   const [activeWidget, setActiveWidget] = useState<number | null>(null);
@@ -76,16 +79,29 @@ export const UsersModule = () => {
       case 'widgets':
         setNewWidgetModalOpen(null);
         setWidgetsModalOpen(Number(id));
+        setGroupWidgetModalOpen(null);
         break;
       case 'createwidget':
         setWidgetsModalOpen(null);
         setNewWidgetModalOpen(Number(id));
+        setGroupWidgetModalOpen(null);
+        break;
+      case 'creategroup':
+        setNewWidgetModalOpen(null);
+        setWidgetsModalOpen(null);
+        setGroupWidgetModalOpen(Number(id));
+        break;
+      case 'editgroup':
+        setNewWidgetModalOpen(null);
+        setWidgetsModalOpen(null);
+        setGroupWidgetModalOpen(Number(id));
         break;
       default:
         setUserModalOpen(false);
         setControllersModalOpen(null);
         setWidgetsModalOpen(null);
         setNewWidgetModalOpen(null);
+        setGroupWidgetModalOpen(null);
         dispatch(userSettingsActions.clearCurrentUser());
         dispatch(widgetSettingsActions.clearCurrentWidgets());
         dispatch(widgetSettingsActions.clearCurrentGroupWidgets());
@@ -242,6 +258,12 @@ export const UsersModule = () => {
       {isControllersModalOpen && <ControllersModal id={isControllersModalOpen} />}
       {isWidgetsModalOpen && <WidgetsModal id={isWidgetsModalOpen} />}
       {isNewWidgetModalOpen && <NewWidgetModal id={isNewWidgetModalOpen} />}
+      {isGroupWidgetModalOpen && (
+        <GroupWidgetModal
+          userId={isGroupWidgetModalOpen}
+          groupId={groupId ? Number(groupId) : undefined}
+        />
+      )}
     </div>
   );
 };

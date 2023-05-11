@@ -172,5 +172,9 @@
   "controller_elements_for_change_state_bar_1": "Элементы контроллера для изменения состояния (change), полоска 1",
   "controller_elements_for_change_state_bar_2": "Элементы контроллера для изменения состояния (change), полоска 2",
   "interval_for_read_data": "Интервал чтения данных",
-  "interval": "Интервал"
+  "interval": "Интервал",
+  "new_group_widget_for": "Новая группа виджетов для",
+  "group_name": "Название группы",
+  "comment": "Коментарий",
+  "edit_group_widget_for": "Редактирование группы виджетов для"
 }

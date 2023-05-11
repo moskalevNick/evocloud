@@ -96,4 +96,22 @@ export const widgetActions = {
     async ({ userId, data }: { userId: number; data: any }) =>
       await WidgetService.addDoubleBarButtonWidget(userId, data),
   ),
+
+  addGroupWidgets: createAsyncThunk(
+    getActionName(modules.WIDGET, actionNames[modules.WIDGET].addGroupWidgets),
+    async ({ userId, data }: { userId: number; data: any }) =>
+      await WidgetService.addGroupWidgets(userId, data),
+  ),
+
+  removeGroupWidgets: createAsyncThunk(
+    getActionName(modules.WIDGET, actionNames[modules.WIDGET].removeGroupWidgets),
+    async ({ userId, groupId }: { userId: number; groupId: any }) =>
+      await WidgetService.removeGroupWidgets(userId, groupId),
+  ),
+
+  editGroupWidgets: createAsyncThunk(
+    getActionName(modules.WIDGET, actionNames[modules.WIDGET].editGroupWidgets),
+    async ({ userId, groupId, data }: { userId: number; groupId: number; data: any }) =>
+      await WidgetService.editGroupWidgets(userId, groupId, data),
+  ),
 };

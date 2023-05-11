@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -125,7 +125,7 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
               addr: formData.silence.outputValueNumber,
               value: formData.silence.varValue,
               condition: formData.silence.activeConditionValue,
-              controller_id: formData.silence.activeControllerId,
+              controller_id: activeControllerId,
             },
           },
         };
@@ -164,7 +164,7 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
               addr: formData.silence.outputValueNumber,
               value: formData.silence.varValue,
               condition: formData.silence.activeConditionValue,
-              controller_id: formData.silence.activeControllerId,
+              controller_id: activeControllerId,
             },
           },
         };
@@ -198,7 +198,7 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
               addr: formData.silence.outputValueNumber,
               value: formData.silence.varValue,
               condition: formData.silence.activeConditionValue,
-              controller_id: formData.silence.activeControllerId,
+              controller_id: activeControllerId,
             },
           },
         };
@@ -234,7 +234,7 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
               addr: formData.silence.outputValueNumber,
               value: formData.silence.varValue,
               condition: formData.silence.activeConditionValue,
-              controller_id: formData.silence.activeControllerId,
+              controller_id: activeControllerId,
             },
           },
         };
@@ -270,7 +270,7 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
               addr: formData.silence.outputValueNumber,
               value: formData.silence.varValue,
               condition: formData.silence.activeConditionValue,
-              controller_id: formData.silence.activeControllerId,
+              controller_id: activeControllerId,
             },
           },
         };
@@ -320,7 +320,7 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
               addr: formData.silence.outputValueNumber,
               value: formData.silence.varValue,
               condition: formData.silence.activeConditionValue,
-              controller_id: formData.silence.activeControllerId,
+              controller_id: activeControllerId,
             },
           },
         };
@@ -359,7 +359,7 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
               addr: formData.silence.outputValueNumber,
               value: formData.silence.varValue,
               condition: formData.silence.activeConditionValue,
-              controller_id: formData.silence.activeControllerId,
+              controller_id: activeControllerId,
             },
           },
         };
@@ -404,7 +404,7 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
               addr: formData.silence.outputValueNumber,
               value: formData.silence.varValue,
               condition: formData.silence.activeConditionValue,
-              controller_id: formData.silence.activeControllerId,
+              controller_id: activeControllerId,
             },
           },
         };
@@ -443,7 +443,7 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
               addr: formData.silence.outputValueNumber,
               value: formData.silence.varValue,
               condition: formData.silence.activeConditionValue,
-              controller_id: formData.silence.activeControllerId,
+              controller_id: activeControllerId,
             },
           },
         };
@@ -559,7 +559,7 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
               addr: formData.silence.outputValueNumber,
               value: formData.silence.varValue,
               condition: formData.silence.activeConditionValue,
-              controller_id: formData.silence.activeControllerId,
+              controller_id: activeControllerId,
             },
           },
         };
@@ -611,7 +611,7 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
               addr: formData.silence.outputValueNumber,
               value: formData.silence.varValue,
               condition: formData.silence.activeConditionValue,
-              controller_id: formData.silence.activeControllerId,
+              controller_id: activeControllerId,
             },
           },
         };

@@ -13,6 +13,8 @@ import { PlusIcon } from '../Icons/PlusIcon';
 import { GroupWidgetsType, WidgetType } from '../../types';
 import classNames from 'classnames';
 import { Widget } from '../Widget/Widget';
+import { RemoveIcon } from '../Icons/RemoveIcon';
+import { EditIcon } from '../Icons/EditIcon';
 
 export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
   const { isModalLoading, currentUser } = useAppSelector((state) => state.userReducer);
@@ -70,14 +72,25 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
     }
   }, [currentWidgets]);
 
-  const addNewGroup = () => {
-    console.log('new group');
+  const addNewGroup = (e: React.MouseEvent<HTMLElement>) => {
+    navigate(`/users/creategroup/${id}`);
+    e.stopPropagation();
   };
+
   const addNewWidget = (e: React.MouseEvent<HTMLElement>) => {
     navigate(`/users/createwidget/${id}`);
     e.stopPropagation();
   };
-  console.log();
+
+  const removeGroup = (e: React.MouseEvent<HTMLElement>, groupId: number) => {
+    dispatch(widgetActions.removeGroupWidgets({ userId: id, groupId }));
+    e.stopPropagation();
+  };
+
+  const editGroup = (e: React.MouseEvent<HTMLElement>, groupId: number) => {
+    navigate(`/users/editgroup/${id}/${groupId}`);
+    e.stopPropagation();
+  };
 
   if (isModalLoading || isLoading) return <Loader />;
 
@@ -106,6 +119,12 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
               onClick={() => setActiveGroup(group)}
             >
               {group.name}
+              <div onClick={(e) => removeGroup(e, group.id)} className={styles.removeIcon}>
+                <RemoveIcon />
+              </div>
+              <div onClick={(e) => editGroup(e, group.id)} className={styles.editIcon}>
+                <EditIcon fill="#fff" />
+              </div>
             </div>
           ))}
           {groupWidgets.length !== 0 && (

@@ -172,5 +172,9 @@
   "controller_elements_for_change_state_bar_1": "Controller elements for change state bar 1",
   "controller_elements_for_change_state_bar_2": "Controller elements for change state bar 2",
   "interval_for_read_data": "Interval for read data",
-  "interval": "Interval"
+  "interval": "Interval",
+  "new_group_widget_for": "New group widget for",
+  "group_name": "Group name",
+  "comment": "Comment",
+  "edit_group_widget_for": "Edit group widgets for"
 }

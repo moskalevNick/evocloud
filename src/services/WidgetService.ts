@@ -80,4 +80,19 @@ export default class WidgetService {
     const response = await $api.post(`/addDoubleBarWidget/${userId}`, data);
     return response.data;
   }
+
+  static async addGroupWidgets(userId: number, data: any): Promise<any> {
+    const response = await $api.post(`/addWidgetGroup/${userId}`, data);
+    return response.data;
+  }
+
+  static async removeGroupWidgets(userId: number, groupId: number): Promise<any> {
+    const response = await $api.post(`/deleteWidgetGroup/${userId}/${groupId}`);
+    return response.data.widgetGroup;
+  }
+
+  static async editGroupWidgets(userId: number, groupId: number, data: any): Promise<any> {
+    const response = await $api.post(`/editWidgetGroup/${userId}/${groupId}`, data);
+    return response.data.widgetGroup;
+  }
 }

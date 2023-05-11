@@ -80,7 +80,7 @@ export const widgetSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(widgetActions.addTempWidget.fulfilled, (state, action) => {
-        state.widgetTypes = [...state.widgets, action.payload];
+        state.widgets = [...state.widgets, action.payload];
         state.isLoading = false;
       })
       .addCase(widgetActions.addTempWidget.rejected, (state) => {
@@ -91,7 +91,7 @@ export const widgetSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(widgetActions.addBinaryButtonWidget.fulfilled, (state, action) => {
-        state.widgetTypes = [...state.widgets, action.payload];
+        state.widgets = [...state.widgets, action.payload];
         state.isLoading = false;
       })
       .addCase(widgetActions.addBinaryButtonWidget.rejected, (state) => {
@@ -102,7 +102,7 @@ export const widgetSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(widgetActions.addOpenCloseWidget.fulfilled, (state, action) => {
-        state.widgetTypes = [...state.widgets, action.payload];
+        state.widgets = [...state.widgets, action.payload];
         state.isLoading = false;
       })
       .addCase(widgetActions.addOpenCloseWidget.rejected, (state) => {
@@ -113,7 +113,7 @@ export const widgetSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(widgetActions.addPercentWidget.fulfilled, (state, action) => {
-        state.widgetTypes = [...state.widgets, action.payload];
+        state.widgets = [...state.widgets, action.payload];
         state.isLoading = false;
       })
       .addCase(widgetActions.addPercentWidget.rejected, (state) => {
@@ -124,7 +124,7 @@ export const widgetSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(widgetActions.addBarButtonWidget.fulfilled, (state, action) => {
-        state.widgetTypes = [...state.widgets, action.payload];
+        state.widgets = [...state.widgets, action.payload];
         state.isLoading = false;
       })
       .addCase(widgetActions.addBarButtonWidget.rejected, (state) => {
@@ -135,7 +135,7 @@ export const widgetSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(widgetActions.addTempRegulatorWidget.fulfilled, (state, action) => {
-        state.widgetTypes = [...state.widgets, action.payload];
+        state.widgets = [...state.widgets, action.payload];
         state.isLoading = false;
       })
       .addCase(widgetActions.addTempRegulatorWidget.rejected, (state) => {
@@ -146,7 +146,7 @@ export const widgetSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(widgetActions.addRGBWidget.fulfilled, (state, action) => {
-        state.widgetTypes = [...state.widgets, action.payload];
+        state.widgets = [...state.widgets, action.payload];
         state.isLoading = false;
       })
       .addCase(widgetActions.addRGBWidget.rejected, (state) => {
@@ -157,7 +157,7 @@ export const widgetSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(widgetActions.addPointWidget.fulfilled, (state, action) => {
-        state.widgetTypes = [...state.widgets, action.payload];
+        state.widgets = [...state.widgets, action.payload];
         state.isLoading = false;
       })
       .addCase(widgetActions.addPointWidget.rejected, (state) => {
@@ -168,7 +168,7 @@ export const widgetSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(widgetActions.addAdvancedOpencloseWidget.fulfilled, (state, action) => {
-        state.widgetTypes = [...state.widgets, action.payload];
+        state.widgets = [...state.widgets, action.payload];
         state.isLoading = false;
       })
       .addCase(widgetActions.addAdvancedOpencloseWidget.rejected, (state) => {
@@ -179,10 +179,44 @@ export const widgetSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(widgetActions.addPowerMetterWidget.fulfilled, (state, action) => {
-        state.widgetTypes = [...state.widgets, action.payload];
+        state.widgets = [...state.widgets, action.payload];
         state.isLoading = false;
       })
       .addCase(widgetActions.addPowerMetterWidget.rejected, (state) => {
+        state.isLoading = false;
+      })
+
+      .addCase(widgetActions.addGroupWidgets.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(widgetActions.addGroupWidgets.fulfilled, (state, action) => {
+        state.groupWidgets = [...state.groupWidgets, action.payload];
+        state.isLoading = false;
+      })
+      .addCase(widgetActions.addGroupWidgets.rejected, (state) => {
+        state.isLoading = false;
+      })
+
+      .addCase(widgetActions.removeGroupWidgets.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(widgetActions.removeGroupWidgets.fulfilled, (state, action) => {
+        state.groupWidgets = state.groupWidgets.filter((group) => group.id !== action.payload.id);
+        state.isLoading = false;
+      })
+      .addCase(widgetActions.removeGroupWidgets.rejected, (state) => {
+        state.isLoading = false;
+      })
+
+      .addCase(widgetActions.editGroupWidgets.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(widgetActions.editGroupWidgets.fulfilled, (state, action) => {
+        state.groupWidgets = state.groupWidgets.filter((group) => group.id !== action.payload.id);
+        state.groupWidgets = [...state.groupWidgets, action.payload];
+        state.isLoading = false;
+      })
+      .addCase(widgetActions.editGroupWidgets.rejected, (state) => {
         state.isLoading = false;
       });
   },

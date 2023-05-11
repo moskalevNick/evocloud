@@ -69,6 +69,7 @@
 }
 
 .groupWrapper {
+  position: relative;
   background-color: var(--widget-background);
   margin: 15px auto;
   width: 246px;
@@ -84,11 +85,21 @@
   align-items: center;
   letter-spacing: 0.02em;
   color: #e3f2ff;
+  overflow: hidden;
 
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.removeIcon {
+  position: absolute;
+  right: 5px;
+}
+.editIcon {
+  position: absolute;
+  right: 28px;
 }
 
 .activeGroupWrapper {
