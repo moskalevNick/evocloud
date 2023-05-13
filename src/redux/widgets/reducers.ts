@@ -56,6 +56,7 @@ export const widgetSlice = createSlice({
       })
       .addCase(widgetActions.getStream.fulfilled, (state, action) => {
         // console.log(action.meta.arg);
+
         state.cameraFrame[action.meta.arg] = action.payload[0];
         // state.cameraFrame = action.payload[0];
 

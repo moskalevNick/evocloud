@@ -15,7 +15,7 @@ export default class WidgetService {
 
   static async getStream(cameraToken: string): Promise<CameraFrameType[]> {
     const response = await axios.request({
-      url: `http://cams.evocontrols.com:8282/get_stream.php?token=${cameraToken}`,
+      url: `https://cams.evocontrols.com/?url=http://cams.evocontrols.com:8282/get_stream.php?token=${cameraToken}`,
       method: 'get',
     });
     return response.data;

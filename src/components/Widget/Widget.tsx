@@ -25,11 +25,6 @@ export const Widget: React.FC<{ WidgetData: WidgetType; size: string }> = ({
   const [StreamToken, setStreamToken] = useState<string>('');
   const [cameraStream, setCameraStream] = useState<string>('');
   const cameraView = useAppSelector((state) => state.widgetReducer.cameraFrame);
-  // console.log(WidgetData);
-
-  // useEffect(() => {
-  //   console.log(cameraView);
-  // }, [cameraView]);
 
   useEffect(() => {
     if (WidgetData.type?.name === 'rtsp') {
@@ -37,23 +32,23 @@ export const Widget: React.FC<{ WidgetData: WidgetType; size: string }> = ({
     }
   }, [WidgetData]);
 
-  // useEffect(() => {
-  //   if (StreamToken) {
-  //     setCameraStream(StreamToken);
-  //   }
-  // }, [StreamToken]);
+  useEffect(() => {
+    if (StreamToken) {
+      setCameraStream(StreamToken);
+    }
+  }, [StreamToken]);
 
-  // useEffect(() => {
-  //   if (cameraStream) {
-  //     const interval = setInterval(() => {
-  //       dispatch(widgetActions.getStream(cameraStream));
-  //     }, 500);
-  //     return () => {
-  //       clearInterval(interval);
-  //       dispatch(widgetSettingsActions.resetCameraFrame());
-  //     };
-  //   }
-  // }, [dispatch, cameraStream]);
+  useEffect(() => {
+    if (cameraStream) {
+      const interval = setInterval(() => {
+        dispatch(widgetActions.getStream(cameraStream));
+      }, 500);
+      return () => {
+        clearInterval(interval);
+        dispatch(widgetSettingsActions.resetCameraFrame());
+      };
+    }
+  }, [dispatch, cameraStream]);
 
   const iconClick = (value: string) => {
     console.log('icon value = ', value);
@@ -70,20 +65,13 @@ export const Widget: React.FC<{ WidgetData: WidgetType; size: string }> = ({
                   <div className={styles.bigWidgetWrapper}>
                     <div className={styles.widgetName}> {WidgetData.name}</div>
                     <div className={styles.widgetGroupName}> {WidgetData.group.name}</div>
-                    waiting for tolya's fix
-                    {cameraStream && cameraView && (
-                      <div>
-                        {cameraView[StreamToken]?.img_small ? (
-                          <img
-                            src={`http://cams.evocontrols.com:8282${cameraView[StreamToken]?.img_small}`}
-                            className={styles.webcam}
-                            height={145}
-                            alt="webcam"
-                          />
-                        ) : (
-                          <Loader />
-                        )}
-                      </div>
+                    {cameraView[StreamToken]?.img_small && (
+                      <img
+                        src={`https://cams.evocontrols.com/?url=http://cams.evocontrols.com:8282${cameraView[StreamToken]?.img_small}`}
+                        className={styles.webcam}
+                        height={145}
+                        alt="webcam"
+                      />
                     )}
                   </div>
                 );
