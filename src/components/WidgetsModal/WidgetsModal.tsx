@@ -48,7 +48,7 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
   }, [activeGroup, widgets]);
 
   useEffect(() => {
-    if (currentWidgets.length) {
+    if (currentWidgets?.length) {
       setBigWidgets([]);
       setMiddleWidgets([]);
       setLittleWidgets([]);
