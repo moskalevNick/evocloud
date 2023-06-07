@@ -336,6 +336,7 @@
 .buttonsContainer {
   position: absolute;
   bottom: 16px;
+
   width: calc(100%-20px);
   display: flex;
   justify-content: space-around;
