@@ -380,8 +380,12 @@ export const Widget: React.FC<{ WidgetData: WidgetType; size: string }> = ({
                       <div className={styles.widgetName}> {WidgetData.name}</div>
                       <div className={styles.widgetGroupName}> {WidgetData.group.name}</div>
                       <div className={styles.buttonsContainer}>
-                        <Button beforeIcon={<OpenIcon />} className={styles.openCloseBtns} />
-                        <Button beforeIcon={<CloseIcon />} className={styles.openCloseBtns} />
+                        <button className={styles.openCloseBtns}>
+                          <OpenIcon />
+                        </button>
+                        <button className={styles.openCloseBtns}>
+                          <CloseIcon />
+                        </button>
                       </div>
                     </div>
                   );
