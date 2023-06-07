@@ -15,20 +15,25 @@ import { CrossEyeIcon } from '../Icons/CrossEyeIcon';
 import { StopIcon } from '../Icons/StopIcon';
 import { userActions } from '../../redux/user/actions';
 import { userSettingsActions } from '../../redux/user/reducers';
+import { Loader } from '../Loader/Loader';
 
 export const UserCard = () => {
-  const { currentUser } = useAppSelector((state) => state.userReducer);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { usersInfo, isModalLoading } = useAppSelector((state) => state.userReducer);
   const [isShowPassword, showPassword] = useState(false);
   const [isShowPasswordRepeat, showPasswordRepeat] = useState(false);
   const [passwordMismatch, setPasswordMismatch] = useState(true);
 
   const [currentRole, setCurrentRole] = useState('user');
-  const [nameInputValue, setNameInputValue] = useState(currentUser?.name || '');
-  const [loginInputValue, setLoginInputValue] = useState(currentUser?.login || '');
+  const [nameInputValue, setNameInputValue] = useState('');
+  const [loginInputValue, setLoginInputValue] = useState('');
   const [passwordInputValue, setPasswordInputValue] = useState('');
   const [passwordRepeatInputValue, setPasswordRepeatInputValue] = useState('');
-  const [emailInputValue, setEmailInputValue] = useState(currentUser?.email || '');
-  const [phoneInputValue, setPhoneInputValue] = useState(currentUser?.phone || '');
+  const [emailInputValue, setEmailInputValue] = useState('');
+  const [phoneInputValue, setPhoneInputValue] = useState('');
 
   const isUserClassnames = classNames(
     styles.isAdminButton,
@@ -47,46 +52,48 @@ export const UserCard = () => {
     currentRole === 'administrator' && styles.activeButton,
   );
 
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { id } = useParams();
-
   useEffect(() => {
     if (id && id !== 'new') {
-      dispatch(userActions.getCurrentUser(Number(id)));
+      dispatch(userActions.getUserInfo(Number(id)));
     } else if (id === 'new') {
       dispatch(userSettingsActions.clearCurrentUser());
     }
   }, [id, dispatch]);
 
   useEffect(() => {
-    if (currentUser && id !== 'new') {
-      setNameInputValue(currentUser.name);
-      setLoginInputValue(currentUser.login);
-      setEmailInputValue(currentUser.email);
-      setPhoneInputValue(currentUser.phone);
-      switch (currentUser.group_id) {
-        case '1':
-          setCurrentRole('administrator');
-          break;
-        case '2':
-          setCurrentRole('integrator');
-          break;
-        case '3':
-          setCurrentRole('distributor');
-          break;
-        case '6':
-        default:
-          break;
+    if (id && Object.keys(usersInfo).length) {
+      if (id !== 'new') {
+        const currentUser = usersInfo[id];
+        if (currentUser) {
+          setNameInputValue(currentUser.name);
+          setLoginInputValue(currentUser.login);
+          setEmailInputValue(currentUser.email);
+          setPhoneInputValue(currentUser.phone);
+          switch (currentUser.group_id) {
+            case '1':
+              setCurrentRole('administrator');
+              break;
+            case '2':
+              setCurrentRole('integrator');
+              break;
+            case '3':
+              setCurrentRole('distributor');
+              break;
+            case '6':
+            default:
+              break;
+          }
+        }
+        dispatch(userSettingsActions.clearUsersInfo());
+      } else {
+        setCurrentRole('user');
+        setNameInputValue('');
+        setLoginInputValue('');
+        setEmailInputValue('');
+        setPhoneInputValue('');
       }
-    } else if (!currentUser) {
-      setCurrentRole('user');
-      setNameInputValue('');
-      setLoginInputValue('');
-      setEmailInputValue('');
-      setPhoneInputValue('');
     }
-  }, [currentUser, id]);
+  }, [id, usersInfo, dispatch]);
 
   useEffect(() => {
     const resetCurrentUser = () => {
@@ -155,8 +162,12 @@ export const UserCard = () => {
   //   onClose();
   // };
 
+  if (isModalLoading) {
+    return <Loader />;
+  }
+
   return (
-    <>
+    <div className={styles.userCard}>
       <div className={styles.userCardHeaderContainer}>
         <div className={styles.modalHeader}>
           {id === 'new' ? (
@@ -176,11 +187,12 @@ export const UserCard = () => {
       <div className={styles.horizontalLine} />
       <div className={styles.userMainDataContainer}>
         <div className={styles.userAvatar}>
-          {currentUser && currentUser.avatar ? (
+          {/* {currentUser && currentUser.avatar ? (
             <img src={currentUser.avatar} alt={`avatar ${currentUser.name}`} />
           ) : (
             <AvatarIcon />
-          )}
+          )} */}
+          {<AvatarIcon />}
         </div>
         <div className={styles.isAdminWrapper}>
           <button className={isUserClassnames} onClick={() => setCurrentRole('user')}>
@@ -212,7 +224,7 @@ export const UserCard = () => {
           <div className={styles.inputWrapper}>
             <div className={styles.inputLabel}>{t('login')}</div>
             <Input
-              placeholder={(t('enter_2') + t('login')) as string}
+              placeholder={(t('enter_2') + t('_login')) as string}
               value={loginInputValue}
               onChange={(e) => setLoginInputValue(e.target.value)}
             />
@@ -220,7 +232,7 @@ export const UserCard = () => {
           <form className={styles.inputWrapper} autoComplete="off">
             <div className={styles.inputLabel}>{t('password')}</div>
             <Input
-              placeholder={(t('enter_2') + t('password')) as string}
+              placeholder={(t('enter_2') + t('_password')) as string}
               type={isShowPassword ? 'text' : 'password'}
               afterIcon={
                 <div onClick={() => showPassword((prev) => !prev)}>
@@ -241,7 +253,7 @@ export const UserCard = () => {
           <form className={styles.inputWrapper} autoComplete="off">
             <div className={styles.inputLabel}>{t('repeat_password')}</div>
             <Input
-              placeholder={(t('enter_2') + t('password')) as string}
+              placeholder={(t('enter_2') + t('_password')) as string}
               type={isShowPasswordRepeat ? 'text' : 'password'}
               afterIcon={
                 <div onClick={() => showPasswordRepeat((prev) => !prev)}>
@@ -262,7 +274,7 @@ export const UserCard = () => {
           <div className={styles.inputWrapper}>
             <div className={styles.inputLabel}>E-mail</div>
             <Input
-              placeholder={(t('enter_2') + 'E-mail') as string}
+              placeholder={(t('enter_2') + 'e-mail') as string}
               value={emailInputValue}
               onChange={(e) => setEmailInputValue(e.target.value)}
             />
@@ -270,7 +282,7 @@ export const UserCard = () => {
           <div className={styles.inputWrapper}>
             <div className={styles.inputLabel}>{t('phone_number')}</div>
             <Input
-              placeholder={(t('enter_2') + t('phone_number')) as string}
+              placeholder={(t('enter_2') + t('_phone_number')) as string}
               value={phoneInputValue}
               onChange={(e) => setPhoneInputValue(e.target.value)}
             />
@@ -288,6 +300,6 @@ export const UserCard = () => {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 };

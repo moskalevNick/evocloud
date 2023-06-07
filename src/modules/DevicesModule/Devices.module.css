@@ -1,5 +1,5 @@
 .container {
-  padding: 32px 40px;
+  padding: 32px 0px 32px 40px;
   min-height: calc(100vh - 92px);
   color: var(--text-color);
   background-color: var(--background-color);
@@ -17,20 +17,20 @@
 }
 
 .listWrapper {
-  background-color: var(--header-background);
   margin-top: 30px;
   height: calc(100vh - 217px);
-  border-radius: 18px;
   overflow-y: hidden;
 }
 
 .listHeader {
+  background-color: var(--header-background);
   border-radius: 18px 18px 0px 0px;
   height: 53px;
   border-bottom: 1px solid var(--background-color);
   display: flex;
   align-items: center;
   padding-left: 28px;
+  margin-right: 40px;
 }
 
 .headerItem {
@@ -67,6 +67,14 @@
   background-color: transparent;
 }
 
+.arrowDownButton > svg {
+  fill: #148ef8;
+}
+
+.arrowDownButton:hover > svg {
+  fill: #14c1f8;
+}
+
 .listItem {
   cursor: pointer;
   position: relative;
@@ -76,9 +84,19 @@
   padding-left: 28px;
 }
 
-.listItemsWrapper {
+.listItemsScrollWrapper {
+  width: calc(100vw - 40px);
   height: calc(100% - 52px);
   overflow-y: scroll;
+  background-color: var(--background-color);
+}
+
+.listItemsWrapper {
+  background-color: var(--header-background);
+  border-radius: 0px 0px 18px 18px;
+  height: fit-content;
+  min-height: 100%;
+  width: calc(100vw - 80px);
 }
 
 .listItemNumber {
@@ -93,17 +111,18 @@
 }
 
 .listItemName {
-  width: 321px;
+  width: 307px;
 }
 
 .listItemIDWrapper {
-  width: 263px;
+  width: 277px;
 }
 
 .listItemID {
   padding: 0px 12px 0px 12px;
   width: max-content;
   display: flex;
+  align-items: center;
   gap: 6px;
 }
 
@@ -161,4 +180,56 @@
 
 .listItem:hover {
   background-color: var(--active-background);
+}
+
+.listItemUser {
+  position: relative;
+}
+
+.userInfoContainer {
+  position: absolute;
+  width: 290px;
+  height: 114px;
+  right: 35px;
+  top: -7px;
+  border-radius: 8px 0px 8px 8px;
+  z-index: 1;
+  background: #113858;
+}
+
+.avatarHoverWrapper {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  width: 42px;
+  height: 42px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0px 22px 22px 0px;
+  border-left: 1px solid #1e486b;
+  background: #113858;
+}
+
+.userInfoLabel {
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
+  color: #adebff;
+  padding: 10px 22px;
+  border-bottom: 1px solid #1e486b;
+}
+
+.usersWrapper {
+  height: 100%;
+  padding: 20px 22px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

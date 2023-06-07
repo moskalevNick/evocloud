@@ -62,14 +62,14 @@ export const Widget: React.FC<{ WidgetData: WidgetType; size: string }> = ({
             switch (WidgetData.type?.name) {
               case 'rtsp':
                 return (
-                  <div className={styles.bigWidgetWrapper}>
+                  <div className={styles.cameraWidgetWrapper}>
                     <div className={styles.widgetName}> {WidgetData.name}</div>
                     <div className={styles.widgetGroupName}> {WidgetData.group.name}</div>
                     {cameraView[StreamToken]?.img_small && (
                       <img
                         src={`https://cams.evocontrols.com/?url=http://cams.evocontrols.com:8282${cameraView[StreamToken]?.img_small}`}
                         className={styles.webcam}
-                        height={145}
+                        height={166}
                         alt="webcam"
                       />
                     )}
@@ -101,12 +101,39 @@ export const Widget: React.FC<{ WidgetData: WidgetType; size: string }> = ({
                 );
             }
           case 'middle':
-            if (WidgetData.controller?.current_raw_state) {
-              return <BarButton WidgetData={WidgetData} />;
-            } else
-              return (
-                <div className={styles.littleWidgetWrapper}>widget without controller state</div>
-              );
+            switch (WidgetData.type?.name) {
+              case 'rtsp':
+                return (
+                  <div className={styles.cameraWidgetWrapper}>
+                    <div className={styles.widgetName}> {WidgetData.name}</div>
+                    <div className={styles.widgetGroupName}> {WidgetData.group.name}</div>
+                    {cameraView[StreamToken]?.img_small && (
+                      <img
+                        src={`https://cams.evocontrols.com/?url=http://cams.evocontrols.com:8282${cameraView[StreamToken]?.img_small}`}
+                        className={styles.webcam}
+                        height={166}
+                        alt="webcam"
+                      />
+                    )}
+                  </div>
+                );
+              case 'bar_button':
+                if (WidgetData.controller?.current_raw_state) {
+                  return <BarButton WidgetData={WidgetData} />;
+                } else
+                  return (
+                    <div className={styles.littleWidgetWrapper}>
+                      widget without controller state
+                    </div>
+                  );
+              default:
+                return (
+                  <div className={styles.bigWidgetWrapper}>
+                    big widget {WidgetData.type ? WidgetData.type.name : WidgetData.name}
+                  </div>
+                );
+            }
+
           case 'little':
             let states;
             let currentDeviceState;

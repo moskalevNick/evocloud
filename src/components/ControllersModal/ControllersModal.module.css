@@ -4,59 +4,71 @@
   min-height: 600px;
   max-height: 80%;
   padding: 0 !important;
-  color: var(--text-color);
+  background: #0c314f;
+  box-shadow: 0px 0px 22px #082135;
+  border-radius: 18px;
 }
 
 .modalLabel {
-  position: absolute;
-  top: 15px;
-  left: 25px;
-  color: var(--text-color);
+  margin: 0 22px;
+  padding: 27px 0 18px 0px;
+  font-family: 'Gilroy';
+  font-style: normal;
   font-weight: 600;
-  font-size: 22px;
-  line-height: 34px;
+  font-size: 18px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.03em;
+  color: #9adbf6;
+
+  border-bottom: 1px solid #2c5982;
 }
 
 .controllersContainer {
   width: 100%;
   height: 100%;
-  padding: 10px 0;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  margin-top: 17px;
+}
+
+.userControllersWrapper,
+.otherControllersWrapper {
+  border-radius: 15px;
+  position: relative;
+  width: 100%;
+  height: 390px;
+  overflow-y: scroll;
+  background: #123a5b;
+  border-radius: 12px;
+
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #9adbf6;
 }
 
 .userControllersWrapper {
-  margin: 0 10px;
-  border-radius: 15px;
-  position: relative;
-  width: 100%;
-  height: calc(100% - 90px);
-  overflow-y: scroll;
-  background-color: var(--header-background);
+  margin-left: 22px;
 }
-
 .otherControllersWrapper {
-  margin: 0 10px;
-  border-radius: 15px;
-  position: relative;
-  width: 100%;
-  height: calc(100% - 90px);
-  overflow-y: scroll;
-  background-color: var(--header-background);
+  margin: 0 22px 0 16px;
 }
 
 .userDevicesAmount {
   position: absolute;
-  bottom: 10px;
-  left: 28px;
+  bottom: 82px;
+  left: 22px;
 }
 
 .otherDevicesAmount {
   position: absolute;
-  bottom: 10px;
-  left: 648px;
+  bottom: 82px;
+  left: 629px;
 }
 
 .controllerContainer {
@@ -68,12 +80,37 @@
 }
 
 .addButton {
-  cursor: pointer;
+  position: absolute;
+  right: 24px;
   width: 20px;
   height: 20px;
-  border-radius: 20px;
-  position: absolute;
-  right: 5px;
+  background: #148ef8;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.addButton:hover {
+  background: #148ef8;
+  box-shadow: 0px 3px 8px -1px rgba(62, 125, 249, 0.84);
+}
+
+.addButton:active {
+  background: #306add;
+  box-shadow: 0px 3px 8px -1px rgba(62, 125, 249, 0.84);
+}
+
+.contentButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+  width: 20px;
+  height: 20px;
 }
 
 .submitButtonsWrapper {
@@ -81,8 +118,8 @@
   justify-content: flex-end;
   align-items: center;
   position: absolute;
-  bottom: 10px;
-  right: 20px;
+  bottom: 24px;
+  right: 24px;
 }
 
 .submitButton {

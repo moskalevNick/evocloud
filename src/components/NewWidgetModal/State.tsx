@@ -5,6 +5,8 @@ import { useAppSelector } from '../../hooks/redux';
 import { ComparisonConditionsType } from '../../types';
 import { Loader } from '../Loader/Loader';
 import styles from './NewWidgetModal.module.css';
+import { Select } from '../Select/Select';
+import { getConditionName } from '../../helpers/getConditionName';
 
 export const State: React.FC<{
   deviceState: any;
@@ -17,7 +19,7 @@ export const State: React.FC<{
     (state) => state.deviceReducer,
   );
 
-  const [activeDeviceStateIdValue, setActiveDeviceStateIdValue] = useState<any | null>(null);
+  const [activeDeviceStateIdValue, setActiveDeviceStateIdValue] = useState<string | null>(null);
   const [activeDeviceState, setActiveDeviceState] = useState<any | null>(null);
   const [deviceElementTypes, setDeviceElementTypes] = useState<string[]>([]);
   const [activeDeviceTypeElementValue, setActiveDeviceTypeElementValue] = useState<string | null>(
@@ -44,9 +46,9 @@ export const State: React.FC<{
   useEffect(() => {
     if (deviceState) {
       setActiveDeviceState(
-        deviceState.states.find(
-          (state: any) => state.device.toString() === activeDeviceStateIdValue,
-        ),
+        deviceState.states
+          ? deviceState.states?.find((state: any) => state.device === activeDeviceStateIdValue)
+          : deviceState.state,
       );
     }
   }, [activeDeviceStateIdValue]);
@@ -138,23 +140,6 @@ export const State: React.FC<{
     }
   }, [activeDeviceState]);
 
-  const getConditionName = (id: number) => {
-    switch (id) {
-      case 1:
-        return t('equals');
-      case 2:
-        return t('more');
-      case 7:
-        return t('less');
-      case 8:
-        return t('more_or_equal');
-      case 9:
-        return t('less_or_equal');
-      case 10:
-        return t('not_equal');
-    }
-  };
-
   const getTypeParams = (type: string) => {
     switch (type) {
       case 'disable':
@@ -163,47 +148,30 @@ export const State: React.FC<{
         return (
           <>
             <div className={styles.paramWrapper}>
-              <div className={styles.param}>{t('choose_block_number')}:</div>
-              <select
-                className={styles.select}
-                onChange={(e) => setActiveDeviceStateIdValue(e.target.value)}
-              >
-                <option value={''} key={0}>
-                  {t('---choose_here---')}
-                </option>
-                {deviceState?.states?.length ? (
-                  deviceState?.states?.map((state: any) => (
-                    <option key={state.device} value={state.device}>
-                      {state.device}
-                    </option>
-                  ))
-                ) : (
-                  <option value={deviceState.state.device} key={deviceState.state.device}>
-                    {deviceState.state.addr}
-                  </option>
-                )}
-              </select>
+              <Select
+                label={t('choose_block_number')}
+                onChange={(val: string | null) => {
+                  setActiveDeviceStateIdValue(val);
+                }}
+                options={deviceState?.states?.length ? deviceState?.states : [deviceState?.state]}
+                isBlockNumber
+              />
             </div>
 
             <div className={styles.paramWrapper}>
-              <div className={styles.param}>{t('choose_element_type')}:</div>
-              <select
-                className={styles.select}
-                onChange={(e) => setActiveDeviceTypeElementValue(e.target.value)}
-              >
-                <option value={''} key={0}>
-                  {t('---choose_here---')}
-                </option>
-                {deviceElementTypes?.map((type: any) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
+              <Select
+                label={t('choose_element_type')}
+                onChange={(val: string | null) => {
+                  setActiveDeviceTypeElementValue(val);
+                }}
+                options={deviceElementTypes}
+                isBlockNumber
+              />
             </div>
             <div className={styles.paramWrapper}>
               <div className={styles.param}>{t('output_variable_number')}</div>
               <input
+                placeholder={t('output_variable_number') as string}
                 value={outputValueNumber}
                 onChange={(e) => setOutputValueNumber(e.target.value)}
                 className={styles.input}
@@ -224,23 +192,26 @@ export const State: React.FC<{
                 value={varValue}
                 onChange={(e) => setVarValue(e.target.value)}
                 className={styles.input}
+                placeholder={`${t('value_for')}${
+                  activeDeviceTypeElementValue === 'var'
+                    ? t('variable')
+                    : activeDeviceTypeElementValue === 'obin' ||
+                      activeDeviceTypeElementValue === 'odac' ||
+                      activeDeviceTypeElementValue === 'opwm'
+                    ? t('output')
+                    : t('input')
+                }`}
               />
             </div>
             <div className={styles.paramWrapper}>
-              <div className={styles.param}>{t('comparison_condition')}</div>
-              <select
-                className={styles.select}
-                onChange={(e) => setActiveConditionValue(e.target.value)}
-              >
-                <option value={''} key={0}>
-                  {t('---choose_here---')}
-                </option>
-                {comparisonConditions.map((condition: ComparisonConditionsType) => (
-                  <option key={condition.id} value={condition.value}>
-                    {getConditionName(condition.id)}
-                  </option>
-                ))}
-              </select>
+              <Select
+                label={t('comparison_condition')}
+                onChange={(val: string | null) => {
+                  setActiveConditionValue(val);
+                }}
+                options={comparisonConditions}
+                isComparisonConditions
+              />
             </div>
           </>
         );
@@ -269,48 +240,31 @@ export const State: React.FC<{
         return (
           <>
             <div className={styles.paramWrapper}>
-              <div className={styles.param}>{t('choose_block_number')}:</div>
-              <select
-                className={styles.select}
-                onChange={(e) => setActiveDeviceStateIdValue(e.target.value)}
-              >
-                <option value={''} key={0}>
-                  {t('---choose_here---')}
-                </option>
-                {deviceState?.states?.length ? (
-                  deviceState?.states?.map((state: any) => (
-                    <option key={state.device} value={state.device}>
-                      {state.device}
-                    </option>
-                  ))
-                ) : (
-                  <option value={deviceState.state.device} key={deviceState.state.device}>
-                    {deviceState.state.addr}
-                  </option>
-                )}
-              </select>
+              <Select
+                label={t('choose_block_number')}
+                onChange={(val: string | null) => {
+                  setActiveDeviceStateIdValue(val);
+                }}
+                options={deviceState?.states?.length ? deviceState?.states : [deviceState?.state]}
+                isBlockNumber
+              />
             </div>
 
             <div className={styles.paramWrapper}>
-              <div className={styles.param}>{t('choose_element_type')}:</div>
-              <select
-                className={styles.select}
-                onChange={(e) => setActiveDeviceTypeElementValue(e.target.value)}
-              >
-                <option value={''} key={0}>
-                  {t('---choose_here---')}
-                </option>
-                {deviceElementTypes?.map((type: any) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
+              <Select
+                label={t('choose_element_type')}
+                onChange={(val: string | null) => {
+                  setActiveDeviceTypeElementValue(val);
+                }}
+                options={deviceElementTypes}
+                isBlockNumber
+              />
             </div>
 
             <div className={styles.paramWrapper}>
               <div className={styles.param}>{t('output_variable_number')}</div>
               <input
+                placeholder={t('output_variable_number') as string}
                 value={outputValueNumber}
                 onChange={(e) => setOutputValueNumber(e.target.value)}
                 className={styles.input}
@@ -320,6 +274,7 @@ export const State: React.FC<{
               <div className={styles.paramWrapper}>
                 <div className={styles.param}>{t('value_output_var')}</div>
                 <input
+                  placeholder={t('value_output_var') as string}
                   value={outputValue}
                   onChange={(e) => setOutputValue(e.target.value)}
                   className={styles.input}
@@ -333,13 +288,21 @@ export const State: React.FC<{
         return (
           <>
             <div className={styles.paramWrapper}>
-              <div className={styles.param}>{t('choose_block_number')}:</div>
+              <Select
+                label={t('choose_block_number')}
+                onChange={(val: string | null) => {
+                  setActiveDeviceStateIdValue(val);
+                }}
+                options={deviceState?.states?.length ? deviceState?.states : [deviceState?.state]}
+                isBlockNumber
+              />
+              {/* <div className={styles.param}>{t('choose_block_number')}:</div>
               <select
                 className={styles.select}
                 onChange={(e) => setActiveDeviceStateIdValue(e.target.value)}
               >
                 <option value={''} key={0}>
-                  {t('---choose_here---')}
+                  {t('choose_here')}
                 </option>
                 {deviceState?.states?.length ? (
                   deviceState?.states?.map((state: any) => (
@@ -352,24 +315,32 @@ export const State: React.FC<{
                     {deviceState.state.addr}
                   </option>
                 )}
-              </select>
+              </select> */}
             </div>
 
             <div className={styles.paramWrapper}>
-              <div className={styles.param}>{t('choose_element_type')}:</div>
+              <Select
+                label={t('choose_element_type')}
+                onChange={(val: string | null) => {
+                  setActiveDeviceTypeElementValue(val);
+                }}
+                options={deviceElementTypes}
+                isBlockNumber
+              />
+              {/* <div className={styles.param}>{t('choose_element_type')}:</div>
               <select
                 className={styles.select}
                 onChange={(e) => setActiveDeviceTypeElementValue(e.target.value)}
               >
                 <option value={''} key={0}>
-                  {t('---choose_here---')}
+                  {t('choose_here')}
                 </option>
                 {deviceElementTypes?.map((type: any) => (
                   <option key={type} value={type}>
                     {type}
                   </option>
                 ))}
-              </select>
+              </select> */}
             </div>
 
             <div className={styles.paramWrapper}>
@@ -378,6 +349,7 @@ export const State: React.FC<{
                 value={outputValueNumber}
                 onChange={(e) => setOutputValueNumber(e.target.value)}
                 className={styles.input}
+                placeholder={t('output_variable_number') as string}
               />
             </div>
           </>
@@ -393,6 +365,7 @@ export const State: React.FC<{
                 value={barName}
                 onChange={(e) => setBarName(e.target.value)}
                 className={styles.input}
+                placeholder={t('bar_name') as string}
               />
             </div>
 
@@ -403,6 +376,7 @@ export const State: React.FC<{
                 value={minValue}
                 onChange={(e) => setMinValue(e.target.value)}
                 className={styles.input}
+                placeholder={t('min_value') as string}
               />
             </div>
 
@@ -412,6 +386,7 @@ export const State: React.FC<{
                 value={labelMinValue}
                 onChange={(e) => setLabelMinValue(e.target.value)}
                 className={styles.input}
+                placeholder={t('label_min_value') as string}
               />
             </div>
 
@@ -422,6 +397,7 @@ export const State: React.FC<{
                 value={maxValue}
                 onChange={(e) => setMaxValue(e.target.value)}
                 className={styles.input}
+                placeholder={t('max_value') as string}
               />
             </div>
 
@@ -431,17 +407,26 @@ export const State: React.FC<{
                 value={labelMaxValue}
                 onChange={(e) => setLabelMaxValue(e.target.value)}
                 className={styles.input}
+                placeholder={t('label_max_value') as string}
               />
             </div>
 
             <div className={styles.paramWrapper}>
-              <div className={styles.param}>{t('choose_block_number')}:</div>
+              <Select
+                label={t('choose_block_number')}
+                onChange={(val: string | null) => {
+                  setActiveDeviceStateIdValue(val);
+                }}
+                options={deviceState?.states?.length ? deviceState?.states : [deviceState?.state]}
+                isBlockNumber
+              />
+              {/* <div className={styles.param}>{t('choose_block_number')}:</div>
               <select
                 className={styles.select}
                 onChange={(e) => setActiveDeviceStateIdValue(e.target.value)}
               >
                 <option value={''} key={0}>
-                  {t('---choose_here---')}
+                  {t('choose_here')}
                 </option>
                 {deviceState?.states?.length ? (
                   deviceState?.states?.map((state: any) => (
@@ -454,24 +439,32 @@ export const State: React.FC<{
                     {deviceState.state.addr}
                   </option>
                 )}
-              </select>
+              </select> */}
             </div>
 
             <div className={styles.paramWrapper}>
-              <div className={styles.param}>{t('choose_element_type')}:</div>
+              <Select
+                label={t('choose_element_type')}
+                onChange={(val: string | null) => {
+                  setActiveDeviceTypeElementValue(val);
+                }}
+                options={deviceElementTypes}
+                isBlockNumber
+              />
+              {/* <div className={styles.param}>{t('choose_element_type')}:</div>
               <select
                 className={styles.select}
                 onChange={(e) => setActiveDeviceTypeElementValue(e.target.value)}
               >
                 <option value={''} key={0}>
-                  {t('---choose_here---')}
+                  {t('choose_here')}
                 </option>
                 {deviceElementTypes?.map((type: any) => (
                   <option key={type} value={type}>
                     {type}
                   </option>
                 ))}
-              </select>
+              </select> */}
             </div>
 
             <div className={styles.paramWrapper}>
@@ -480,6 +473,7 @@ export const State: React.FC<{
                 value={outputValueNumber}
                 onChange={(e) => setOutputValueNumber(e.target.value)}
                 className={styles.input}
+                placeholder={t('output_variable_number') as string}
               />
             </div>
           </>
@@ -495,6 +489,7 @@ export const State: React.FC<{
                 value={minValue}
                 onChange={(e) => setMinValue(e.target.value)}
                 className={styles.input}
+                placeholder={t('min_value') as string}
               />
             </div>
             <div className={styles.paramWrapper}>
@@ -504,6 +499,7 @@ export const State: React.FC<{
                 value={maxValue}
                 onChange={(e) => setMaxValue(e.target.value)}
                 className={styles.input}
+                placeholder={t('max_value') as string}
               />
             </div>
           </>
@@ -519,6 +515,7 @@ export const State: React.FC<{
                 type="number"
                 onChange={(e) => setIntervalValue(e.target.value)}
                 className={styles.input}
+                placeholder={t('interval') as string}
               />
             </div>
           </>

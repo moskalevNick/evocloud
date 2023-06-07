@@ -39,8 +39,11 @@ export const globalActions = {
           ...response.data.user_data,
         };
       } catch (e: any) {
+        const lang = localStorage.getItem('i18nextLng') || 'en';
         Nottification({
-          text: e.response.data.description,
+          type: 'error',
+          label: lang === 'ru' ? 'Неверный логин или пароль' : 'Login or password are incorrect',
+          text: lang === 'ru' ? 'Повторите авторизацию' : 'Repeat autorization',
         });
         return {
           isAuth: false,

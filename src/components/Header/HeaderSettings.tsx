@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './Header.module.css';
-import { LogoIcon } from '../Icons/LogoIcon';
-import { ToggleSwitch } from '../ToggleSwitch/ToggleSwitch';
 import { Button } from '../Button/Button';
 import { LogoutIcon } from '../Icons/LogoutIcon';
 import { Modal } from '../Modal/Modal';
@@ -18,6 +16,7 @@ import { EyeIcon } from '../Icons/EyeIcon';
 import { CrossEyeIcon } from '../Icons/CrossEyeIcon';
 import { StopIcon } from '../Icons/StopIcon';
 import { LanguageSelect } from '../LanguageSelect/LanguageSelect';
+import { AvatarProfileIcon } from '../Icons/AvatarProfileIcon';
 
 type HeaderSettingsType = {};
 
@@ -29,6 +28,7 @@ export const HeaderSettings: React.FC<HeaderSettingsType> = () => {
   const [isOpenSettingModal, setOpenSettingModal] = useState(false);
   const [isOpenLogautModal, setOpenLogoutModal] = useState(false);
   const [isShowPassword, showPassword] = useState(false);
+  const [userName, setUserName] = useState(currentUser?.name);
   const [passwordInputValue, setPasswordInputValue] = useState('');
   const [passwordRepeatInputValue, setPasswordRepeatInputValue] = useState('');
   const [passwordMismatch, setPasswordMismatch] = useState(true);
@@ -47,6 +47,12 @@ export const HeaderSettings: React.FC<HeaderSettingsType> = () => {
       }
     } else return;
   }, []);
+
+  useEffect(() => {
+    if (currentUser) {
+      setUserName(currentUser.name);
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     if (passwordInputValue && passwordRepeatInputValue) {
@@ -137,8 +143,8 @@ export const HeaderSettings: React.FC<HeaderSettingsType> = () => {
           onClick={openBadge}
           // onMouseEnter={() => !isOpenBadge && setOpenBadge(true)}
         >
-          <LogoIcon />
-          <div className={styles.avatarHeader}>EVO Electronics</div>
+          <AvatarProfileIcon />
+          <div className={styles.avatarHeader}>{userName}</div>
         </div>
         {isOpenBadge && (
           <div className={styles.badge} ref={refBadge}>
@@ -147,7 +153,9 @@ export const HeaderSettings: React.FC<HeaderSettingsType> = () => {
               <div className={styles.toggleLabel}>
                 {isDark ? t('dark_theme') : t('light_theme')}
               </div> */}
-              <LanguageSelect />
+              <div className={styles.languageSelectWrapper}>
+                <LanguageSelect size="long" labels={['РУС', 'ENG']} />
+              </div>
             </div>
             <Button
               className={styles.badgeButton}

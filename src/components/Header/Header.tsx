@@ -7,19 +7,22 @@ import { SearchIcon } from '../Icons/SearchIcon';
 import { useAppSelector } from '../../hooks/redux';
 import { HeaderSettings } from './HeaderSettings';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
 export const Header = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const [placeholderText, setPlaceholderText] = useState(`${t('device_name_or_ID')}`);
   const { isDark, role } = useAppSelector((state) => state.globalReducer);
+  const [activeLink, setActiveLink] = useState(0);
+  const [isReverse, setIsRevers] = useState(true);
 
-  const activeStyle = {
-    fontWeight: '700',
-    color: '#ADEBFF',
-    borderBottom: '3px solid #1487F2',
-    transition: 'all .2s',
-  };
+  // const activeStyle = {
+  //   fontWeight: '700',
+  //   color: '#ADEBFF',
+  //   borderBottom: '3px solid #1487F2',
+  //   transition: 'all .2s',
+  // };
 
   useEffect(() => {
     let mainPath = pathname.substring(1);
@@ -32,15 +35,19 @@ export const Header = () => {
       switch (mainPath) {
         case 'devices':
           setPlaceholderText(`${t('device_name_or_ID')}`);
+          setActiveLink(1);
           break;
         case 'distributors':
           setPlaceholderText(`${t('full_name_of_the_distributor')}`);
+          setActiveLink(2);
           break;
         case 'integrators':
           setPlaceholderText(`${t('full_name_of_the_integrator')}`);
+          setActiveLink(3);
           break;
         case 'users':
           setPlaceholderText(`${t('full_name_of_the_user')}`);
+          setActiveLink(4);
           break;
         default:
           setPlaceholderText(`${t('device_name_or_ID')}`);
@@ -63,7 +70,8 @@ export const Header = () => {
         <Input
           beforeIcon={<SearchIcon />}
           placeholder={placeholderText}
-          containerClassName={styles.inputHeader}
+          containerClassName={styles.containerInputHeader}
+          className={styles.inputHeader}
           onChange={(e) => onInputChange(e.target.value)}
         />
       </form>
@@ -71,8 +79,15 @@ export const Header = () => {
         <NavLink
           to="/devices"
           end
-          className={styles.section}
-          style={({ isActive }) => (isActive ? activeStyle : undefined)}
+          className={classNames(
+            styles.section,
+            activeLink === 1 && styles.activeSection,
+            isReverse && activeLink === 1 && styles.reverseAnimation,
+          )}
+          onClick={() => {
+            setActiveLink(1);
+            !isReverse && setIsRevers(true);
+          }}
         >
           {t('devices')}
         </NavLink>
@@ -80,8 +95,17 @@ export const Header = () => {
           <NavLink
             to="/distributors"
             end
-            className={styles.section}
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            className={classNames(
+              styles.section,
+              activeLink === 2 && styles.activeSection,
+              isReverse && activeLink === 2 && styles.reverseAnimation,
+            )}
+            onClick={() => {
+              if (activeLink > 2) {
+                setIsRevers(true);
+              } else setIsRevers(false);
+              setActiveLink(2);
+            }}
           >
             {t('distributors')}
           </NavLink>
@@ -90,8 +114,17 @@ export const Header = () => {
           <NavLink
             to="/integrators"
             end
-            className={styles.section}
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            className={classNames(
+              styles.section,
+              activeLink === 3 && styles.activeSection,
+              isReverse && activeLink === 3 && styles.reverseAnimation,
+            )}
+            onClick={() => {
+              if (activeLink > 3) {
+                setIsRevers(true);
+              } else setIsRevers(false);
+              setActiveLink(3);
+            }}
           >
             {t('integrators')}
           </NavLink>
@@ -99,8 +132,15 @@ export const Header = () => {
         {role !== 'user' && (
           <NavLink
             to="/users"
-            className={styles.section}
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            className={classNames(
+              styles.section,
+              activeLink === 4 && styles.activeSection,
+              isReverse && activeLink === 4 && styles.reverseAnimation,
+            )}
+            onClick={() => {
+              isReverse && setIsRevers(false);
+              setActiveLink(4);
+            }}
           >
             {t('users')}
           </NavLink>

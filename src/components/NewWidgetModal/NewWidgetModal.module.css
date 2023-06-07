@@ -1,59 +1,70 @@
 .modalNewWidget {
   position: relative;
-  width: 1240px;
-  min-height: 600px;
+  width: 1200px;
+  min-height: 640px;
   max-height: 80%;
   padding: 0 !important;
   color: var(--text-color);
-  background-color: var(--header-background);
+  background: #0c314f;
+  box-shadow: 0px 0px 22px #082135;
 }
 
 .modalLabel {
   position: absolute;
   top: 15px;
   left: 25px;
+  padding-bottom: 10px;
   color: var(--text-color);
   font-weight: 600;
   font-size: 22px;
   line-height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: calc(100% - 50px);
+  border-bottom: 1px solid #2c5982;
 }
 
 .mainContainer {
-  margin-top: 60px;
-  width: 100%;
-  height: calc(100% - 110px);
+  margin: 73px 22px 0;
+  height: calc(100% - 150px);
   display: flex;
   flex-direction: column;
-  background-color: var(--header-background);
-  border-radius: 0 0 16px 16px;
+  background: #123a5b;
+  border-radius: 12px;
+  overflow-y: scroll;
 }
 
 .chooseTypeContainer {
-  height: 180px;
   padding: 0 20px;
   display: flex;
   overflow-x: hidden;
+  border-bottom: 1px solid #2c5982;
 }
 
 .typeWrapper {
+  margin: 20px 0;
   position: relative;
-  background-color: var(--widget-background);
-  height: 160px;
-  width: 100px !important;
-  border-radius: 5px;
-  margin: 0 5px;
+  height: 209px;
+  border-radius: 10.6765px;
+  width: 149px !important;
   z-index: 1;
   cursor: pointer;
 }
 
-.activeTypeWrapper {
-  box-shadow: 0px 3px 15px #ffffff;
-  border: 1px solid rgb(255, 255, 255);
+.typeWrapper:hover {
+  box-shadow: 0px 3px 15px #3175ac;
+  border-radius: 10.6765px;
+}
+
+.activeTypeWrapper,
+.activeTypeWrapper:hover {
+  box-shadow: 0px 3px 15px #082135;
 }
 
 .widgetImg {
-  width: 100px;
-  height: 100px;
+  width: 149px;
+  height: 149px;
 }
 
 .widgetNoImg {
@@ -61,14 +72,15 @@
   align-items: center;
   justify-content: center;
   color: yellow;
-  width: 100px;
-  height: 100px;
+  width: 149px;
+  height: 149px;
 }
 
 .typeName {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
   text-align: center;
-  width: 100px;
-  padding: 5px;
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 600;
@@ -78,68 +90,66 @@
 }
 
 .chooseParamsContainer {
-  padding-left: 10px;
-  height: calc(100% - 170px);
+  padding: 10px 22px 0;
   background-color: var(--widget-background);
-  margin: 0 20px;
   border-radius: 6px;
-  overflow-y: scroll;
+  max-height: 218px;
 }
 
 .labelParams {
-  color: var(--text-color);
+  font-family: 'Gilroy';
+  font-style: normal;
   font-weight: 600;
   font-size: 16px;
-  line-height: 28px;
+  line-height: 20px;
+  letter-spacing: 0.03em;
+  color: #9adbf6;
+  display: flex;
+  align-items: center;
+  height: 11px;
+  margin: 15px 0;
 }
 
 .groupParams {
   display: flex;
   flex-wrap: wrap;
-  row-gap: 5px;
-  column-gap: 20px;
-  margin-bottom: 10px;
+  column-gap: 12px;
 }
 
 .paramWrapper {
   display: flex;
   align-items: center;
+  flex-direction: column;
   gap: 10px;
   margin-bottom: 4px;
 }
 
 .labelParamsNoStates {
-  color: var(--text-color);
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 34px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.03em;
+  color: #5183b1;
 }
 
 .param {
-  width: 120px;
-}
-
-.select {
-  height: 34px;
-  width: 250px;
-  background: var(--input-background);
-  border-radius: 10px;
-  border: none;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--text-input-color);
-  border: 1px solid var(--text-input-color);
+  width: 100%;
 }
 
 .input {
-  background-color: transparent;
-  border: 1px solid var(--text-input-color);
-  border-radius: 10px;
-  padding: 8px 16px;
-  color: var(--text-input-color);
-  height: 34px;
-  width: 250px;
+  background: #1f4f77;
+  border-radius: 8px;
+  border: none;
+  padding: 16px;
+  height: 40px;
+  width: 280px;
+  color: #5183b1;
+}
+
+.input::placeholder {
+  color: #5183b1;
 }
 
 .submitButtonsWrapper {

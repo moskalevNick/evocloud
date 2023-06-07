@@ -1,3 +1,7 @@
+.userCard {
+  background-color: #0c314f;
+}
+
 .userCardHeaderContainer {
   padding: 24px;
   display: flex;

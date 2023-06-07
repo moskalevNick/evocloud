@@ -66,48 +66,75 @@
   height: 100%;
   border-right: 2px solid #173b59;
   overflow-y: auto;
+  margin-top: 10px;
 }
 
 .groupWrapper {
   position: relative;
-  background-color: var(--widget-background);
-  margin: 15px auto;
+  background: #173b59;
+  margin: 10px auto;
   width: 246px;
   border-radius: 6px;
   height: 34px;
   cursor: pointer;
+  padding-left: 12px;
+
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
   line-height: 17px;
-  display: flex;
-  align-items: center;
+
   letter-spacing: 0.02em;
   color: #e3f2ff;
   overflow: hidden;
 
   display: flex;
   align-items: center;
-  justify-content: center;
   text-align: center;
+}
+
+.groupWrapper:hover {
+  background: #17456b;
 }
 
 .removeIcon {
   position: absolute;
-  right: 5px;
+  right: 15px;
 }
+
+.removeIcon > svg {
+  fill: #5183b1;
+}
+
+.removeIcon:hover > svg {
+  fill: #58b1ff;
+}
+
+.removeIcon:active > svg {
+  fill: #148ef8;
+}
+
 .editIcon {
   position: absolute;
-  right: 28px;
+  right: 36px;
 }
 
-.activeGroupWrapper {
-  background-color: #148ef8;
+.editIcon > svg {
+  fill: #5183b1;
 }
 
-.clearButton {
-  margin-top: 50px;
+.editIcon:hover > svg {
+  fill: #58b1ff;
+}
+
+.editIcon:active > svg {
+  fill: #148ef8;
+}
+
+.activeGroupWrapper,
+.activeGroupWrapper:hover {
+  background-color: #1560a1;
 }
 
 .widgetsContainer {
@@ -117,8 +144,53 @@
   max-width: fit-content;
   min-width: 75%;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  row-gap: 15px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
   padding: 15px 50px;
   overflow-y: auto;
+}
+
+.modalLogout {
+  width: 492px;
+  height: 236px;
+  background: #0c314f;
+  box-shadow: 0px 0px 22px #350808 !important;
+  border-radius: 15px;
+}
+
+.contentWrapperLogout {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 433px;
+  height: 125px;
+}
+
+.contentLogout {
+  display: flex;
+  justify-content: flex-start;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 150.7%;
+  color: #9adbf6;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cancelButton,
+.logoutButton {
+  width: 104px;
+  height: 27px;
+  border-radius: 6px;
+}
+
+.logoutButton {
+  background: #148ef8;
+  margin-left: 12px;
 }

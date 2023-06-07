@@ -14,13 +14,14 @@ import { userActions } from '../../redux/user/actions';
 import { ArrowDownIcon } from '../../components/Icons/ArrowDown';
 import { EditIcon } from '../../components/Icons/EditIcon';
 import { UserModal } from '../../components/UserModal/UserModal';
-import { EditActiveIcon } from '../../components/Icons/EditActiveIcon';
 import { ControllersModal } from '../../components/ControllersModal/ControllersModal';
 import { userSettingsActions } from '../../redux/user/reducers';
 import { WidgetsModal } from '../../components/WidgetsModal/WidgetsModal';
 import { widgetSettingsActions } from '../../redux/widgets/reducers';
 import { UserType } from '../../types';
 import { CircleIcon } from '../../components/Icons/CircleIcon';
+import { EditHoverIcon } from '../../components/Icons/EditHoverIcon';
+import { EditActiveIcon } from '../../components/Icons/EditActiveIcon';
 
 export const IntegratorsModule = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +35,7 @@ export const IntegratorsModule = () => {
   const [isUserModalOpen, setUserModalOpen] = useState(false);
   const [isControllersModalOpen, setControllersModalOpen] = useState<number | null>(null);
   const [isWidgetsModalOpen, setWidgetsModalOpen] = useState<number | null>(null);
+  const [hoverEdit, setHoverEdit] = useState<number | null>(null);
   const [activeEdit, setActiveEdit] = useState<number | null>(null);
   const [currentUsers, setCurrentUsers] = useState<UserType[]>([]);
   const [hoverElement, setHoverElement] = useState<number | null>(null);
@@ -164,12 +166,8 @@ export const IntegratorsModule = () => {
               <ArrowDownIcon />
             </button>
           </div>
-          <div className={headerOnlineDevicesClasses}>
-            {t('online')}
-            <button className={styles.arrowDownButton} onClick={() => sortUsers('online devices')}>
-              <ArrowDownIcon />
-            </button>
-          </div>
+          <div className={headerOnlineDevicesClasses}>{t('online')}</div>
+          <div className={styles.verticalLine} />
           <div className={headerOfflineDevicesClasses}>
             {t('offline')}
             <button className={styles.arrowDownButton} onClick={() => sortUsers('offline devices')}>
@@ -187,7 +185,10 @@ export const IntegratorsModule = () => {
                 key={user.id}
                 onClick={(e) => getUserInfo(e, user.id)}
                 onMouseOver={() => setHoverElement(user.id)}
-                onMouseLeave={() => setHoverElement(null)}
+                onMouseLeave={() => {
+                  setHoverElement(null);
+                  setHoverEdit(null);
+                }}
               >
                 <div
                   className={
@@ -213,6 +214,7 @@ export const IntegratorsModule = () => {
                       .length
                   }
                 </div>
+                <div className={styles.verticalLine} />
                 <div className={styles.listItemOfflineDevices}>
                   <CircleIcon />
                   {
@@ -223,11 +225,21 @@ export const IntegratorsModule = () => {
                 <div className={styles.buttonContainer}>
                   <button
                     className={styles.arrowDownButton}
-                    onClick={(e) => getUserInfo(e, user.id)}
-                    onMouseOver={() => setActiveEdit(user.id)}
-                    onMouseLeave={() => setActiveEdit(null)}
+                    onMouseOver={() => setHoverEdit(user.id)}
+                    onMouseLeave={() => setHoverEdit(null)}
+                    onMouseDown={() => setActiveEdit(user.id)}
+                    onMouseUp={(e) => {
+                      getUserInfo(e, user.id);
+                      setActiveEdit(null);
+                    }}
                   >
-                    {activeEdit === user.id ? <EditActiveIcon /> : <EditIcon />}
+                    {activeEdit === user.id ? (
+                      <EditActiveIcon />
+                    ) : hoverEdit === user.id ? (
+                      <EditHoverIcon />
+                    ) : (
+                      <EditIcon width="20" />
+                    )}
                   </button>
                 </div>
                 <div

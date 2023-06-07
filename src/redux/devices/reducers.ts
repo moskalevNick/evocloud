@@ -62,7 +62,8 @@ export const deviceSlice = createSlice({
           locale === 'ru' ? 'Контроллер успешно обновлен' : 'Device successfully updated';
 
         Nottification({
-          name: `${action.payload.x_evo_device} (${action.payload.name})`,
+          type: 'success',
+          label: `${action.payload.x_evo_device} (${action.payload.name})`,
           text: nottificationText,
         });
       })

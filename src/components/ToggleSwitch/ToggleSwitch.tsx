@@ -26,7 +26,7 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
   readOnly = false,
   labels = [<MoonIcon />, <SunIcon />],
   className,
-  size = 'long',
+  size = 'short',
   isWidget = false,
 }) => {
   const toggleSwitchClass = classNames(

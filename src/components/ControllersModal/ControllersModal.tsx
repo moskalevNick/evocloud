@@ -11,9 +11,10 @@ import { userActions } from '../../redux/user/actions';
 import { deviceActions } from '../../redux/devices/actions';
 import { DeviceType } from '../../types';
 import { Button } from '../Button/Button';
+import { WidgetActiveIcon } from '../Icons/WidgetActiveIcon';
 
 export const ControllersModal: React.FC<{ id: number }> = ({ id }) => {
-  const { isModalLoading, currentUser } = useAppSelector((state) => state.userReducer);
+  const { isModalLoading, usersInfo } = useAppSelector((state) => state.userReducer);
   const { isLoading, devices } = useAppSelector((state) => state.deviceReducer);
   const [userDevices, setUserDevices] = useState<DeviceType[]>([]);
   const [otherDevices, setOtherDevices] = useState<DeviceType[]>([]);
@@ -26,17 +27,18 @@ export const ControllersModal: React.FC<{ id: number }> = ({ id }) => {
   };
 
   useEffect(() => {
-    dispatch(userActions.getCurrentUser(id));
+    dispatch(userActions.getUserInfo(id));
     dispatch(deviceActions.getDevices());
   }, [dispatch, id]);
 
   useEffect(() => {
+    const currentUser = usersInfo[id];
     currentUser?.devices && setUserDevices(currentUser.devices);
 
     const currentUserDeviceIds: number[] = [];
     currentUser?.devices?.forEach((device) => currentUserDeviceIds.push(device.id));
     setOtherDevices(devices.filter((device) => !currentUserDeviceIds.includes(device.id)));
-  }, [currentUser, devices]);
+  }, [id, devices, usersInfo]);
 
   const addController = (id: number) => {
     const currentDevice = devices.find((device) => device.id === id);
@@ -55,6 +57,7 @@ export const ControllersModal: React.FC<{ id: number }> = ({ id }) => {
   };
 
   const onSubmit = () => {
+    const currentUser = usersInfo[id];
     const oldControllerIds: number[] = [];
     const newControllerIds: number[] = [];
     currentUser?.devices?.forEach((device) => oldControllerIds.push(device.id));
@@ -86,14 +89,19 @@ export const ControllersModal: React.FC<{ id: number }> = ({ id }) => {
   return (
     <Modal open={true} onClose={onClose} className={styles.modalControllers}>
       <div className={styles.modalLabel}>
-        {t('user_controllers')} {currentUser?.name}
+        <WidgetActiveIcon />
+        {t('user_controllers')} {usersInfo[id]?.name}
       </div>
       <div className={styles.controllersContainer}>
         <div className={styles.userControllersWrapper}>
           {userDevices.map((device) => (
             <div className={styles.controllerContainer} key={device.id}>
               {`${device.name} (${device.x_evo_device})`}
-              <Button className={styles.addButton} onClick={() => removeController(device.id)}>
+              <Button
+                className={styles.addButton}
+                contentClassName={styles.contentButton}
+                onClick={() => removeController(device.id)}
+              >
                 -
               </Button>
             </div>
@@ -103,15 +111,23 @@ export const ControllersModal: React.FC<{ id: number }> = ({ id }) => {
           {otherDevices.map((device) => (
             <div className={styles.controllerContainer} key={device.id}>
               {`${device.name} (${device.x_evo_device})`}
-              <Button className={styles.addButton} onClick={() => addController(device.id)}>
+              <Button
+                className={styles.addButton}
+                contentClassName={styles.contentButton}
+                onClick={() => addController(device.id)}
+              >
                 +
               </Button>
             </div>
           ))}
         </div>
       </div>
-      <div className={styles.userDevicesAmount}>{`${t('amount')}: ${userDevices.length}`}</div>
-      <div className={styles.otherDevicesAmount}>{`${t('amount')}: ${otherDevices.length}`}</div>
+      <div className={styles.userDevicesAmount}>{`${t('amount_added')}: ${
+        userDevices.length
+      }`}</div>
+      <div className={styles.otherDevicesAmount}>{`${t('amount_available')}: ${
+        otherDevices.length
+      }`}</div>
       <div className={styles.submitButtonsWrapper}>
         <Button outlined className={styles.submitButton} onClick={onClose}>
           {t('cancel')}

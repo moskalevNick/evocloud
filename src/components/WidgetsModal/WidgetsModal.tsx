@@ -13,28 +13,28 @@ import { PlusIcon } from '../Icons/PlusIcon';
 import { GroupWidgetsType, WidgetType } from '../../types';
 import classNames from 'classnames';
 import { Widget } from '../Widget/Widget';
-import { RemoveIcon } from '../Icons/RemoveIcon';
 import { EditIcon } from '../Icons/EditIcon';
+import { CrossIcon } from '../Icons/CrossIcon';
 
 export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
-  const { isModalLoading, currentUser } = useAppSelector((state) => state.userReducer);
+  const { isModalLoading, usersInfo } = useAppSelector((state) => state.userReducer);
   const { widgets, groupWidgets, isLoading } = useAppSelector((state) => state.widgetReducer);
   const [activeGroup, setActiveGroup] = useState<GroupWidgetsType | null>(null);
   const [currentWidgets, setCurrentWidgets] = useState<WidgetType[]>(widgets);
   const [bigWidgets, setBigWidgets] = useState<WidgetType[]>([]);
   const [middleWidgets, setMiddleWidgets] = useState<WidgetType[]>([]);
   const [littleWidgets, setLittleWidgets] = useState<WidgetType[]>([]);
+  const [isRemoveOpen, setIsRemoveOpen] = useState<number | undefined>(undefined);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const clearButtonClassnames = classNames(styles.groupWrapper, styles.clearButton);
 
   const onClose = () => {
     navigate('/users');
   };
 
   useEffect(() => {
-    dispatch(userActions.getCurrentUser(id));
+    dispatch(userActions.getUserInfo(id));
     dispatch(widgetActions.getWidgets(id));
     dispatch(widgetActions.getGroupWidgets(id));
   }, [dispatch, id]);
@@ -54,13 +54,9 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
       setLittleWidgets([]);
       currentWidgets.forEach((widget) => {
         if (widget.type) {
-          if (
-            widget.type.name === 'rtsp' ||
-            widget.type.name === 'temp_regulator_button' ||
-            widget.type.name === 'rgb'
-          ) {
+          if (widget.type.name === 'temp_regulator_button' || widget.type.name === 'rgb') {
             setBigWidgets((prev) => [...prev, widget]);
-          } else if (widget.type.name === 'bar_button') {
+          } else if (widget.type.name === 'rtsp' || widget.type.name === 'bar_button') {
             setMiddleWidgets((prev) => [...prev, widget]);
           } else setLittleWidgets((prev) => [...prev, widget]);
         }
@@ -85,6 +81,8 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
   const removeGroup = (e: React.MouseEvent<HTMLElement>, groupId: number) => {
     dispatch(widgetActions.removeGroupWidgets({ userId: id, groupId }));
     e.stopPropagation();
+    setIsRemoveOpen(undefined);
+    setActiveGroup(null);
   };
 
   const editGroup = (e: React.MouseEvent<HTMLElement>, groupId: number) => {
@@ -97,7 +95,7 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
   return (
     <Modal open={true} onClose={onClose} className={styles.modalWidgets}>
       <div className={styles.modalLabel}>
-        {t('user_widgets_and_groups')} {currentUser?.name}
+        {t('user_widgets_and_groups')} {usersInfo[id]?.name}
       </div>
       <div className={styles.mainContainer}>
         <div className={styles.containerLabelGroups}>
@@ -109,6 +107,15 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
           />
         </div>
         <div className={styles.groupsContainer}>
+          {groupWidgets.length !== 0 && (
+            <div
+              className={styles.groupWrapper}
+              key="clearBtn"
+              onClick={() => setActiveGroup(null)}
+            >
+              {t('all_groups')}
+            </div>
+          )}
           {groupWidgets.map((group) => (
             <div
               className={classNames(
@@ -119,23 +126,26 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
               onClick={() => setActiveGroup(group)}
             >
               {group.name}
-              <div onClick={(e) => removeGroup(e, group.id)} className={styles.removeIcon}>
-                <RemoveIcon />
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsRemoveOpen(group.id);
+                }}
+                className={styles.removeIcon}
+              >
+                <CrossIcon />
               </div>
-              <div onClick={(e) => editGroup(e, group.id)} className={styles.editIcon}>
-                <EditIcon fill="#fff" />
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  editGroup(e, group.id);
+                }}
+                className={styles.editIcon}
+              >
+                <EditIcon />
               </div>
             </div>
           ))}
-          {groupWidgets.length !== 0 && (
-            <div
-              className={clearButtonClassnames}
-              key="clearBtn"
-              onClick={() => setActiveGroup(null)}
-            >
-              {t('clear')}
-            </div>
-          )}
         </div>
         <div className={styles.containerLabelWidgets}>
           {t('widgets')}
@@ -150,14 +160,47 @@ export const WidgetsModal: React.FC<{ id: number }> = ({ id }) => {
           {littleWidgets?.map((widget) => (
             <Widget WidgetData={widget} key={widget.id} size="little" />
           ))}
-          {middleWidgets?.map((widget) => (
-            <Widget WidgetData={widget} key={widget.id} size="middle" />
-          ))}
           {bigWidgets?.map((widget) => (
             <Widget WidgetData={widget} key={widget.id} size="big" />
           ))}
+          {middleWidgets?.map((widget) => (
+            <Widget WidgetData={widget} key={widget.id} size="middle" />
+          ))}
         </div>
       </div>
+      <Modal
+        onClose={() => setIsRemoveOpen(undefined)}
+        open={isRemoveOpen !== undefined}
+        className={styles.modalLogout}
+        label={t('remove') as string}
+      >
+        <div className={styles.contentWrapperLogout}>
+          <div className={styles.contentLogout}>
+            {t('are_you_sure_you_want_to_remove')}{' '}
+            {groupWidgets.find((group) => isRemoveOpen === group.id)?.name}
+            {' ?'}
+          </div>
+          <div className={styles.buttonWrapper}>
+            <Button
+              className={styles.cancelButton}
+              outlined
+              onClick={() => setIsRemoveOpen(undefined)}
+            >
+              {t('cancel')}
+            </Button>
+            <Button
+              className={styles.logoutButton}
+              onClick={(e) => {
+                if (isRemoveOpen) {
+                  removeGroup(e, isRemoveOpen);
+                }
+              }}
+            >
+              {t('remove')}
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </Modal>
   );
 };

@@ -4,7 +4,7 @@
   height: 187px;
   left: 50vw;
   top: 50vh;
-  background: var(--background-loader);
+  background: #0c314f;
   box-shadow: var(--shadow-spinner);
   border-radius: 20px;
   display: flex;
@@ -23,7 +23,7 @@
 
 .text {
   color: var(--text-color);
-  font-family: 'Open Sans';
+  font-family: 'Gilroy';
   font-weight: 600;
   font-size: 14px;
   line-height: 19px;

@@ -1,6 +1,8 @@
 {
   "login": "Login",
+  "_login": "login",
   "password": "Password",
+  "_password": "password",
   "repeat_password": "Repeat password",
   "enter_your_login": "Enter your login",
   "enter_your_password": "Enter your password",
@@ -44,6 +46,7 @@
   "visits": "Visits",
   "status": "Status",
   "phone_number": "Phone number",
+  "_phone_number": "phone number",
   "enter_phone_number": "Enter phone number",
   "bill_amount": "Bill amount",
   "bill2": "Bill",
@@ -87,7 +90,8 @@
   "profile": "Profile",
   "limit": "For comfortable use, we recommend using a device with a higher resolution",
   "user_controllers": "User controllers",
-  "amount": "Amount",
+  "amount_added": "Amount added",
+  "amount_available": "Amount available",
   "user_widgets_and_groups": "User groups & widgets",
   "groups": "Groups",
   "widgets": "Widgets",
@@ -140,7 +144,7 @@
   "controller_elements_for_get_state_input": "Controller elements for get state (input)",
   "silence_mode": "Silence mode",
   "bar_name": "Bar name",
-  "---choose_here---": "---Choose here---",
+  "choose_here": "Choose here",
   "we_consider_the_button_to_be_enabled_according_to_this_data": "We consider the button to be enabled according to this data (on)",
   "controller_elements_for_set_state_output": "Controller elements for set state (output)",
   "to_turn_off": "To turn off",
@@ -176,5 +180,9 @@
   "new_group_widget_for": "New group widget for",
   "group_name": "Group name",
   "comment": "Comment",
-  "edit_group_widget_for": "Edit group widgets for"
+  "edit_group_widget_for": "Edit group widgets for",
+  "all_groups": "All groups",
+  "are_you_sure_you_want_to_remove": "Are you sure you want to remove",
+  "remove": "Remove",
+  "leave_a_comment": "Leave a comment"
 }

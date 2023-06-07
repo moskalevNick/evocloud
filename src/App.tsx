@@ -25,8 +25,13 @@ export default function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    localStorage.setItem('i18nextLng', isRus ? 'ru' : 'en');
-    i18n.changeLanguage(isRus ? 'ru' : 'en');
+    const prevLang = localStorage.getItem('i18nextLng');
+    if (!prevLang) {
+      localStorage.setItem('i18nextLng', isRus ? 'ru' : 'en');
+      i18n.changeLanguage(isRus ? 'ru' : 'en');
+    } else {
+      i18n.changeLanguage(prevLang);
+    }
   }, [isRus]);
 
   if (!isDesktop) {

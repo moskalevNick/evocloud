@@ -143,6 +143,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px var(--input-background) inset !important;
+  border: 1px solid #008cff;
 }
 
 input:-webkit-autofill {
@@ -159,4 +160,18 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type='number'] {
   -moz-appearance: textfield;
+}
+
+.Toastify__toast-theme--light {
+  background: transparent;
+  backdrop-filter: blur(22px);
+}
+.Toastify__progress-bar {
+  width: 85%;
+  left: 25px;
+  height: 3px;
+}
+
+.Toastify__progress-bar-theme--light {
+  background: linear-gradient(270deg, #ffffff 0.56%, rgba(116, 46, 86, 0) 58.47%);
 }

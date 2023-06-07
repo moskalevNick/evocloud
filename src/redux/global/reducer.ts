@@ -25,7 +25,7 @@ const globalSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(globalActions.login.pending, (state) => {
-        state.isLoading = true;
+        // state.isLoading = true;
       })
       .addCase(globalActions.login.fulfilled, (state, action) => {
         state.isDark = action.payload.isDark;
@@ -49,10 +49,10 @@ const globalSlice = createSlice({
             break;
         }
 
-        state.isLoading = false;
+        // state.isLoading = false;
       })
       .addCase(globalActions.login.rejected, (state) => {
-        state.isLoading = false;
+        // state.isLoading = false;
       })
 
       .addCase(globalActions.registration.pending, (state) => {
@@ -61,6 +61,7 @@ const globalSlice = createSlice({
       .addCase(globalActions.registration.fulfilled, (state, action) => {
         state.isLoading = false;
         Nottification({
+          type: 'success',
           text: `user ${action.payload.username} successfully registered`,
         });
       })
@@ -114,9 +115,13 @@ const globalSlice = createSlice({
         }
         document.body.setAttribute('dir', action.payload.isRus ? 'ru' : 'en');
         Nottification({
+          type: 'success',
+          label: action.payload.isRus
+            ? 'Настройки аккаунта изменены успешно'
+            : 'Account settings changed successfully',
           text: action.payload.isRus
-            ? 'настройки аккаунта изменены успешно'
-            : 'account settings changed successfully',
+            ? 'Продолжайте работу с EVO Cloud'
+            : 'Keep working with EVO Cloud',
         });
         state.isLoading = false;
       })

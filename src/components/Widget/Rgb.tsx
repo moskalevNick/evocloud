@@ -49,13 +49,13 @@ export const Rgb: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => {
 
   const barStyles = {
     cursor: isOn ? 'pointer' : 'not-allowed',
-    backgroundColor: isOn ? '#c0e0ff' : '#1b5c9e',
+    backgroundColor: isOn ? '#1A4A72' : '#1b5c9e',
   };
 
   const lineStyles = {
     width: `${barAmount}%`,
-    height: '16px',
-    backgroundColor: isOn ? rgb : '#173b59',
+    height: '26px',
+    backgroundColor: isOn ? '#569EFF' : '#173b59',
     borderRadius: '4px',
   };
 
@@ -78,7 +78,7 @@ export const Rgb: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => {
 
   const changeMousePlace = (e: any) => {
     if (isOn) {
-      setMeterPlace(Math.round(e.nativeEvent.offsetX / 1.4));
+      setMeterPlace(Math.round(e.nativeEvent.offsetX / 1.91));
     }
   };
 
@@ -103,20 +103,22 @@ export const Rgb: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) => {
     <div className={styles.bigWidgetWrapper}>
       <div className={styles.widgetName}> {WidgetData.name}</div>
       <div className={styles.widgetGroupName}> {WidgetData.group.name}</div>
-      <IroColorPicker
-        color={rgb}
-        onColorChange={(color: colorType) => {
-          onColorChange(color);
-        }}
-        width={120}
-        height={120}
-      />
+      <div className={styles.colorPickerWrapper}>
+        <IroColorPicker
+          color={rgb}
+          onColorChange={(color: colorType) => {
+            onColorChange(color);
+          }}
+          width={162}
+          height={162}
+        />
+      </div>
       <div className={styles.colorPickerCover} style={colorPickerCoverBackground} />
       <div className={styles.toggleWrapper}>
         <ToggleSwitch
           isWidget={true}
           size="short"
-          checked={!!isOn}
+          checked={!isOn}
           labels={[<div />, <div />]}
           onChange={() => setOn((prev) => !prev)}
         />

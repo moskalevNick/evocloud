@@ -50,10 +50,13 @@ export const Login = () => {
 
   let formData = watch();
 
-  const login = () => {
+  const login = async () => {
     formData = { ...formData, isRemember: isRemember };
     if (formData.username && formData.password) {
-      dispatch(globalActions.login(formData));
+      const response = await dispatch(globalActions.login(formData));
+      if (!response.payload.isAuth) {
+        setLoginError(true);
+      }
     } else {
       setLoginError(true);
     }
@@ -80,22 +83,31 @@ export const Login = () => {
                 type={isShowPassword ? 'text' : 'password'}
                 autocomplete="on"
                 afterIcon={
-                  <div onClick={() => showPassword((prev) => !prev)}>
-                    {isShowPassword ? <EyeIcon /> : <CrossEyeIcon />}
+                  <div onClick={() => showPassword((prev) => !prev)} className={styles.eyeWrapper}>
+                    {isShowPassword ? (
+                      <EyeIcon fill={loginError ? '#F83068' : '#5183B1'} />
+                    ) : (
+                      <CrossEyeIcon fill={loginError ? '#F83068' : '#5183B1'} />
+                    )}
                   </div>
                 }
               />
             </ControlWrapperForm>
             {loginError && <ErrorMessage msg={t('wrong_login_or_password')} />}
             <div className={styles.buttonsContainer}>
-              <span className={styles.checkbox}>
+              <span className={styles.checkboxWrapper}>
                 <Checkbox
+                  className={styles.checkbox}
                   checked={isRemember}
                   onChange={() => setRemember((prev) => !prev)}
-                  label={<div className={styles.label}>{t('remember')}</div>}
+                  label={<div>{t('remember')}</div>}
                 />
               </span>
-              <Button className={styles.button} type="submit">
+              <Button
+                className={styles.button}
+                type="submit"
+                disabled={!formData.username || !formData.password}
+              >
                 {t('log_in')}
               </Button>
             </div>
@@ -103,7 +115,7 @@ export const Login = () => {
         </FormProvider>
       </div>
       <div className={styles.wrapperToggleEng}>
-        <LanguageSelect />
+        <LanguageSelect size="long" labels={['РУС', 'ENG']} />
       </div>
       <div className={styles.sign}>DESIGNED BY EVO CONTROLS</div>
       {/* <div className={styles.wrapperToggleTheme}>

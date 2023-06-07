@@ -17,10 +17,6 @@ import { LogsIcon } from '../../components/Icons/LogsIcon';
 import { WidgetIcon } from '../../components/Icons/WidgetIcon';
 import { GroupWidgetsIcon } from '../../components/Icons/GroupWidgetsIcon';
 import { UserModal } from '../../components/UserModal/UserModal';
-import { GroupWidgetsActiveIcon } from '../../components/Icons/GroupWidgetsActiveIcon';
-import { WidgetActiveIcon } from '../../components/Icons/WidgetActiveIcon';
-import { LogsActiveIcon } from '../../components/Icons/LogsActiveIcon';
-import { EditActiveIcon } from '../../components/Icons/EditActiveIcon';
 import { ControllersModal } from '../../components/ControllersModal/ControllersModal';
 import { userSettingsActions } from '../../redux/user/reducers';
 import { WidgetsModal } from '../../components/WidgetsModal/WidgetsModal';
@@ -28,6 +24,14 @@ import { widgetSettingsActions } from '../../redux/widgets/reducers';
 import { getStatusIcon } from '../../helpers/getStatusIcon';
 import { NewWidgetModal } from '../../components/NewWidgetModal/NewWidgetModal';
 import { GroupWidgetModal } from '../../components/GroupWidgetModal/GroupWidgetModal';
+import { EditHoverIcon } from '../../components/Icons/EditHoverIcon';
+import { GroupWidgetsHoverIcon } from '../../components/Icons/GroupWidgetsHoverIcon';
+import { WidgetHoverIcon } from '../../components/Icons/WidgetHoverIcon';
+import { LogsHoverIcon } from '../../components/Icons/LogsHoverIcon';
+import { GroupWidgetsActiveIcon } from '../../components/Icons/GroupWidgetsActiveIcon';
+import { WidgetActiveIcon } from '../../components/Icons/WidgetActiveIcon';
+import { LogsActiveIcon } from '../../components/Icons/LogsActiveIcon';
+import { EditActiveIcon } from '../../components/Icons/EditActiveIcon';
 
 export const UsersModule = () => {
   const dispatch = useAppDispatch();
@@ -43,9 +47,13 @@ export const UsersModule = () => {
   const [isNewWidgetModalOpen, setNewWidgetModalOpen] = useState<number | null>(null);
   const [isGroupWidgetModalOpen, setGroupWidgetModalOpen] = useState<number | null>(null);
   const [hoverElement, setHoverElement] = useState<number | null>(null);
+  const [hoverGroupWidgets, setHoverGroupWidgets] = useState<number | null>(null);
   const [activeGroupWidgets, setActiveGroupWidgets] = useState<number | null>(null);
+  const [hoverWidget, setHoverWidget] = useState<number | null>(null);
   const [activeWidget, setActiveWidget] = useState<number | null>(null);
+  const [hoverLogs, setHoverLogs] = useState<number | null>(null);
   const [activeLogs, setActiveLogs] = useState<number | null>(null);
+  const [hoverEdit, setHoverEdit] = useState<number | null>(null);
   const [activeEdit, setActiveEdit] = useState<number | null>(null);
 
   const headerNumberClasses = classNames(styles.headerItem, styles.headerItemNumber);
@@ -186,72 +194,116 @@ export const UsersModule = () => {
             </button>
           </div>
         </div>
-        <div className={styles.listItemsWrapper}>
-          {isLoading ? (
-            <Loader />
-          ) : (
-            users?.map((user, i) => (
-              <div
-                className={styles.listItem}
-                key={user.id}
-                onMouseOver={() => setHoverElement(user.id)}
-                onMouseLeave={() => setHoverElement(null)}
-              >
+        <div className={styles.listItemsScrollWrapper}>
+          <div className={styles.listItemsWrapper}>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              users?.map((user, i) => (
                 <div
-                  className={
-                    hoverElement === user.id ? listItemBeforeClassnames : styles.listItemAfter
-                  }
-                />
-                <div className={styles.listItemNumber}>{i + 1}</div>
-                <div className={styles.listItemName}>{user.name}</div>
-                <div className={styles.listItemLogin}>{user.login}</div>
-                <div className={styles.listItemStatus}>{getStatusIcon(user.group_id, t)}</div>
-                <div className={styles.buttonContainer}>
-                  <button
-                    className={styles.arrowDownButton}
-                    onClick={(e) => getGroupWidgets(e, user.id)}
-                    onMouseOver={() => setActiveGroupWidgets(user.id)}
-                    onMouseLeave={() => setActiveGroupWidgets(null)}
-                  >
-                    {activeGroupWidgets === user.id ? (
-                      <GroupWidgetsActiveIcon />
-                    ) : (
-                      <GroupWidgetsIcon />
-                    )}
-                  </button>
-                  <button
-                    className={styles.arrowDownButton}
-                    onClick={(e) => getControllers(e, user.id)}
-                    onMouseOver={() => setActiveWidget(user.id)}
-                    onMouseLeave={() => setActiveWidget(null)}
-                  >
-                    {activeWidget === user.id ? <WidgetActiveIcon /> : <WidgetIcon />}
-                  </button>
-                  <button
-                    className={styles.arrowDownButton}
-                    onClick={(e) => openLogs(e, user.id)}
-                    onMouseOver={() => setActiveLogs(user.id)}
-                    onMouseLeave={() => setActiveLogs(null)}
-                  >
-                    {activeLogs === user.id ? <LogsActiveIcon /> : <LogsIcon />}
-                  </button>
-                  <button
-                    className={styles.arrowDownButton}
-                    onClick={(e) => getUserInfo(e, user.id)}
-                    onMouseOver={() => setActiveEdit(user.id)}
-                    onMouseLeave={() => setActiveEdit(null)}
-                  >
-                    {activeEdit === user.id ? <EditActiveIcon /> : <EditIcon />}
-                  </button>
+                  className={styles.listItem}
+                  key={user.id}
+                  onMouseOver={() => setHoverElement(user.id)}
+                  onMouseLeave={() => {
+                    setHoverElement(null);
+                    setHoverGroupWidgets(null);
+                    setHoverLogs(null);
+                    setHoverEdit(null);
+                    setHoverWidget(null);
+                  }}
+                >
+                  <div
+                    className={
+                      hoverElement === user.id ? listItemBeforeClassnames : styles.listItemAfter
+                    }
+                  />
+                  <div className={styles.listItemNumber}>{i + 1}</div>
+                  <div className={styles.listItemName}>{user.name}</div>
+                  <div className={styles.listItemLogin}>{user.login}</div>
+                  <div className={styles.listItemStatus}>{getStatusIcon(user.group_id, t)}</div>
+                  <div className={styles.buttonContainer}>
+                    <button
+                      className={styles.arrowDownButton}
+                      onMouseOver={() => setHoverGroupWidgets(user.id)}
+                      onMouseLeave={() => setHoverGroupWidgets(null)}
+                      onMouseDown={() => setActiveGroupWidgets(user.id)}
+                      onMouseUp={(e) => {
+                        getGroupWidgets(e, user.id);
+                        setActiveGroupWidgets(null);
+                      }}
+                    >
+                      {activeGroupWidgets === user.id ? (
+                        <GroupWidgetsActiveIcon />
+                      ) : hoverGroupWidgets === user.id ? (
+                        <GroupWidgetsHoverIcon />
+                      ) : (
+                        <GroupWidgetsIcon />
+                      )}
+                    </button>
+                    <button
+                      className={styles.arrowDownButton}
+                      onMouseOver={() => setHoverWidget(user.id)}
+                      onMouseLeave={() => setHoverWidget(null)}
+                      onMouseDown={() => setActiveWidget(user.id)}
+                      onMouseUp={(e) => {
+                        getControllers(e, user.id);
+                        setActiveWidget(null);
+                      }}
+                    >
+                      {activeWidget === user.id ? (
+                        <WidgetActiveIcon />
+                      ) : hoverWidget === user.id ? (
+                        <WidgetHoverIcon />
+                      ) : (
+                        <WidgetIcon />
+                      )}
+                    </button>
+                    <button
+                      className={styles.arrowDownButton}
+                      onMouseOver={() => setHoverLogs(user.id)}
+                      onMouseLeave={() => setHoverLogs(null)}
+                      onMouseDown={() => setActiveLogs(user.id)}
+                      onMouseUp={(e) => {
+                        openLogs(e, user.id);
+                        setActiveLogs(null);
+                      }}
+                    >
+                      {activeLogs === user.id ? (
+                        <LogsActiveIcon />
+                      ) : hoverLogs === user.id ? (
+                        <LogsHoverIcon />
+                      ) : (
+                        <LogsIcon />
+                      )}
+                    </button>
+                    <button
+                      className={styles.arrowDownButton}
+                      onMouseOver={() => setHoverEdit(user.id)}
+                      onMouseLeave={() => setHoverEdit(null)}
+                      onMouseDown={() => setActiveEdit(user.id)}
+                      onMouseUp={(e) => {
+                        getUserInfo(e, user.id);
+                        setActiveEdit(null);
+                      }}
+                    >
+                      {activeEdit === user.id ? (
+                        <EditActiveIcon height="21" />
+                      ) : hoverEdit === user.id ? (
+                        <EditHoverIcon />
+                      ) : (
+                        <EditIcon />
+                      )}
+                    </button>
+                  </div>
+                  <div
+                    className={
+                      hoverElement === user.id ? listItemAfterClassnames : styles.listItemAfter
+                    }
+                  />
                 </div>
-                <div
-                  className={
-                    hoverElement === user.id ? listItemAfterClassnames : styles.listItemAfter
-                  }
-                />
-              </div>
-            ))
-          )}
+              ))
+            )}
+          </div>
         </div>
       </div>
       {isUserModalOpen && <UserModal />}

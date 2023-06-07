@@ -21,6 +21,17 @@
   width: 32px;
   height: 32px;
   margin-left: 20px;
+  background: #148ef8;
+}
+
+.addButton:hover {
+  background: #3e7df9;
+  box-shadow: 0px 3px 8px -1px rgba(62, 125, 249, 0.84);
+}
+
+.addButton:active {
+  background: #306add;
+  box-shadow: 0px 3px 8px -1px rgba(62, 125, 249, 0.84);
 }
 
 .listWrapper {
@@ -65,13 +76,21 @@
 }
 
 .headerItemOnlineDevices {
-  width: 80px;
+  width: 52px;
 }
 
 .arrowDownButton {
   cursor: pointer;
   border: none;
   background-color: transparent;
+}
+
+.arrowDownButton > svg {
+  fill: #148ef8;
+}
+
+.arrowDownButton:hover > svg {
+  fill: #14c1f8;
 }
 
 .listItemsWrapper {
@@ -137,7 +156,7 @@
 }
 
 .listItemOnlineDevices {
-  width: 80px;
+  width: 52px;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -166,4 +185,10 @@
   background: #043b6a;
   border-radius: 5px;
   color: #148ef8;
+}
+
+.verticalLine {
+  border-left: 1px solid #0b3d68;
+  height: 20px;
+  margin-right: 8px;
 }

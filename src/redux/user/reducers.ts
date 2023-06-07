@@ -77,7 +77,8 @@ export const userSlice = createSlice({
           locale === 'ru' ? 'Клиент успешно обновлен' : 'This client successfully updated';
 
         Nottification({
-          name: action.payload.name,
+          type: 'success',
+          label: action.payload.name,
           text: nottificationText,
         });
         state.isLoading = false;

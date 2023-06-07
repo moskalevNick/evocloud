@@ -26,16 +26,19 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   hasError = false,
   readOnly = false,
   label,
+  className,
 }) => {
   const labelClasses = classNames(
     styles.label,
     hasError && styles.hasError,
     !checked && styles.hidden,
   );
+
+  const wrapperCheckboxClassnames = classNames(styles.wrapperCheckbox, className);
   const checkboxID = uuid();
 
   return (
-    <div className={styles.wrapperCheckbox}>
+    <div className={wrapperCheckboxClassnames}>
       <input
         checked={checked}
         className={styles.checkbox}
@@ -49,7 +52,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       />
       <label htmlFor={checkboxID} className={labelClasses}>
         <div className={styles.tick}>
-          <Tick />
+          <Tick fill="#ADEBFF" />
         </div>
         {label}
       </label>

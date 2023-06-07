@@ -7,53 +7,56 @@ import { ToggleSwitch } from '../ToggleSwitch/ToggleSwitch';
 
 type LanguageSelectType = {
   size?: 'long' | 'short';
+  labels?: string[];
 };
 
-export const LanguageSelect: React.FC<LanguageSelectType> = ({ size }) => {
+export const LanguageSelect: React.FC<LanguageSelectType> = ({ size, labels }) => {
   const { i18n } = useTranslation();
   const dispatch = useAppDispatch();
   const { isRus, isAuth } = useAppSelector((state) => state.globalReducer);
 
-  const [isStateRus, setStateRus] = useState(isRus);
-  const [unautorizedLang, setUnautorizedLang] = useState('');
+  const [isStateRus, setStateRus] = useState(isRus || false);
+  const [unautorizedLang, setUnautorizedLang] = useState(isStateRus ? 'ru' : 'en');
 
-  const defaultLanguage = localStorage.getItem('i18nextLng') || 'en';
+  const defaultLanguage = localStorage.getItem('i18nextLng');
 
   useEffect(() => {
     if (!isAuth && !unautorizedLang) {
-      if (defaultLanguage === 'en-EN' || defaultLanguage === 'ru-RU') {
-        setStateRus(defaultLanguage === 'ru-RU' ? true : false);
-        dispatch(globalSettingActions.setIsRussian(defaultLanguage === 'ru-RU' ? true : false));
-      }
-    } else {
-      setStateRus(isRus);
+      dispatch(globalSettingActions.setIsRussian(defaultLanguage === 'ru' ? true : false));
     }
-  }, [defaultLanguage, isRus, isAuth]);
+  }, [defaultLanguage, isAuth, unautorizedLang, dispatch]);
+
+  useEffect(() => {
+    if (defaultLanguage) {
+      setStateRus(defaultLanguage === 'ru');
+      if (!isAuth) {
+        setUnautorizedLang(defaultLanguage === 'ru' ? 'ru' : 'en');
+      }
+    }
+  }, [defaultLanguage]);
 
   const changeLang = useCallback(() => {
+    setStateRus((prev) => !prev);
     if (!isAuth) {
-      setUnautorizedLang(isStateRus ? 'ru' : 'en');
+      setUnautorizedLang((prev) => (prev === 'ru' ? 'en' : 'ru'));
+      localStorage.setItem('i18nextLng', unautorizedLang === 'ru' ? 'en' : 'ru');
+      i18n.changeLanguage(unautorizedLang === 'ru' ? 'en' : 'ru');
     } else {
+      i18n.changeLanguage(isStateRus ? 'en' : 'ru');
+      localStorage.setItem('i18nextLng', isStateRus ? 'en' : 'ru');
       dispatch(
         globalActions.editSettings({
           isRus: !isStateRus,
         }),
       );
     }
-    setStateRus((prev) => !prev);
-  }, [isStateRus]);
+  }, [isStateRus, unautorizedLang, isAuth, dispatch, i18n]);
 
-  useEffect(() => {
-    i18n.changeLanguage(isStateRus ? 'ru' : 'en');
-  }, [isStateRus]);
+  // useEffect(() => {
+  //   i18n.changeLanguage(isStateRus ? 'ru' : 'en');
+  // }, [isStateRus]);
 
   return (
-    <ToggleSwitch
-      checked={isStateRus}
-      labels={['РУ', 'EN']}
-      readOnly
-      size={size}
-      onChange={changeLang}
-    />
+    <ToggleSwitch checked={isStateRus} readOnly size={size} onChange={changeLang} labels={labels} />
   );
 };

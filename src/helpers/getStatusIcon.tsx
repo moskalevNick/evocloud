@@ -3,31 +3,31 @@ import React from 'react';
 export const getStatusIcon = (group_id: string, t: any) => {
   const administratorStyles = {
     padding: '3px 12px',
-    background: '#c30000',
+    background: '#433B14',
     borderRadius: '5px',
-    color: '#002fff',
+    color: '#FF9D42',
     maxWidth: 'fit-content',
   };
 
   const distributorStyles = {
     padding: '3px 12px',
-    background: '#d4d400',
+    background: '#1B6036',
     borderRadius: '5px',
-    color: '#148ef8',
+    color: '#76E45A',
     maxWidth: 'fit-content',
   };
 
   const integratorStyles = {
     padding: '3px 12px',
-    background: '#00ff04',
+    background: '#084B5B',
     borderRadius: '5px',
-    color: '#148ef8',
+    color: '#0EDCDC',
     maxWidth: 'fit-content',
   };
 
   const userStyles = {
     padding: '3px 12px',
-    background: '#043b6a',
+    background: '#043B6A',
     borderRadius: '5px',
     color: '#148ef8',
     maxWidth: 'fit-content',

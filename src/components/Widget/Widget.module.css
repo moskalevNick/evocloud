@@ -2,9 +2,31 @@
   grid-column: auto / span 2;
   grid-row: auto / span 2;
   position: relative;
-  width: 247px;
-  height: 247px;
-  padding: 10px;
+  width: 314px;
+  height: 314px;
+  padding: 0 17px;
+  background-color: var(--widget-background);
+  border-radius: 6px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.02em;
+  color: #e3f2ff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cameraWidgetWrapper {
+  grid-column: auto / span 2;
+  grid-row: auto / span 2;
+  position: relative;
+  width: 314px;
+  height: 244px;
+  padding: 0 17px;
   background-color: var(--widget-background);
   border-radius: 6px;
   font-family: 'Gilroy';
@@ -31,25 +53,25 @@
 
 .colorPickerCover {
   position: absolute;
-  top: 60px;
-  width: 120px;
-  height: 120px;
+  top: 70px;
+  width: 162px;
+  height: 162px;
   border-radius: 50%;
   cursor: not-allowed;
 }
 
 .tempPickerCover {
   position: absolute;
-  top: 59px;
-  width: 140px;
-  height: 140px;
+  top: 72px;
+  width: 172px;
+  height: 172px;
   border-radius: 50%;
   cursor: not-allowed;
 }
 
 .circleBar {
-  height: 140px;
-  width: 140px;
+  height: 172px;
+  width: 172px;
   border-radius: 50%;
   background: conic-gradient(
     from 180deg at 50% 50%,
@@ -65,7 +87,8 @@
 }
 
 .tempPickerWrapper {
-  position: relative;
+  position: absolute;
+  top: 72px;
   display: flex;
 }
 
@@ -101,8 +124,8 @@
   position: absolute;
   top: 17px;
   left: 37px;
-  width: 106px;
-  height: 106px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -122,10 +145,10 @@
 .middleWidgetWrapper {
   grid-column: auto / span 2;
   position: relative;
-  width: 247px;
-  height: 110px;
+  width: 314px;
+  background: #173b59;
+  height: 114px;
   padding: 0 10px;
-  background-color: var(--widget-background);
   border-radius: 6px;
   font-family: 'Gilroy';
   font-style: normal;
@@ -140,33 +163,44 @@
 }
 
 .percentBar {
-  width: 25px;
+  width: 41px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.5px;
+
+  color: #e3f2ff;
+  display: flex;
+  justify-content: center;
 }
 
 .bar {
-  height: 20px;
-  width: 140px;
-  border-radius: 4px;
+  height: 34px;
+  width: 191px;
+  border-radius: 7px;
   display: flex;
   align-items: center;
-  padding: 0 2px;
+  padding: 0 4px;
 }
 
 .littleWidgetWrapper {
-  padding: 0 10px;
+  padding: 0 16px;
   position: relative;
-  width: 110px;
-  height: 110px;
+  width: 149px;
+  height: 149px;
   background-color: var(--widget-background);
-  border-radius: 6px;
+  border-radius: 10.6765px;
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
   line-height: 17px;
   letter-spacing: 0.02em;
-  color: #e3f2ff;
-
   display: flex;
   flex-direction: column;
 }
@@ -176,8 +210,8 @@
 }
 
 .widgetIconsWrapper {
-  width: 110px;
-  height: 110px;
+  width: 149px;
+  height: 149px;
   background-color: var(--widget-background);
   border-radius: 6px;
 }
@@ -202,8 +236,8 @@
 
 .temperatureWrapper {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 20px;
+  left: 16px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -212,10 +246,13 @@
 .temperature {
   font-family: 'Gilroy';
   font-style: normal;
-  font-weight: 600;
-  font-size: 17px;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+  display: flex;
   align-items: center;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.5px;
+
   color: #e3f2ff;
 }
 
@@ -236,9 +273,7 @@
 }
 
 .toggleWrapperTemp {
-  position: absolute;
-  bottom: 10px;
-  left: 100px;
+  margin-top: 229px;
   display: flex;
   gap: 10px;
   align-items: center;
@@ -247,8 +282,8 @@
 
 .redPoint {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 16px;
+  left: 0;
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -258,57 +293,44 @@
 
 .greyPoint {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 16px;
+  left: 0;
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: #cbdbeb;
+  background-color: #336690;
   box-shadow: none;
 }
 
-.openLabel {
+.openLabel,
+.closedLabel {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
-  width: 60px;
-  height: 20px;
-  border-radius: 4px;
-  background-color: #e9f7fd;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 115%;
-
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   letter-spacing: 0.5px;
+  border-radius: 4px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 115%;
+}
 
-  color: #49a1c9;
+.openLabel {
+  background: #1c5265;
+  color: #37c3a2;
 }
 
 .closedLabel {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  width: 60px;
-  height: 20px;
-  border-radius: 4px;
-  background-color: #fde9e9;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 115%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  letter-spacing: 0.5px;
-
+  background: #484058;
   color: #ff5252;
+  margin-bottom: 17px;
 }
 
 .buttonsContainer {
@@ -321,21 +343,15 @@
 }
 
 .openCloseBtns {
-  height: 24px;
-  width: 40px;
-  background: #daf2f3;
+  height: 28px;
+  width: 55px;
+  background: #1a4a72;
   border-radius: 6px;
-  fill: #3d67d6;
+  fill: #dadada;
 }
 
 .openCloseBtns:hover {
-  background: linear-gradient(
-    180deg,
-    #4a9efe -28.21%,
-    #3c77d6 132.18%,
-    #6aa3fc 135.9%,
-    #6aa3fc 135.9%
-  );
+  background: #3e7df9;
   fill: #dadada;
 }
 
@@ -370,13 +386,12 @@
 .widgetName {
   max-height: 34px;
   width: 100%;
-  margin: 5px 0;
+  margin: 17px 0 9px;
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
-  line-height: 17px;
-  letter-spacing: 0.02em;
+  line-height: 115%;
   color: #e3f2ff;
   overflow: hidden;
 }
@@ -401,12 +416,15 @@
   white-space: nowrap;
   overflow: hidden;
 
-  margin-bottom: 5px;
   font-family: 'Gilroy';
   font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 17px;
-  letter-spacing: 0.02em;
-  color: #e3f2ff;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 115%;
+  color: #5b8fbe;
+}
+
+.colorPickerWrapper {
+  position: absolute;
+  top: 70px;
 }

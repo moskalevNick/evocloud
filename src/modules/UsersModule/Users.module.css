@@ -1,5 +1,5 @@
 .container {
-  padding: 32px 40px;
+  padding: 32px 0px 32px 40px;
   min-height: calc(100vh - 92px);
   color: var(--text-color);
   background-color: var(--background-color);
@@ -21,23 +21,34 @@
   width: 32px;
   height: 32px;
   margin-left: 20px;
+  background: #148ef8;
+}
+
+.addButton:hover {
+  background: #3e7df9;
+  box-shadow: 0px 3px 8px -1px rgba(62, 125, 249, 0.84);
+}
+
+.addButton:active {
+  background: #306add;
+  box-shadow: 0px 3px 8px -1px rgba(62, 125, 249, 0.84);
 }
 
 .listWrapper {
-  background-color: var(--header-background);
   margin-top: 30px;
   height: calc(100vh - 218px);
-  border-radius: 18px;
   overflow-y: hidden;
 }
 
 .listHeader {
+  background-color: var(--header-background);
   border-radius: 18px 18px 0px 0px;
   height: 53px;
   border-bottom: 1px solid var(--background-color);
   display: flex;
   align-items: center;
   padding-left: 28px;
+  margin-right: 40px;
 }
 
 .headerItem {
@@ -70,9 +81,27 @@
   background-color: transparent;
 }
 
-.listItemsWrapper {
+.arrowDownButton > svg {
+  fill: #148ef8;
+}
+
+.arrowDownButton:hover > svg {
+  fill: #14c1f8;
+}
+
+.listItemsScrollWrapper {
+  width: calc(100vw - 40px);
   height: calc(100% - 52px);
   overflow-y: scroll;
+  background-color: var(--background-color);
+}
+
+.listItemsWrapper {
+  background-color: var(--header-background);
+  border-radius: 0px 0px 18px 18px;
+  height: fit-content;
+  min-height: 100%;
+  width: calc(100vw - 80px);
 }
 
 .listItem {
@@ -130,4 +159,8 @@
 .buttonContainer {
   position: absolute;
   right: 28px;
+}
+
+.buttonContainer > button > svg {
+  fill: #1d5d93;
 }

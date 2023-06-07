@@ -11,14 +11,14 @@ export const BarButton: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) 
 
   const lineStyles = {
     width: `${barAmount}%`,
-    height: '16px',
-    backgroundColor: isOn ? '#ffffff' : '#173b59',
+    height: '26px',
+    backgroundColor: isOn ? '#569EFF' : '#173b59',
     borderRadius: '4px',
   };
 
   const barStyles = {
     cursor: isOn ? 'pointer' : 'not-allowed',
-    backgroundColor: isOn ? '#c0e0ff' : '#1b5c9e',
+    backgroundColor: isOn ? '#1A4A72' : '#1b5c9e',
   };
 
   const states = JSON.parse(WidgetData.controller.current_raw_state);
@@ -50,7 +50,7 @@ export const BarButton: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) 
 
   const changeMousePlace = (e: any) => {
     if (isOn) {
-      setMousePlace(Math.round(e.nativeEvent.offsetX / 1.4));
+      setMousePlace(Math.round(e.nativeEvent.offsetX / 1.91));
     }
   };
 
@@ -80,7 +80,7 @@ export const BarButton: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) 
         <ToggleSwitch
           isWidget={true}
           size="short"
-          checked={!!isOn}
+          checked={!isOn}
           labels={[<div />, <div />]}
           onChange={() => setOn((prev) => !prev)}
         />

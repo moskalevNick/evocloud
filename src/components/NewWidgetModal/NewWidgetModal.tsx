@@ -17,13 +17,16 @@ import classNames from 'classnames';
 import { deviceActions } from '../../redux/devices/actions';
 import { Button } from '../Button/Button';
 import { ElementsForWidgetType } from './ElementsForWidgetType';
+import { EditIcon } from '../Icons/EditIcon';
+import { PlusIcon } from '../Icons/PlusIcon';
+import { Select } from '../Select/Select';
 
 export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
-  const { isModalLoading, currentUser } = useAppSelector((state) => state.userReducer);
+  const { isModalLoading, usersInfo } = useAppSelector((state) => state.userReducer);
   const { widgetTypes, groupWidgets } = useAppSelector((state) => state.widgetReducer);
   const { currentDevice } = useAppSelector((state) => state.deviceReducer);
   const [activeType, setActiveType] = useState<WidgetDescriptionType | null>(null);
-  const [activeControllerId, setActiveControllerId] = useState<string | null | undefined>(null);
+  const [activeControllerId, setActiveControllerId] = useState<string | null>(null);
   const [activeGroupId, setActiveGroupId] = useState<string | null>(null);
   const [deviceState, setDeviceState] = useState<any | null>(null);
   const [nameValue, setNameValue] = useState('');
@@ -35,8 +38,9 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
   const typeActiveWrapperClasses = classNames(styles.typeWrapper, styles.activeTypeWrapper);
 
   useEffect(() => {
+    const currentUser = usersInfo[id];
     if (currentUser?.id !== id) {
-      dispatch(userActions.getCurrentUser(id));
+      dispatch(userActions.getUserInfo(id));
     }
     dispatch(widgetActions.getGroupWidgets(id));
     dispatch(widgetActions.getWidgetTypes());
@@ -564,7 +568,6 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
           },
         };
         let cleanPowerMetterData = JSON.parse(JSON.stringify(powerMetterData));
-        console.log(cleanPowerMetterData);
 
         dispatch(widgetActions.addPowerMetterWidget({ userId: id, data: cleanPowerMetterData }));
         onClose();
@@ -643,7 +646,8 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
   return (
     <Modal open={true} onClose={onClose} className={styles.modalNewWidget}>
       <div className={styles.modalLabel}>
-        {t('new_widget_for')} {currentUser?.name}
+        <PlusIcon fill="#4692EC" />
+        {t('new_widget_for')} {usersInfo[id]?.name}
       </div>
       <div className={styles.mainContainer}>
         <div className={styles.chooseTypeContainer}>
@@ -693,38 +697,19 @@ export const NewWidgetModal: React.FC<{ id: number }> = ({ id }) => {
 
             <div className={styles.groupParams}>
               <div className={styles.paramWrapper}>
-                <div className={styles.param}>{t('choose_controller')}:</div>
-                <select
-                  className={styles.select}
-                  value={activeControllerId ? activeControllerId : ''}
-                  onChange={(e) => setActiveControllerId(e.target.value)}
-                >
-                  <option value={''} key={0}>
-                    {t('---choose_here---')}
-                  </option>
-                  {currentUser?.devices?.map((device) => (
-                    <option
-                      key={device.id}
-                      value={device.id}
-                    >{`${device.name} (${device.x_evo_device})`}</option>
-                  ))}
-                </select>
+                <Select
+                  label={t('choose_controller')}
+                  onChange={(val: string | null) => setActiveControllerId(val)}
+                  options={usersInfo[id]?.devices || []}
+                  withXEvoDevice
+                />
               </div>
               <div className={styles.paramWrapper}>
-                <div className={styles.param}>{t('choose_group')}:</div>
-                <select
-                  className={styles.select}
-                  onChange={(e) => setActiveGroupId(e.target.value)}
-                >
-                  <option value={''} key={0}>
-                    {t('---choose_here---')}
-                  </option>
-                  {groupWidgets?.map((group) => (
-                    <option key={group.id} value={group.id}>
-                      {group.name}
-                    </option>
-                  ))}
-                </select>
+                <Select
+                  label={t('choose_group')}
+                  onChange={(val: string | null) => setActiveGroupId(val)}
+                  options={groupWidgets}
+                />
               </div>
               <div className={styles.paramWrapper}>
                 <div className={styles.param}>{t('widget_name')}:</div>

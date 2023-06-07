@@ -20,7 +20,7 @@ let currentLanguage = '';
 
 if (navigator.language.slice(0, 2) === 'ru' || navigator.language.slice(0, 2) === 'en') {
   browserLang = navigator.language.slice(0, 2);
-  localStorage.setItem('i18nextLng', navigator.language.slice(0, 2));
+  // localStorage.setItem('i18nextLng', navigator.language.slice(0, 2));
 }
 
 if (localStorage.getItem('i18nextLng')) {

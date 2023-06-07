@@ -15,8 +15,8 @@ export const TempReg: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) =>
   const [currentValue, setCurrentValue] = useState<number>(0);
 
   const lineStyles = {
-    width: '140px',
-    height: '140px',
+    width: '172px',
+    height: '172px',
     transform: 'rotate(230deg)',
     background: `conic-gradient(blue 0deg, blue 1deg, red ${barAmount}deg, transparent ${barAmount}deg, transparent 269deg, red 269deg, red 270deg, transparent 270deg)`,
     opacity: '0.7',
@@ -83,8 +83,8 @@ export const TempReg: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) =>
 
   const changeMousePlace = (e: any) => {
     if (isOn) {
-      setCoordX(e.nativeEvent.offsetX / 1.3 - 50);
-      setCoordY(-e.nativeEvent.offsetY / 1.3 + 50);
+      setCoordX(e.nativeEvent.offsetX / 1.72 - 50);
+      setCoordY(-e.nativeEvent.offsetY / 1.72 + 50);
     }
   };
 
@@ -190,7 +190,7 @@ export const TempReg: React.FC<{ WidgetData: WidgetType }> = ({ WidgetData }) =>
         <ToggleSwitch
           isWidget={true}
           size="short"
-          checked={!!isOn}
+          checked={!isOn}
           labels={[<div />, <div />]}
           onChange={() => setOn((prev) => !prev)}
         />

@@ -1,6 +1,8 @@
 {
   "login": "Логин",
+  "_login": "логин",
   "password": "Пароль",
+  "_password": "пароль",
   "repeat_password": "Повторите пароль",
   "enter_your_login": "Введите Ваш логин",
   "enter_your_password": "Введите Ваш пароль",
@@ -44,6 +46,7 @@
   "visits": "Посещения",
   "status": "Статус",
   "phone_number": "Номер телефона",
+  "_phone_number": "номер телефона",
   "enter_phone_number": "Введите номер телефона",
   "bill_amount": "Cумма счёта",
   "bill2": "Сумма",
@@ -87,7 +90,8 @@
   "profile": "Профиль",
   "limit": "Для комфортного использования рекомендуем использовать устройство с бóльшим разрешением",
   "user_controllers": "Контроллеры пользователя",
-  "amount": "Всего",
+  "amount_added": "Всего добавлено",
+  "amount_available": "Всего доступно",
   "user_widgets_and_groups": "Виджеты и группы пользователя",
   "groups": "Группы",
   "widgets": "Виджеты",
@@ -140,7 +144,7 @@
   "controller_elements_for_get_state_input": "Элементы контроллера для получения состояния (input)",
   "silence_mode": "Режим тишины",
   "bar_name": "Имя полоски",
-  "---choose_here---": "---Выберите здесь---",
+  "choose_here": "Выберите здесь",
   "we_consider_the_button_to_be_enabled_according_to_this_data": "Считаем кнопку включенной согласно этим данным (on)",
   "controller_elements_for_set_state_output": "Элементы контроллера для установки состояния (output)",
   "to_turn_off": "На отключение (off)",
@@ -176,5 +180,9 @@
   "new_group_widget_for": "Новая группа виджетов для",
   "group_name": "Название группы",
   "comment": "Коментарий",
-  "edit_group_widget_for": "Редактирование группы виджетов для"
+  "edit_group_widget_for": "Редактирование группы виджетов для",
+  "all_groups": "Все группы",
+  "are_you_sure_you_want_to_remove": "Вы действительно хотите удалить",
+  "remove": "Удалить",
+  "leave_a_comment": "Оставьте комментарий"
 }
